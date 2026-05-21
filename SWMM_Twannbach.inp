@@ -25,6 +25,7 @@ REPORT_STEP          00:20:00
 WET_STEP             00:10:00
 DRY_STEP             00:10:00
 ROUTING_STEP         0:00:20 
+RULE_STEP            00:00:00
 
 INERTIAL_DAMPING     PARTIAL
 NORMAL_FLOW_LIMITED  BOTH
@@ -61,9 +62,9 @@ Gage1            INTENSITY 0:15     1.0      TIMESERIES Gaesi_rain
 1                0.01       0.1        0.01       0.05       25         OUTLET    
 
 [INFILTRATION]
-;;Subcatchment   Suction    Ksat       IMD       
-;;-------------- ---------- ---------- ----------
-1                3.0        0.5        4         
+;;Subcatchment   Param1     Param2     Param3     Param4     Param5    
+;;-------------- ---------- ---------- ---------- ---------- ----------
+1                3.0        0.5        4          7          0         
 
 [JUNCTIONS]
 ;;Name           Elevation  MaxDepth   InitDepth  SurDepth   Aponded   
@@ -85,7 +86,7 @@ SS6              437.9      5          0          50         0
 41               438        150        0          0          0         
 SondeSchuettstein 459        2          0          150        0         
 46               439.2      5          0          50         0         
-47               473        100        0          0          0         
+47               464.9      100        0          0          0         
 48               471        15         0          100        0         
 SondeGischeren   465        0.8        0          800        0         
 49               466        10         0          200        0         
@@ -97,9 +98,9 @@ Amont_C          421        100        0          500        0
 54               463        100        0          0          0         
 56               430        100        14         0          0         
 57               435        0          0          500        0         
-2                436.5      1          0          100        0         
+2                438        1          0          100        0         
 4                428        0.5        0          100        0         
-5                474        5          0          50         0         
+5                462.5      5          0          50         0         
 6                458        1.8        0          200        0         
 7                475        4          0          150        0         
 SS3              439        5          0          150        0         
@@ -111,15 +112,15 @@ SS5              438.9      5          0          50         0
 ;;Name           Elevation  Type       Stage Data       Gated    Route To        
 ;;-------------- ---------- ---------- ---------------- -------- ----------------
 Brunnm_Fassung   433.8      FIXED      0                NO                       
-Brunnmuehle(Teich) 434        FREE                        NO                       
+Brunnmuehle(Teich) 435.5      FREE                        NO                       
 Fensterstollen   437        FREE                        NO                       
 Gischeren        480        FREE                        NO                       
-Schuettstein      477.55     FREE                        NO                       
+Schuettstein     477.55     FREE                        NO                       
 Holiloch         476.5      FREE                        NO                       
 Sauserquelle     435.55     FREE                        NO                       
-Entw_Stollen     435        FREE                        NO                       
+Entw_Stollen     436.5      FREE                        NO                       
 Sous_lacustre    429.2      FREE                        NO                       
-Sous_ecoul.      432        FREE                        NO                       
+Sous_ecoul.      433        FREE                        NO                       
 
 [CONDUITS]
 ;;Name           From Node        To Node          Length     Roughness  InOffset   OutOffset  InitFlow   MaxFlow   
@@ -132,8 +133,8 @@ Sous_ecoul.      432        FREE                        NO
 26               13               41               15         0.05       0          0          0          0         
 27               442              30               80         0.01       0          0          0          0         
 Gischeren_L      Gischeren_node   Gischeren        50         0.05       0          0          0          0         
-Schuettstein_L    48               Schuettstein      8          0.05       0          0          0          0         
-Brunnmuehle_L     21               34               100        0.05       0          0          0          0         
+Schuettstein_L   48               Schuettstein     8          0.05       0          0          0          0         
+Brunnmuehle_L    21               34               100        0.05       0          0          0          0         
 32               SS3              Sondierstollen   300        0.01       0          0          0          0         
 35               SondeGischeren   Gischeren_node   40         0.05       0          0          0          0         
 45               442              SS6              50         0.01       0          0          0          0         
@@ -192,8 +193,8 @@ Brunnmuehle_L     21               34               100        0.05       0     
 26               CIRCULAR     0.85             0          0          0          1                    
 27               CIRCULAR     0.22             0          0          0          1                    
 Gischeren_L      CIRCULAR     1.2              0          0          0          1                    
-Schuettstein_L    CIRCULAR     0.5              0          0          0          1                    
-Brunnmuehle_L     CIRCULAR     0.6              0          0          0          1                    
+Schuettstein_L   CIRCULAR     0.5              0          0          0          1                    
+Brunnmuehle_L    CIRCULAR     0.6              0          0          0          1                    
 32               MODBASKETHANDLE 3                3          1.5        0          1                    
 35               CIRCULAR     1.2              0          0          0          1                    
 45               CIRCULAR     3                0          0          0          1                    
@@ -254,8 +255,6 @@ Gaesi_rain       FILE "Brunnmuehle_crue avril_1990.dat"
 
 [REPORT]
 ;;Reporting Options
-INPUT      NO
-CONTROLS   NO
 SUBCATCHMENTS ALL
 NODES ALL
 LINKS ALL
@@ -263,7 +262,7 @@ LINKS ALL
 [TAGS]
 
 [MAP]
-DIMENSIONS 0.000 0.000 10000.000 10000.000
+DIMENSIONS -6207.784 0.000 13794.007 10436.945
 Units      None
 
 [COORDINATES]
@@ -311,7 +310,7 @@ Brunnm_Fassung   753.498            2712.594
 Brunnmuehle(Teich) -1061.151          3363.309          
 Fensterstollen   9489.559           2482.599          
 Gischeren        11470.924          8608.894          
-Schuettstein      5511.302           9138.859          
+Schuettstein     5511.302           9138.859          
 Holiloch         3757.396           8733.728          
 Sauserquelle     12269.099          2405.929          
 Entw_Stollen     1244.204           3353.941          

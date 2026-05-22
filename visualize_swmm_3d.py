@@ -42,7 +42,7 @@ OUTPUT_OBJ = ""  # Empty = automatic name: <INP_FILE>_network.obj
 EXPORT_OBJ = True
 OBJ_SWAP_YZ = True  # Write OBJ coordinates as X, Elevation, Y.
 OBJ_EXPORT_NODES = True
-OBJ_NODE_RADIUS = 1.5
+OBJ_NODE_RADIUS = 1
 DIAMETER_SCALE = 1.0  # Use 1.0 for real conduit dimensions.
 CROSS_SECTION_SEGMENTS = 16
 SUMMARY_ONLY = False

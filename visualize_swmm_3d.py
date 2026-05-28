@@ -245,8 +245,8 @@ def conduit_cross_section(conduit: Conduit, scale: float, segments: int) -> list
         ]
 
     if shape == "RECT_CLOSED":
-        width = max(conduit.geom1 * scale, 0.001)
-        height = max(conduit.geom2 * scale, 0.001)
+        width = max(conduit.geom2 * scale, 0.001)
+        height = max(conduit.geom1 * scale, 0.001)
         return [
             (-width / 2.0, -height / 2.0),
             (width / 2.0, -height / 2.0),

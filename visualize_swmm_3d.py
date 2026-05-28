@@ -426,9 +426,9 @@ def build_plotly_figure(
         )
 
     for label, color in (
-        ("Conduits: 0.9 < Euclidian / Length < 1.1", "#919191"),
-        ("Conduits: Euclidian / Length << 0.9", "#FF0000"),
-        ("Conduits: Euclidian / Length >> 1.1", "#0000FF"),
+        ("Conduits: 0.6 < Euclidian / Length < 1.4", "#919191"),
+        ("Conduits: Euclidian / Length << 0.6", "#FF0000"),
+        ("Conduits: Euclidian / Length >> 1.4", "#0000FF"),
     ):
         fig.add_trace(
             go.Scatter3d(

@@ -19,34 +19,25 @@ REPORT_START_TIME    00:00:00
 END_DATE             02/18/2000
 END_TIME             06:00:00
 SWEEP_START          01/01
-<<<<<<< Updated upstream
 SWEEP_END            02/18
 DRY_DAYS             0
 REPORT_STEP          01:00:00
 WET_STEP             01:00:00
 DRY_STEP             01:00:00
 ROUTING_STEP         0:01:00 
-=======
-SWEEP_END            02/28
-DRY_DAYS             0
-REPORT_STEP          01:00:00
-WET_STEP             00:10:00
-DRY_STEP             01:00:00
-ROUTING_STEP         0:00:20 
->>>>>>> Stashed changes
 RULE_STEP            00:00:00
 
 INERTIAL_DAMPING     PARTIAL
 NORMAL_FLOW_LIMITED  BOTH
 FORCE_MAIN_EQUATION  D-W
 VARIABLE_STEP        0.75
-LENGTHENING_STEP     5
+LENGTHENING_STEP     0
 MIN_SURFAREA         1.14
 MAX_TRIALS           8
 HEAD_TOLERANCE       0.0015
 SYS_FLOW_TOL         5
 LAT_FLOW_TOL         5
-MINIMUM_STEP         5
+MINIMUM_STEP         0.5
 THREADS              1
 
 [EVAPORATION]
@@ -58,16 +49,12 @@ DRY_ONLY         NO
 [RAINGAGES]
 ;;Name           Format    Interval SCF      Source    
 ;;-------------- --------- ------ ------ ----------
-<<<<<<< Updated upstream
 Gage1            INTENSITY 0:15     1.0      TIMESERIES Twann_rain      
-=======
-Gage1            INTENSITY 0:15     1.0      TIMESERIES 15_crues        
->>>>>>> Stashed changes
 
 [SUBCATCHMENTS]
 ;;Name           Rain Gage        Outlet           Area     %Imperv  Width    %Slope   CurbLen  SnowPack        
 ;;-------------- ---------------- ---------------- -------- -------- -------- -------- -------- ----------------
-1                Gage1            Amont_C          700      100      500      50       0                        
+1                Gage1            Amont_C          3750     100      3000     50       0                        
 
 [SUBAREAS]
 ;;Subcatchment   N-Imperv   N-Perv     S-Imperv   S-Perv     PctZero    RouteTo    PctRouted 
@@ -77,11 +64,7 @@ Gage1            INTENSITY 0:15     1.0      TIMESERIES 15_crues
 [INFILTRATION]
 ;;Subcatchment   Param1     Param2     Param3     Param4     Param5    
 ;;-------------- ---------- ---------- ---------- ---------- ----------
-<<<<<<< Updated upstream
 1                3.0        0.5        4          7          0          HORTON
-=======
-1                3.0        0.5        4          7          0          MODIFIED_HORTON
->>>>>>> Stashed changes
 
 [JUNCTIONS]
 ;;Name           Elevation  MaxDepth   InitDepth  SurDepth   Aponded   
@@ -290,11 +273,7 @@ Brunnmuehle_L    CIRCULAR     0.6              0          0          0          
 [TIMESERIES]
 ;;Name           Date       Time       Value     
 ;;-------------- ---------- ---------- ----------
-<<<<<<< Updated upstream
 Twann_rain       FILE "C:\Users\Pierre-Yves\Documents\EPA SWMM Projects\Twann_2026\Twann_15_crues.dat"
-=======
-15_crues         FILE "15_crues.dat"
->>>>>>> Stashed changes
 
 [REPORT]
 ;;Reporting Options

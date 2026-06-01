@@ -35,38 +35,23 @@
 - Le Débit_Twannbach_Oben est obtenu sur la base de l'équation y = 113759x5 - 182008x4 + 104604x3 - 20741x2 + 1430.1x (y étant des débits en l/s, x étant les niveaux en m) issue de la courbe de tarage du fichier > O:\Projets en cours\SCIENCE\SP_Twann_tunnel\2_Stations_mesure\Station_mesure_Twannbach Amont\Analyse_debit\Courbe de tarage_TbAM.xlsx
 - La combinaison des mesures n'est effective que sur les plages de mesures sans lacunes de mesures > 48 h
 - Idem, si le débit reconstitué du Twannbach_Oben est supérieur à celui du Twannbach_Unten, il n'est pas soustrait (sinon risque de débit négatif)
-- Le script liste les plages de lacunes pour chacune des stations. Les plages de lacunes sont les suivantes: 
-    - Brunnmuehle_Quelle: 7
-        - 2018-11-15 09:00 -> 2019-05-11 23:00 (4263 h)
-        - 2020-09-13 01:00 -> 2020-09-25 23:00 (311 h)
-        - 2021-10-07 01:00 -> 2021-10-31 23:00 (599 h)
-        - 2021-11-08 01:00 -> 2022-03-10 23:00 (2951 h)
-        - 2022-07-29 01:00 -> 2022-08-19 23:00 (527 h)
-        - 2022-08-21 01:00 -> 2022-09-05 23:00 (383 h)
-        - 2023-09-29 01:00 -> 2023-10-20 23:00 (527 h)
-    - Entwaesserungstollen: 8
-        - 2019-01-01 00:00 -> 2019-02-20 23:00 (1224 h)
-        - 2020-09-13 10:00 -> 2020-09-26 09:00 (312 h)
-        - 2021-11-20 04:00 -> 2022-02-24 23:00 (2324 h)
-        - 2022-07-29 08:00 -> 2022-08-20 16:00 (537 h)
-        - 2022-08-22 00:00 -> 2022-09-05 23:00 (360 h)
-        - 2023-09-29 12:00 -> 2023-10-09 21:00 (250 h)
-        - 2023-10-11 03:00 -> 2023-10-21 08:00 (246 h)
-        - 2023-10-22 12:00 -> 2023-10-24 12:00 (49 h)
-    - Twannbach_Unten: 3
-        - 2019-04-01 15:00 -> 2019-04-05 06:00 (88 h)
-        - 2019-04-26 05:00 -> 2019-06-26 15:00 (1475 h)
-        - 2022-12-21 06:00 -> 2023-01-31 14:00 (993 h)
-    - Twannbach_Oben: 7
-        - 2020-02-18 12:00 -> 2020-07-16 11:00 (3576 h)
-        - 2020-09-17 18:00 -> 2020-09-25 12:00 (187 h)
-        - 2020-10-22 18:00 -> 2020-10-26 23:00 (102 h)
-        - 2020-12-02 16:00 -> 2020-12-24 15:00 (528 h)
-        - 2021-02-26 10:00 -> 2021-03-01 06:00 (69 h)
-        - 2021-03-27 17:00 -> 2021-03-31 09:00 (89 h)
-        - 2021-03-31 14:00 -> 2021-04-23 06:00 (545 h)
+- Le script liste les plages de lacunes pour chacune des stations. 
 - Le script génère un plot **Discharge_Input_SWMM_plot.html** dans le dossier > O:\Projets en cours\SCIENCE\Sci.387_N05TWT_Appui_ISSKA_GG\1_PRODUCTION\SWMM\INPUT
 
+### generate_gumbel_return_period.py
+
+Le script analyse la série horaire **Discharge_Input_SWMM.txt** et les débits maximums annuels disponibles. Ces maxima sont classés par ordre décroissant.
+Un temps de retour empirique est attribué avec la formule de Gringorten et le script ajuste ensuite une loi de Gumbel aux maxima annuels. 
+
+- Le script calcule les débits pour T0.5, T1, T2, T3, T5, T10, T30 et T100 ans et génère:
+    - un tableau CSV **Discharge_Input_SWMM_Gumbel_values.csv** 
+    - un graphique HTML **Discharge_Input_SWMM_Gumbel.html**.
+- La courbe principale correspond à l’ajustement Gumbel. T30 et T100 sont extrapolés selon deux variantes :
+    - Une variante "**prudente**", sur base **logarithmique** : Q = a + b ln(T). Elle représente plutôt une estimation prudente pour les grands temps de retour.
+    - Une variante plus "**extrême**", sur base **exponentielle** : Q = exp(a) * T^b. Cette variante permet une croissance plus rapide des débits.
+- T0.5 est indiqué comme non standard avec une approche par maxima annuels.
+- Les plages de dates sont listées lorsque le seuil de débit est atteint dans la série.
+ 
 ## Fichiers 3D
 
 ### SWMM_Twannbach_3d.html
@@ -81,10 +66,14 @@
         - Si **0.6 < Ratio < 1.4** (la longueur euclidienne équivaut à la longueur saisie dans SWWM), le conduit apparait **gris**
         - Si **1.4 < Ratio** (longueur saisie dans SWMM trés inférieure à la longueur euclidienne), le conduit apparait en **bleu**
 - Les géométries et diamètres des conduits sont reproduits.
-- <mark>/!\ Actuellement la représentation 3D est légèrement faussée car les conduits sont connectés aux junctions par leur axe central alors qu'ils devraient normalement être connectés aux junctions par le radier!</mark>
+
+> [!WARNING] 
+> Actuellement la représentation 3D est légèrement faussée car les conduits sont connectés aux junctions par leur axe central alors qu'ils devraient normalement être connectés aux junctions par le radier!
 
 ### SWMM_Twannbach_network.obj
 - Modèle 3D du réseau de conduits SWMM au format .obj pour intégration dans Cinema4D
-- <mark>/!\ A l'import il est nécessaire de fixer le facteur de conversion à 0.1 mm</mark>
+
+> [!WARNING] 
+> A l'import il est nécessaire de fixer le facteur de conversion à 0.1 mm
 
 

@@ -116,6 +116,50 @@ def add_excel_series(
         add_point(series, station, date_time, convert_value(raw_value))
 
 
+def hourly_average(
+    series: OrderedDict[str, dict[datetime, list[float]]],
+    station: str,
+    hour: datetime,
+) -> float | None:
+    if station not in series or hour not in series[station]:
+        return None
+
+    values = series[station][hour]
+    return sum(values) / len(values)
+
+
+def twannbach_oben_level_to_flow(level: float) -> float:
+    flow_lps = (
+        113759.0 * level**5
+        - 182008.0 * level**4
+        + 104604.0 * level**3
+        - 20741.0 * level**2
+        + 1430.1 * level
+    )
+    return flow_lps / 1000.0
+
+
+def add_wasserhooliloch_flow(
+    flow_series: OrderedDict[str, dict[datetime, list[float]]],
+    derived_inputs: OrderedDict[str, dict[datetime, list[float]]],
+) -> None:
+    target_station = "Q_Wasserhooliloch"
+
+    for hour in sorted(derived_inputs["Twannbach_Unten"]):
+        q_unten = hourly_average(derived_inputs, "Twannbach_Unten", hour)
+        q_oben = hourly_average(derived_inputs, "Twannbach_Oben", hour)
+        q_fenster = hourly_average(derived_inputs, "Fensterstollen", hour)
+
+        if q_unten is None or q_oben is None or q_fenster is None:
+            continue
+
+        q_wasserhooliloch = q_unten - (q_oben + q_fenster)
+        if q_wasserhooliloch < 0:
+            continue
+
+        add_point(flow_series, target_station, hour, q_wasserhooliloch)
+
+
 def find_schuettstein_file() -> Path:
     matches = sorted(
         list(MEASURES_2016_DIR.glob("Sondes_Schutstein_Gischeren.xlsx"))
@@ -166,6 +210,7 @@ def main() -> None:
             ("Level", OrderedDict()),
         )
     )
+    derived_inputs: OrderedDict[str, dict[datetime, list[float]]] = OrderedDict()
 
     hourly_stations = (
         ("Brunnmuehle_Quelle", "Brunnmuehle(Teich)", "Flow", 0.001),
@@ -188,6 +233,33 @@ def main() -> None:
             value_column=2,
             convert_value=lambda value, factor=factor: value * factor,
         )
+        if source_station == "Fensterstollen":
+            add_excel_series(
+                derived_inputs,
+                workbook_path,
+                "Fensterstollen",
+                date_column=1,
+                value_column=2,
+                convert_value=lambda value, factor=factor: value * factor,
+            )
+
+    add_excel_series(
+        derived_inputs,
+        BASE_STATIONS_DIR / "Twannbach_Unten" / "Twannbach_Unten_hour_avrg.xlsx",
+        "Twannbach_Unten",
+        date_column=1,
+        value_column=2,
+        convert_value=lambda value: value,
+    )
+    add_excel_series(
+        derived_inputs,
+        BASE_STATIONS_DIR / "Twannbach_Oben" / "Twannbach_Oben_hour_avrg.xlsx",
+        "Twannbach_Oben",
+        date_column=1,
+        value_column=2,
+        convert_value=twannbach_oben_level_to_flow,
+    )
+    add_wasserhooliloch_flow(series_by_metric["Flow"], derived_inputs)
 
     mbar_to_meter = 1.0 / 98.0665
     sondierstollen_sheets = {

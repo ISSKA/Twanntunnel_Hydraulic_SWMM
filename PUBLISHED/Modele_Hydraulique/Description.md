@@ -3,7 +3,7 @@ Le modèle hydraulique "**Twannbach**" est construit à l'aide du logiciel **EPA
 
 L'objectif principal du modèle hydraulique "**Twannbach**" est d'évaluer les débits et charges hydrauliques associées en conditions de **hautes eaux**. 
 
-Ce modèle est utilisé pour l'évaluation en phase "**travaux**" et en phase "**exploitation**", en fonction des scénarios envisagées pour le [percement du Twanntunnel](../Variantes_Constructives/Twanntunnel_Variantes.md) et pour [l'excavation des centrales de ventilation](../Variantes_Constructives/Twanntunnel_Centrales_Ventilation.md).   
+Ce modèle est utilisé pour l'évaluation en phase "**travaux**" et en phase "**exploitation**", en fonction des **scénarios** envisagées pour le [percement du Twanntunnel](../Variantes_Constructives/Twanntunnel_Variantes.md) et pour [l'excavation des centrales de ventilation](../Variantes_Constructives/Twanntunnel_Centrales_Ventilation.md).   
 
 ## Architecture
 
@@ -21,7 +21,7 @@ Les junctions (ou noeuds) possèdent les propriétés suivantes:
 
 En première instance, le modèle hydraulique intègre les objets et ouvrages existants suivants:
 - Les cavités karstiques du Wasserhooliloch, Gischeren et Schüttstein (exutoires temporaires de crue)
-- Le Sondierstollen (et les venues d'eau associées SS1, SS3, SS4, SS%, etc.), le Fensterstollen et l'Entwaesserungstollen
+- Le Sondierstollen (et les venues d'eau associées SS1, SS3, SS4, SS6, etc.), le Fensterstollen et l'Entwaesserungstollen
 - Les sources de Brunnmühle, Sauser et autres sources sous-lacustres
 - Le Brunnmühle Fassung
 

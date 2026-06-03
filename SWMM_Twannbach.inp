@@ -5,7 +5,7 @@ Brunnmuehle (Twann)
 [OPTIONS]
 ;;Option             Value
 FLOW_UNITS           LPS
-INFILTRATION         GREEN_AMPT
+INFILTRATION         MODIFIED_GREEN_AMPT
 FLOW_ROUTING         DYNWAVE
 LINK_OFFSETS         DEPTH
 MIN_SLOPE            0
@@ -25,7 +25,7 @@ REPORT_STEP          01:00:00
 WET_STEP             01:00:00
 DRY_STEP             01:00:00
 ROUTING_STEP         0:01:00 
-RULE_STEP            00:00:00
+RULE_STEP            01:00:00
 
 INERTIAL_DAMPING     PARTIAL
 NORMAL_FLOW_LIMITED  BOTH
@@ -37,7 +37,7 @@ MAX_TRIALS           8
 HEAD_TOLERANCE       0.0015
 SYS_FLOW_TOL         5
 LAT_FLOW_TOL         5
-MINIMUM_STEP         0.5
+MINIMUM_STEP         1
 THREADS              1
 
 [EVAPORATION]
@@ -54,7 +54,7 @@ Gage1            INTENSITY 0:15     1.0      TIMESERIES Twann_rain
 [SUBCATCHMENTS]
 ;;Name           Rain Gage        Outlet           Area     %Imperv  Width    %Slope   CurbLen  SnowPack        
 ;;-------------- ---------------- ---------------- -------- -------- -------- -------- -------- ----------------
-1                Gage1            Amont_C          3750     100      3000     50       0                        
+1                Gage1            Amont_C          1000     100      500      50       0                        
 
 [SUBAREAS]
 ;;Subcatchment   N-Imperv   N-Perv     S-Imperv   S-Perv     PctZero    RouteTo    PctRouted 
@@ -64,7 +64,7 @@ Gage1            INTENSITY 0:15     1.0      TIMESERIES Twann_rain
 [INFILTRATION]
 ;;Subcatchment   Param1     Param2     Param3     Param4     Param5    
 ;;-------------- ---------- ---------- ---------- ---------- ----------
-1                3.0        0.5        4          7          0          HORTON
+1                3.5        0.5        0.25                            
 
 [JUNCTIONS]
 ;;Name           Elevation  MaxDepth   InitDepth  SurDepth   Aponded   
@@ -91,7 +91,7 @@ SS4              442        5          0          50         0
 47               464.9      100        0          0          0         
 48               471        15         0          100        0         
 SondeGischeren   465        0.8        0          800        0         
-49               466        10         0          200        0         
+49               466        5.5        0          200        0         
 50               463        0.6        0          200        0         
 51               420        3          14         200        0         
 Amont_C          421        100        0          500        0         
@@ -102,7 +102,7 @@ Amont_C          421        100        0          500        0
 57               435        0          0          500        0         
 2                438        1          0          100        0         
 4                428        0.5        0          100        0         
-5                462.5      5          0          50         0         
+5                472.5      5          0          50         0         
 6                458        1.8        0          200        0         
 7                475        4          0          150        0         
 ;Radier de la galerie SonSto en face du SS3
@@ -119,6 +119,8 @@ SonSto_SS4       439.4      0          0          0          0
 ;Radier en amont de la Trappe du Fensterstollen
 Amont_Trappe     437.7      0          0          0          0         
 SonSto_SS6       439.7      0          0          0          0         
+SS2              446        0          0          0          0         
+SonSto_SS2       441.5      0          0          0          0         
 
 [OUTFALLS]
 ;;Name           Elevation  Type       Stage Data       Gated    Route To        
@@ -137,60 +139,60 @@ Sous_ecoul.      433        FREE                        NO
 [CONDUITS]
 ;;Name           From Node        To Node          Length     Roughness  InOffset   OutOffset  InitFlow   MaxFlow   
 ;;-------------- ---------------- ---------------- ---------- ---------- ---------- ---------- ---------- ----------
-10               34               Brunnm_Fassung   45         0.05       0          0          0          0         
+10               34               Brunnm_Fassung   25         0.05       0          0          0          0         
 11               9                Holiloch_sonde   30         0.05       0          0          0          0         
 14               13               9                50         0.05       0          0          0          0         
-16               11               51               30         0.05       0          0          0          0         
+16               11               51               52         0.05       0          0          0          0         
 17               21               38               150        0.05       0          0          0          0         
 26               13               41               15         0.05       0          0          0          0         
-27               SonSto_F         30               80         0.01       0          0          0          0         
-Gischeren_L      Gischeren_node   Gischeren        50         0.05       0          0          0          0         
+27               SonSto_F         30               25         0.01       0          0          0          0         
+Gischeren_L      Gischeren_node   Gischeren        7          0.05       0          0          0          0         
 Schuettstein_L   48               Schuettstein     8          0.05       0          0          0          0         
-Brunnmuehle_L    21               34               100        0.05       0          0          0          0         
-32               SonSto_SS3       Sondierstollen   300        0.01       0          0          0          0         
+Brunnmuehle_L    21               34               23         0.05       0          0          0          0         
+32               SonSto_SS2       Sondierstollen   56         0.01       0          0          0          0         
 35               SondeGischeren   Gischeren_node   40         0.05       0          0          0          0         
-45               SonSto_F         SonSto_SS6       50         0.01       0          0          0          0         
+45               SonSto_F         SonSto_SS6       16         0.01       0          0          0          0         
 46               40               56               30         0.05       0          0          0          0         
-47               51               40               30         0.05       0          0          0          0         
+47               51               40               47         0.05       0          0          0          0         
 50               SondeSchuettstein 48               13         0.05       0          0          0          0         
 51               SS5              40               30         0.05       0          0          0          0         
 52               41               SonSto_F         30         0.05       0          0          0          0         
 53               38               11               160        0.05       0          0          0          0         
-55               30               Fensterstollen   20         0.01       0          0          0          0         
-58               Aval_Trappe      30               50         0.01       0          0          0          0         
-59               SonSto_SS6       SonSto_SS5       8          0.01       0          0          0          0         
+55               30               Fensterstollen   10         0.01       0          0          0          0         
+58               Aval_Trappe      30               17         0.01       0          0          0          0         
+59               SonSto_SS6       SonSto_SS5       23         0.01       0          0          0          0         
 61               41               SondeSchuettstein 60         0.05       0          0          0          0         
 63               10               SS6              40         0.05       0          0          0          0         
-66               50               SondeGischeren   10         0.05       0          0          0          0         
+66               50               SondeGischeren   22         0.05       0          0          0          0         
 67               51               13               30         0.05       0          0          0          0         
-68               Amont_C          51               40         0.05       0          0          0          0         
+68               Amont_C          51               80         0.05       0          0          0          0         
 69               51               52               170        0.05       0          0          0          0         
 70               52               21               170        0.05       0          0          0          0         
 71               13               53               40         0.05       0          0          0          0         
 72               53               54               30         0.05       0          0          0          0         
-74               56               Sauserquelle     10         0.05       0          0          0          0         
+74               56               Sauserquelle     15         0.05       0          0          0          0         
 75               54               SS4              40         0.05       0          0          0          0         
 76               57               Amont_C          100        0.05       0          0          0          0         
-3                2                Entw_Stollen     150        0.01       0          0          0          0         
-4                54               2                40         0.05       0          0          0          0         
+3                2                Entw_Stollen     83         0.01       0          0          0          0         
+4                54               2                278        0.05       0          0          0          0         
 5                11               2                150        0.05       0          0          0          0         
-6                21               Sous_lacustre    40         0.05       0          0          0          0         
+6                21               Sous_lacustre    56         0.05       0          0          0          0         
 7                34               4                20         0.05       0          0          0          0         
-8                4                Brunnmuehle(Teich) 10         0.05       0          0          0          0         
+8                4                Brunnmuehle(Teich) 18.5       0.05       0          0          0          0         
 9                4                Sous_ecoul.      5          0.05       0          0          0          0         
-12               47               5                25         0.05       0          0          0          0         
-15               Holiloch_sonde   6                15         0.05       0          0          0          0         
+12               47               5                8.5        0.05       0          0          0          0         
+15               Holiloch_sonde   6                23         0.05       0          0          0          0         
 18               6                47               15         0.05       0          0          0          0         
-19               6                49               50         0.05       0          0          0          0         
+19               6                49               75         0.05       0          0          0          0         
 20               Amont_Trappe     Aval_Trappe      1          0.01       0          0          0          0         
-21               5                7                6          0.05       0          0          0          0         
-22               7                Holiloch         2          0.05       0          0          0          0         
+21               5                7                23         0.05       0          0          0          0         
+22               7                Holiloch         22         0.05       0          0          0          0         
 23               50               SS3              40         0.05       0          0          0          0         
-25               13               8                70         0.05       0          0          0          0         
-28               SonSto_SS3       SonSto_SS4       30         0.01       0          0          0          0         
-29               SonSto_SS5       SonSto_SS4       8          0.01       0          0          0          0         
+25               13               8                41         0.05       0          0          0          0         
+28               SonSto_SS3       SonSto_SS4       20         0.01       0          0          0          0         
+29               SonSto_SS5       SonSto_SS4       3          0.01       0          0          0          0         
 31               8                Gischeren_node   10         0.05       0          0          0          0         
-33               49               10               10         0.05       0          0          0          0         
+33               49               10               5.5        0.05       0          0          0          0         
 34               41               SS4              50         0.05       0          0          0          0         
 36               9                SS4              100        0.05       0          0          0          0         
 37               SS5              SonSto_SS5       3          0.05       0          0          0          0         
@@ -198,6 +200,8 @@ Brunnmuehle_L    21               34               100        0.05       0      
 39               SS4              SonSto_SS4       3          0.05       0          0          0          0         
 40               SonSto_F         Amont_Trappe     4          0.01       0          0          0          0         
 41               SS6              SonSto_SS6       3          0.05       0          0          0          0         
+1                SonSto_SS2       SonSto_SS3       30         0.01       0          0          0          0         
+2                SS2              SonSto_SS2       5          0.05       0          0          0          0         
 
 [XSECTIONS]
 ;;Link           Shape        Geom1            Geom2      Geom3      Geom4      Barrels    Culvert   
@@ -263,6 +267,8 @@ Brunnmuehle_L    CIRCULAR     0.6              0          0          0          
 39               CIRCULAR     2                0          0          0          1                    
 40               MODBASKETHANDLE 4                3          1.5        0          1                    
 41               CIRCULAR     2                0          0          0          1                    
+1                CIRCULAR     3                0          0          0          1                    
+2                CIRCULAR     2                0          0          0          1                    
 
 [LOSSES]
 ;;Link           Kentry     Kexit      Kavg       Flap Gate  Seepage   
@@ -273,7 +279,7 @@ Brunnmuehle_L    CIRCULAR     0.6              0          0          0          
 [TIMESERIES]
 ;;Name           Date       Time       Value     
 ;;-------------- ---------- ---------- ----------
-Twann_rain       FILE "C:\Users\Pierre-Yves\Documents\EPA SWMM Projects\Twann_2026\Twann_15_crues.dat"
+Twann_rain       FILE "Twann_15_crues.dat"
 
 [REPORT]
 ;;Reporting Options
@@ -325,14 +331,16 @@ Amont_C          -2502.959          6852.071
 6                2467.456           6426.036          
 7                3272.189           8627.219          
 SS3              10847.104          3226.770          
-SS5              9073.452           2890.698          
+SS5              9679.941           2888.695          
 8                7638.554           7397.590          
 10               4650.602           6843.373          
-SonSto_SS5       8979.159           3070.443          
+SonSto_SS5       9647.528           3092.013          
 SonSto_SS3       10870.691          3120.628          
 SonSto_SS4       9910.297           3088.123          
-Amont_Trappe     6778.344           2719.649          
+Amont_Trappe     6903.026           2579.190          
 SonSto_SS6       7883.011           2984.991          
+SS2              11283.853          3274.104          
+SonSto_SS2       11307.440          3138.479          
 Brunnm_Fassung   753.498            2712.594          
 Brunnmuehle(Teich) -1061.151          3363.309          
 Fensterstollen   9489.559           2482.599          

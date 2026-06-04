@@ -15,11 +15,15 @@ OUTPUT_DIR = Path(
     r"O:\Projets en cours\SCIENCE\Sci.387_N05TWT_Appui_ISSKA_GG\1_PRODUCTION\SWMM\CALIBRATION"
 )
 FLOW_OUTPUT_FILE = OUTPUT_DIR / "TW_Calibration_Flow_m3s.txt"
-LEVEL_OUTPUT_FILE = OUTPUT_DIR / "TW_Calibration_Level_masl.txt"
+LEVEL_OUTPUT_FILE = OUTPUT_DIR / "TW_Calibration_Level_depth.txt"
+INP_FILE = Path(r"D:\Users\ISSKA\Documents\GitHub\Twanntunnel_Hydraulic_SWMM\SWMM_Twannbach.inp")
 MEASURES_2016_DIR = Path(
     r"O:\Projets en cours\SCIENCE\SP_Twann_tunnel\Sci291_Investigations_Avant_projet\2016\5_Mesures"
 )
 SONDIERSTOLLEN_FILE = MEASURES_2016_DIR / "Sondes_Sondierstollen_2016-2017.xlsx"
+NODE_ALIASES = {
+    "SS1": "Sondierstollen",
+}
 
 
 def parse_datetime(value: object) -> datetime | None:
@@ -116,6 +120,38 @@ def add_excel_series(
         add_point(series, station, date_time, convert_value(raw_value))
 
 
+def read_swmm_node_elevations(inp_file: Path) -> dict[str, float]:
+    elevations: dict[str, float] = {}
+    section = ""
+
+    for line in inp_file.read_text(encoding="cp1252").splitlines():
+        stripped = line.strip()
+        if stripped.startswith("[") and stripped.endswith("]"):
+            section = stripped.strip("[]")
+            continue
+        if section not in {"JUNCTIONS", "OUTFALLS"}:
+            continue
+        if not stripped or stripped.startswith(";"):
+            continue
+
+        parts = stripped.split()
+        if len(parts) >= 2:
+            elevations[parts[0]] = float(parts[1])
+
+    return elevations
+
+
+def node_elevation(elevations: dict[str, float], station: str) -> float:
+    node_name = NODE_ALIASES.get(station, station)
+    try:
+        return elevations[node_name]
+    except KeyError as exc:
+        raise KeyError(
+            f"Altitude du noeud {node_name!r} introuvable dans {INP_FILE} "
+            f"pour la station {station!r}"
+        ) from exc
+
+
 def hourly_average(
     series: OrderedDict[str, dict[datetime, list[float]]],
     station: str,
@@ -143,7 +179,7 @@ def add_wasserhooliloch_flow(
     flow_series: OrderedDict[str, dict[datetime, list[float]]],
     derived_inputs: OrderedDict[str, dict[datetime, list[float]]],
 ) -> None:
-    target_station = "Q_Wasserhooliloch"
+    target_station = "Hooliloch_L"
 
     for hour in sorted(derived_inputs["Twannbach_Unten"]):
         q_unten = hourly_average(derived_inputs, "Twannbach_Unten", hour)
@@ -211,11 +247,12 @@ def main() -> None:
         )
     )
     derived_inputs: OrderedDict[str, dict[datetime, list[float]]] = OrderedDict()
+    node_elevations = read_swmm_node_elevations(INP_FILE)
 
     hourly_stations = (
-        ("Brunnmuehle_Quelle", "Brunnmuehle(Teich)", "Flow", 0.001),
-        ("Entwaesserungstollen", "Entw_Stollen", "Flow", 0.001),
-        ("Fensterstollen", "Fensterstollen", "Flow", 0.001),
+        ("Brunnmuehle_Quelle", "Brunn_Teich_L", "Flow", 0.001),
+        ("Entwaesserungstollen", "Entw_Sto_L", "Flow", 0.001),
+        ("Fensterstollen", "Fenster_L", "Flow", 0.001),
         ("Wasserhooliloch_Sonde_2", "Holiloch_sonde", "Level", 1.0),
     )
 
@@ -225,13 +262,16 @@ def main() -> None:
             / source_station
             / f"{source_station}_hour_avrg.xlsx"
         )
+        elevation = node_elevation(node_elevations, target_station) if metric == "Level" else 0.0
         add_excel_series(
             series_by_metric[metric],
             workbook_path,
             target_station,
             date_column=1,
             value_column=2,
-            convert_value=lambda value, factor=factor: value * factor,
+            convert_value=lambda value, factor=factor, elevation=elevation: value
+            * factor
+            - elevation,
         )
         if source_station == "Fensterstollen":
             add_excel_series(
@@ -270,33 +310,37 @@ def main() -> None:
     }
 
     for station, (date_column, value_column, altitude) in sondierstollen_sheets.items():
+        elevation = node_elevation(node_elevations, station)
         add_excel_series(
             series_by_metric["Level"],
             SONDIERSTOLLEN_FILE,
             station,
             date_column=date_column,
             value_column=value_column,
-            convert_value=lambda value, altitude=altitude: altitude
-            + value * mbar_to_meter,
+            convert_value=lambda value, altitude=altitude, elevation=elevation: altitude
+            + value * mbar_to_meter
+            - elevation,
             sheet_name=station,
         )
 
     schuettstein_file = find_schuettstein_file()
+    schuettstein_elevation = node_elevation(node_elevations, "SondeSchuettstein")
     add_excel_series(
         series_by_metric["Level"],
         schuettstein_file,
         "SondeSchuettstein",
         date_column=3,
         value_column=9,
-        convert_value=lambda value: value,
+        convert_value=lambda value: value - schuettstein_elevation,
     )
+    gischeren_elevation = node_elevation(node_elevations, "SondeGischeren")
     add_excel_series(
         series_by_metric["Level"],
         schuettstein_file,
         "SondeGischeren",
         date_column=14,
         value_column=15,
-        convert_value=lambda value: value,
+        convert_value=lambda value: value - gischeren_elevation,
     )
 
     write_calibration_file(FLOW_OUTPUT_FILE, series_by_metric["Flow"])

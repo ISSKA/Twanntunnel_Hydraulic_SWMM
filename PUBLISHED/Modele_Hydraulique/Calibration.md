@@ -66,6 +66,15 @@ Le tableau suivant présente les débits de débordement mesurés et/ou extrapol
 | T30             | 17.5     | 13.9 - 19.4 | 2023-12-13 05:00 (?)                                            |
 | T100            | 19.5     | 14.3 - 21.9 | 2023-12-13 05:00 (?)                                            |
 
+### Sauserquelle
+
+Les débits de la source Sauserquelle sont reconstitués sur la base de la relation suivante: 
+
+> Q_Sauser = Q_Twannbach_unten - (Q_Fensterstollen)
+
+> [!NOTE]  
+> - Q_Sauser n'est pas calculé si Q_Twannbach_Oben > 0.
+
 
 ## Relations hydrauliques
 

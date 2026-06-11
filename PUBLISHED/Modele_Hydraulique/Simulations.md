@@ -80,8 +80,9 @@ Le tableau ci-dessous présente les valeurs de débits considérés pour les tem
 | 30  | extrapolé       | 21.465 | 23.360         | 26.463        |
 | 100 | extrapolé       | 24.773 | 28.015         | 36.826        |
 
-> [!NOTE]  
-> - la valeur **T0.5** est peu standard dans l'approche de type Gumbel, elle est donc approximée.
+:::note
+  - la valeur **T0.5** est peu standard dans l'approche de type Gumbel, elle est donc approximée.
+:::
   - Les valeurs **T30** et **T100** sont toutes deux extrapolées!
 
 

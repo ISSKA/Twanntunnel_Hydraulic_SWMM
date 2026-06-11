@@ -1,3 +1,8 @@
+---
+slug: /
+hide_table_of_contents: true
+---
+
 # Description du modèle hydraulique
 Le modèle hydraulique "**Twannbach**" est construit à l'aide du logiciel **EPA Storm Water Management Model** ([SWMM](https://www.epa.gov/water-research/storm-water-management-model-swmm)). Il s'agit d'une mise à jour du premier modèle établi en 2016 pour l'évaluation des risques hydrogéologiques karstiques lors du percement de la galerie de sécurité du Tunnel de Ligerztunnel ("SiSto Ligerz").
 
@@ -29,7 +34,12 @@ Comme le modèle est supposé évoluer en fonction du percement du Twanntunnel. 
 
 ## Aperçu
 
-<iframe src="https://github.com/ISSKA/Twanntunnel_Hydraulic_SWMM/blob/main/SWMM_Twannbach_3d.html"></iframe>
+<iframe 
+    src="./SWMM_Twannbach_3d.html"
+    width="100%"
+    height="800"
+    frameborder="0"
+></iframe>
 
 Le modèle affiche les junctions et les conduits:
 - Les junctions de type **cube** représentent les junctions dont la position est certaine ("**Fixed**"). Les junctions de type **sphère** représentent les junctions dont la position peut être modifiée ("**NotFixed**")
@@ -39,5 +49,6 @@ Le modèle affiche les junctions et les conduits:
     - Si **0.6 < Ratio < 1.4** (la longueur euclidienne équivaut à la longueur saisie dans SWWM), le conduit apparait **gris**
     - Si **1.4 < Ratio** (longueur saisie dans SWMM trés inférieure à la longueur euclidienne), le conduit apparait en **bleu**
 
-> [!WARNING] 
-> Actuellement la représentation 3D est légèrement faussée car les conduits sont connectés aux junctions par leur axe central alors qu'ils devraient normalement être connectés aux junctions par le radier!
+:::warning
+Actuellement la représentation 3D est légèrement faussée car les conduits sont connectés aux junctions par leur axe central alors qu'ils devraient normalement être connectés aux junctions par le radier!
+:::

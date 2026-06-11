@@ -16,17 +16,17 @@ Le tracé du Twanntunnel a été découpé en 11 tronçons depuis le portail Est
 
 | Nr. | Tronçon                                                   | Longueur [m] | Atlitude                                                  | Sens percement          |
 |-----|-----------------------------------------------------------|--------------|-----------------------------------------------------------|-------------------------|
-| 1   | Portail Est (61+665) vers  Rebenweg (61+575)              | 90           | Z chaussée : 425.6-427 m<br>Z radier : 421.6-423 m        | Ascendant               |
-| 2   | Rebenweg (61+575) vers Frauenchapf (61+380)            | 205          | Z chaussée : 427-431 m<br>Z radier : 423-427 m            | Ascendant               |
-| 3   | Frauenchapf (61+380) vers Chrosweg (61+140)               | 240          | Z chaussée : 431-436 m <br>Z radier : 427-432 m           | Ascendant               |
-| 4   | Chrosweg (61+140) vers Hoole (61+020)                     | 120          | Z chaussée : 436-441 m<br>Z radier : 432-437 m            | Ascendant               |
-| 5   | Hoole (61+020) vers Chrankwil (60+740)                    | 280          | Z chaussée : 441-442 m <br>Z radier : 437-438 m           | Ascendant               |
-| 6   | Chrankwil (60+740) vers Tschampet (60+650)            | 90           | Z chaussée : 442-442.5 m<br>Z radier : 438-438.5 m        | Ascendant               |
-| 7   | Tschampet (60+650) vers Branche Est SonSto (60+540 )      | 90           | Z chaussée : 442.5-442.4 m <br>Z radier : 438.5-438.4 m   | Descendant              |
-| 8   | Branche Est SonSto (60+540) vers Fensterstollen (60+375)  | 165          | Z chaussée : 442.4-441.3 m <br>Z radier : 438.4-437.3 m   | Descendant              |
-| 9   | Fensterstollen (60+375) vers intersection Sonsto (60+345) | 30           | Z chaussée : 441.3-441 m<br>Z radier : 437.3-437 m        | Descendant              |
-| 10  | intersection Sonsto (60+345) vers Accès LT (60+110)      | 245          | Z chaussée : 441-441.5 m<br>Z radier : 437-437.5 m        | Descendant et remontant |
-| 11  | Accès LT (60+110) vers Liaison LT (59+738)                | 372          | Z chaussée : 441.5-450.6 m <br>Z radier : 437.5 – 446.5 m | Ascendant               |
+| 1   | Portail Est (61+665) vers  Rebenweg (61+575)              | 90           | Z chaussée : 425.6-427 m<br/>Z radier : 421.6-423 m        | Ascendant               |
+| 2   | Rebenweg (61+575) vers Frauenchapf (61+380)            | 205          | Z chaussée : 427-431 m<br/>Z radier : 423-427 m            | Ascendant               |
+| 3   | Frauenchapf (61+380) vers Chrosweg (61+140)               | 240          | Z chaussée : 431-436 m <br/>Z radier : 427-432 m           | Ascendant               |
+| 4   | Chrosweg (61+140) vers Hoole (61+020)                     | 120          | Z chaussée : 436-441 m<br/>Z radier : 432-437 m            | Ascendant               |
+| 5   | Hoole (61+020) vers Chrankwil (60+740)                    | 280          | Z chaussée : 441-442 m <br/>Z radier : 437-438 m           | Ascendant               |
+| 6   | Chrankwil (60+740) vers Tschampet (60+650)            | 90           | Z chaussée : 442-442.5 m<br/>Z radier : 438-438.5 m        | Ascendant               |
+| 7   | Tschampet (60+650) vers Branche Est SonSto (60+540 )      | 90           | Z chaussée : 442.5-442.4 m <br/>Z radier : 438.5-438.4 m   | Descendant              |
+| 8   | Branche Est SonSto (60+540) vers Fensterstollen (60+375)  | 165          | Z chaussée : 442.4-441.3 m <br/>Z radier : 438.4-437.3 m   | Descendant              |
+| 9   | Fensterstollen (60+375) vers intersection Sonsto (60+345) | 30           | Z chaussée : 441.3-441 m<br/>Z radier : 437.3-437 m        | Descendant              |
+| 10  | intersection Sonsto (60+345) vers Accès LT (60+110)      | 245          | Z chaussée : 441-441.5 m<br/>Z radier : 437-437.5 m        | Descendant et remontant |
+| 11  | Accès LT (60+110) vers Liaison LT (59+738)                | 372          | Z chaussée : 441.5-450.6 m <br/>Z radier : 437.5 – 446.5 m | Ascendant               |
 
 ### Tronçon 1: Portail Est (61+665) vers Rebenweg (61+575)
 

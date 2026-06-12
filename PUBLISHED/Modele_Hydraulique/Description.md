@@ -29,7 +29,7 @@ Comme le modèle est supposé évoluer en fonction du percement du Twanntunnel. 
 
 ## Aperçu
 
-<iframe src="https://github.com/ISSKA/Twanntunnel_Hydraulic_SWMM/blob/main/SWMM_Twannbach_3d.html"></iframe>
+<iframe src="https://github.com/ISSKA/Twanntunnel_Hydraulic_SWMM/blob/main/PLOTS/SWMM_Twannbach_3d.html"></iframe>
 
 Le modèle affiche les junctions et les conduits:
 - Les junctions de type **cube** représentent les junctions dont la position est certaine ("**Fixed**"). Les junctions de type **sphère** représentent les junctions dont la position peut être modifiée ("**NotFixed**")

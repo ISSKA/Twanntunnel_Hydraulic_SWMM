@@ -29,6 +29,7 @@ from typing import Iterable
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
+PLOTS_DIR = SCRIPT_DIR / "PLOTS"
 
 
 # =============================================================================
@@ -37,7 +38,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 # Change only these values when running the script directly from Spyder.
 INP_FILE = "SWMM_Twannbach.inp"
 COORDINATES_XLSX = "260508_Coord_nodes_SWMM.xlsx"
-OUTPUT_HTML = ""  # Empty = automatic name: <INP_FILE>_3d.html
+OUTPUT_HTML = ""  # Empty = automatic name in PLOTS: <INP_FILE>_3d.html
 OUTPUT_OBJ = ""  # Empty = automatic name: <INP_FILE>_network.obj
 EXPORT_OBJ = True
 OBJ_SWAP_YZ = True  # Write OBJ coordinates as X, Elevation, Y.
@@ -821,7 +822,8 @@ def run(args: argparse.Namespace) -> int:
         print("Plotly is not installed. Install it with: pip install plotly")
         return 1
 
-    output_path = resolve_path(args.output) if args.output else inp_path.with_name(f"{inp_path.stem}_3d.html")
+    output_path = resolve_path(args.output) if args.output else PLOTS_DIR / f"{inp_path.stem}_3d.html"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     html = fig.to_html(
         include_plotlyjs=True,
         full_html=False,

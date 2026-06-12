@@ -1,6 +1,4 @@
-# Simulations hydrauliques
-
-## Inputs
+# Inputs
 
 Une chronique de débits en input du modèle hyraulique a été reconstituée, sur la base des mesures disponibles entre 2016 et 2026, au pas de temps horaire, à savoir:
 - Les débits de la source de la Brunnmühle 
@@ -17,7 +15,7 @@ La règle s'applique sur l'ensemble de la chronique **sauf** si:
 
 Le graphique suivant présente la chronique de débits reconstituée entre 2016 et 2026.
 
-frame
+==frame==
 
 La liste suivante pointe les périodes de lacunes pour chaque station présentant des lacunes de mesures. 
 - Brunnmuehle_Quelle: 7
@@ -50,40 +48,12 @@ La liste suivante pointe les périodes de lacunes pour chaque station présentan
     - 2021-03-27 17:00 -> 2021-03-31 09:00 (89 h)
     - 2021-03-31 14:00 -> 2021-04-23 06:00 (545 h)
 
+La courbe des débits classés est basée sur l'analyse de 45820 valeurs horaires. Elle est affichée ci-dessous. 
+>Qmax = 18.79 m3/s
+>Qmedian = 0.73 m3/s
 
+i==frame html débits classés==
 
-## Débits projets
-
-Les **débits projets** considérés pour les simulations sont les suivants: T0.5, T1, T2, T3, T5, T10, T30 et T100 ans.
-- Les débits T0.5, T1, T2, T3, T5 et T10 sont évalués sur la base des mesures.
-- Les débits T30 et T100 sont extrapolés selon deux variantes:
-    - Une variante "**prudente**", sur base logarithmique ("**log**"): 
-        > Q = a + b ln(T).
-    
-        Elle représente plutôt une estimation prudente pour les grands temps de retour.
-
-    - Une variante plus "**extrême**", sur base exponentielle ("**exp**") : 
-        > Q = exp(a) * T^b. 
-
-        Cette variante permet une croissance plus rapide des débits.
-
-Le tableau ci-dessous présente les valeurs de débits considérés pour les temps de retour listés plus haut.
-
-| T   | Statut          | Gumbel | Log (prudente) | Exp (extrême) |
-|-----|-----------------|--------|----------------|---------------|
-| 0.5 | Approximé       | n/a    | 7.528          | 8.602         |
-| 1   | limite / mesuré | n/a    | 10.208         | 10.405        |
-| 2   | mesuré          | 13.254 | 12.889         | 12.585        |
-| 3   | mesuré          | 14.713 | 14.456         | 14.066        |
-| 5   | mesuré          | 16.338 | 16.432         | 16.183        |
-| 10  | mesuré          | 18.380 | 19.112         | 19.574        |
-| 30  | extrapolé       | 21.465 | 23.360         | 26.463        |
-| 100 | extrapolé       | 24.773 | 28.015         | 36.826        |
-
-> [!NOTE]  
-> - la valeur **T0.5** est peu standard dans l'approche de type Gumbel, elle est donc approximée.
-  - Les valeurs **T30** et **T100** sont toutes deux extrapolées!
-
-
-
-## Contrôles
+# Situation avant travaux
+> Résultats des simulations de débits et de hauteurs d'eau pour la situation mi-2026, avant travaux. Les temps de retour considérés sont **T0.5**, **T1**, **T2**, etc.
+>

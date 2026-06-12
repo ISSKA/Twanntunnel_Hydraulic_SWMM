@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import math
+import shutil
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from html import escape
@@ -13,8 +14,9 @@ INPUT_FILE = Path(
 )
 OUTPUT_HTML = INPUT_FILE.with_name("Discharge_Input_SWMM_Gumbel.html")
 OUTPUT_CSV = INPUT_FILE.with_name("Discharge_Input_SWMM_Gumbel_values.csv")
+PLOTS_DIR = Path(r"D:\Users\ISSKA\Documents\GitHub\Twanntunnel_Hydraulic_SWMM\PLOTS")
 
-TARGET_RETURN_PERIODS = [0.5, 1, 2, 3, 5, 10, 30, 100]
+TARGET_RETURN_PERIODS = [0.5, 1, 2, 3, 5, 10, 30, 100, 300]
 EULER_GAMMA = 0.5772156649015329
 
 
@@ -253,8 +255,8 @@ def write_html(
     max_measured_t = max(point.return_period for point in points)
 
     dense_t = [
-        math.exp(math.log(1.0) + (math.log(100.0) - math.log(1.0)) * index / 160)
-        for index in range(161)
+        math.exp(math.log(1.0) + (math.log(300.0) - math.log(1.0)) * index / 180)
+        for index in range(181)
     ]
     plot_points = [(point.return_period, point.flow) for point in points]
     for return_period in dense_t:
@@ -265,7 +267,7 @@ def write_html(
         plot_points.append((return_period, math.exp(exp_fit.predict(math.log(return_period)))))
 
     min_t = 1.0
-    max_t = 100.0
+    max_t = 300.0
     min_q = max(0.0, min(flow for _, flow in plot_points) * 0.95)
     max_q = max(flow for _, flow in plot_points) * 1.05
     q_range = max(max_q - min_q, 0.000001)
@@ -317,7 +319,7 @@ def write_html(
         f'<line x1="{x_position(t):.2f}" y1="{top}" x2="{x_position(t):.2f}" '
         f'y2="{top + plot_height}" stroke="#e5e7eb" />'
         f'<text x="{x_position(t):.2f}" y="{top + plot_height + 32}" text-anchor="middle">T{t:g}</text>'
-        for t in [1, 2, 3, 5, 10, 30, 100]
+        for t in [1, 2, 3, 5, 10, 30, 100, 300]
     )
     y_ticks = "\n".join(
         f'<line x1="{left}" y1="{y_position(q):.2f}" x2="{left + plot_width}" '
@@ -434,6 +436,8 @@ Temps de retour empirique maximal: {max_measured_t:.3f} ans
 </html>
 """
     path.write_text(html, encoding="utf-8")
+    PLOTS_DIR.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(path, PLOTS_DIR / path.name)
 
 
 def main() -> None:

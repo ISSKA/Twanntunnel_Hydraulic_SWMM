@@ -11,7 +11,7 @@ Les **débits projets** considérés pour les simulations sont les suivants: T0.
 
         Cette variante permet une croissance plus rapide des débits.
 
-Le tableau ci-dessous présente les valeurs de débits considérés pour les temps de retour listés plus haut.
+Le tableau ci-dessous présente les valeurs de débits considérés pour les temps de retour listés plus haut. Le graphique des valeurs est affiché plus bas.
 
 | T   | Statut          | Gumbel | Log (prudente) | Exp (extrême) |
 | --- | --------------- | ------ | -------------- | ------------- |
@@ -31,3 +31,4 @@ Le tableau ci-dessous présente les valeurs de débits considérés pour les tem
 > [!IMPORTANT]
 > Les valeurs **T30**, **T100** et **T300** sont toutes trois extrapolées! **T300** est très fortement extrapolé car l’ajustement repose sur **7 maxima annuels**, avec un temps de retour empirique maximal d’environ 12.7 ans.
 
+<iframe src="https://github.com/ISSKA/Twanntunnel_Hydraulic_SWMM/blob/main/PLOTS/Discharge_Input_SWMM_Gumbel.html"></iframe>

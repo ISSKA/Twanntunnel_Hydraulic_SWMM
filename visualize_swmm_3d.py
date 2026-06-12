@@ -454,12 +454,14 @@ def build_plotly_figure(
         legend={
             "orientation": "h",
             "itemsizing": "constant",
+            "entrywidth": 0.24,
+            "entrywidthmode": "fraction",
             "x": 0.5,
             "xanchor": "center",
-            "y": -0.08,
+            "y": -0.05,
             "yanchor": "top",
         },
-        margin={"l": 0, "r": 0, "t": 45, "b": 105},
+        margin={"l": 0, "r": 0, "t": 45, "b": 95},
     )
 
     return fig, skipped
@@ -826,6 +828,19 @@ def run(args: argparse.Namespace) -> int:
         config={"responsive": True},
         default_width="100%",
         default_height="100%",
+        div_id="swmm-plotly",
+        post_script="""
+const gd = document.getElementById("swmm-plotly");
+function resizeSwmmPlot() {
+  Plotly.relayout(gd, {
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
+}
+window.addEventListener("load", resizeSwmmPlot);
+window.addEventListener("resize", resizeSwmmPlot);
+setTimeout(resizeSwmmPlot, 0);
+""",
     )
     output_path.write_text(
         "\n".join(
@@ -838,8 +853,11 @@ def run(args: argparse.Namespace) -> int:
                 "<title>Vue 3D du reseau SWMM</title>",
                 "<style>",
                 "html, body { width: 100%; height: 100%; margin: 0; }",
+                "html, body { overflow: hidden; }",
                 "body { font-family: Arial, Helvetica, sans-serif; }",
                 "#swmm-plot { width: 100vw; height: 100vh; }",
+                "#swmm-plotly { width: 100vw !important; height: 100vh !important; }",
+                "#swmm-plot .plotly-graph-div { width: 100vw !important; height: 100vh !important; }",
                 "</style>",
                 "</head>",
                 "<body>",

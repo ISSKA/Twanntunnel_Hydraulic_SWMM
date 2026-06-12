@@ -53,9 +53,9 @@ Les débits de débordement du Wasserhooliloch ne sont pas mesurés. Ils peuvent
 
 > Q_Wasserhooliloch = Q_Twannbach_unten - (Q_Twannbach_Oben + Q_Fensterstollen)
 
-:::note
+> [!NOTE] 
 > - Q_Wasserhooliloch n'est pas calculé si Q_Twannbach_unten < (Q_Twannbach_Oben + Q_Fensterstollen).
-:::
+
 - Idem, si au moins une des stations présente une lacune de mesures > 48 h, le calcul n'est pas réalisé.
 
 Le tableau suivant présente les débits de débordement mesurés et/ou extrapolés pour la station **Wasserhooliloch**, ainsi que l'intervalle de confiance IC95 et les dates supposées des évènements si ils ont été mesurés. 
@@ -79,9 +79,9 @@ Les débits de la source Sauserquelle sont reconstitués sur la base de la relat
 
 > Q_Sauser = Q_Twannbach_unten - (Q_Fensterstollen)
 
-:::note
+> [!NOTE] 
 > Q_Sauser n'est pas calculé si Q_Twannbach_Oben > 0.
-:::
+
 
 ## Relations hydrauliques
 

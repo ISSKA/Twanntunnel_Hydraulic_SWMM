@@ -37,7 +37,6 @@ Comme le modèle est supposé évoluer en fonction du percement du Twanntunnel. 
 <iframe 
     src="./SWMM_Twannbach_3d.html"
     width="100%"
-    height="800"
     frameborder="0"
 ></iframe>
 
@@ -49,6 +48,5 @@ Le modèle affiche les junctions et les conduits:
     - Si **0.6 < Ratio < 1.4** (la longueur euclidienne équivaut à la longueur saisie dans SWWM), le conduit apparait **gris**
     - Si **1.4 < Ratio** (longueur saisie dans SWMM trés inférieure à la longueur euclidienne), le conduit apparait en **bleu**
 
-:::warning
-Actuellement la représentation 3D est légèrement faussée car les conduits sont connectés aux junctions par leur axe central alors qu'ils devraient normalement être connectés aux junctions par le radier!
-:::
+> [!WARNING] 
+> Actuellement la représentation 3D est légèrement faussée car les conduits sont connectés aux junctions par leur axe central alors qu'ils devraient normalement être connectés aux junctions par le radier!

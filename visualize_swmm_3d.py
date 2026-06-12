@@ -29,6 +29,7 @@ from typing import Iterable
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
+PLOTS_DIR = SCRIPT_DIR / "PLOTS"
 
 
 # =============================================================================
@@ -37,7 +38,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 # Change only these values when running the script directly from Spyder.
 INP_FILE = "SWMM_Twannbach.inp"
 COORDINATES_XLSX = "260508_Coord_nodes_SWMM.xlsx"
-OUTPUT_HTML = ""  # Empty = automatic name: <INP_FILE>_3d.html
+OUTPUT_HTML = ""  # Empty = automatic name in PLOTS: <INP_FILE>_3d.html
 OUTPUT_OBJ = ""  # Empty = automatic name: <INP_FILE>_network.obj
 EXPORT_OBJ = True
 OBJ_SWAP_YZ = True  # Write OBJ coordinates as X, Elevation, Y.
@@ -454,12 +455,14 @@ def build_plotly_figure(
         legend={
             "orientation": "h",
             "itemsizing": "constant",
+            "entrywidth": 0.24,
+            "entrywidthmode": "fraction",
             "x": 0.5,
             "xanchor": "center",
-            "y": -0.08,
+            "y": -0.05,
             "yanchor": "top",
         },
-        margin={"l": 0, "r": 0, "t": 45, "b": 105},
+        margin={"l": 0, "r": 0, "t": 45, "b": 95},
     )
 
     return fig, skipped
@@ -819,13 +822,27 @@ def run(args: argparse.Namespace) -> int:
         print("Plotly is not installed. Install it with: pip install plotly")
         return 1
 
-    output_path = resolve_path(args.output) if args.output else inp_path.with_name(f"{inp_path.stem}_3d.html")
+    output_path = resolve_path(args.output) if args.output else PLOTS_DIR / f"{inp_path.stem}_3d.html"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     html = fig.to_html(
         include_plotlyjs=True,
         full_html=False,
         config={"responsive": True},
         default_width="100%",
         default_height="100%",
+        div_id="swmm-plotly",
+        post_script="""
+const gd = document.getElementById("swmm-plotly");
+function resizeSwmmPlot() {
+  Plotly.relayout(gd, {
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
+}
+window.addEventListener("load", resizeSwmmPlot);
+window.addEventListener("resize", resizeSwmmPlot);
+setTimeout(resizeSwmmPlot, 0);
+""",
     )
     output_path.write_text(
         "\n".join(
@@ -838,8 +855,11 @@ def run(args: argparse.Namespace) -> int:
                 "<title>Vue 3D du reseau SWMM</title>",
                 "<style>",
                 "html, body { width: 100%; height: 100%; margin: 0; }",
+                "html, body { overflow: hidden; }",
                 "body { font-family: Arial, Helvetica, sans-serif; }",
                 "#swmm-plot { width: 100vw; height: 100vh; }",
+                "#swmm-plotly { width: 100vw !important; height: 100vh !important; }",
+                "#swmm-plot .plotly-graph-div { width: 100vw !important; height: 100vh !important; }",
                 "</style>",
                 "</head>",
                 "<body>",

@@ -1,4 +1,5 @@
-# Inputs
+# Simulations hydrauliques
+## Inputs
 
 Une chronique de débits en input du modèle hyraulique a été reconstituée, sur la base des mesures disponibles entre 2016 et 2026, au pas de temps horaire, à savoir:
 - Les débits de la source de la Brunnmühle 
@@ -15,7 +16,7 @@ La règle s'applique sur l'ensemble de la chronique **sauf** si:
 
 Le graphique suivant présente la chronique de débits reconstituée entre 2016 et 2026.
 
-==frame==
+<iframe src="https://github.com/ISSKA/Twanntunnel_Hydraulic_SWMM/blob/main/PLOTS/Discharge_Input_SWMM_plot.html"></iframe>
 
 La liste suivante pointe les périodes de lacunes pour chaque station présentant des lacunes de mesures. 
 - Brunnmuehle_Quelle: 7
@@ -52,8 +53,8 @@ La courbe des débits classés est basée sur l'analyse de 45820 valeurs horaire
 >Qmax = 18.79 m3/s
 >Qmedian = 0.73 m3/s
 
-i==frame html débits classés==
+<iframe src="https://github.com/ISSKA/Twanntunnel_Hydraulic_SWMM/blob/main/PLOTS/Discharge_Input_SWMM_flow_duration_curve.html"></iframe>
 
-# Situation avant travaux
-> Résultats des simulations de débits et de hauteurs d'eau pour la situation mi-2026, avant travaux. Les temps de retour considérés sont **T0.5**, **T1**, **T2**, etc.
+## Situation avant travaux
+> Résultats des simulations de débits et de hauteurs d'eau pour la **situation mi-2026**, avant travaux. Les temps de retour considérés sont **T0.5**, **T1**, **T2**, etc.
 >

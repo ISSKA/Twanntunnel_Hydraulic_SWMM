@@ -1,6 +1,9 @@
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import { themes } from 'prism-react-renderer';
+import remarkDirective from 'remark-directive';
+import remarkGithubAdmonitions from './remark-github-admonitions';
+
 
 const config: Config = {
   title: 'Twanntunnel Hydraulic SWMM',
@@ -19,6 +22,7 @@ const config: Config = {
       'classic',
       {
         docs: {
+          remarkPlugins: [remarkDirective, remarkGithubAdmonitions],
           routeBasePath: '/',
           path: 'PUBLISHED',
           sidebarPath: './sidebars.ts',

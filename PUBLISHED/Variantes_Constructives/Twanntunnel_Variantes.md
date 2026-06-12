@@ -1,18 +1,21 @@
 # Twanntunnel: scénarios de percement et variantes constructives
 
 Les informations relatives au percement du tunnel et susceptibles d'avoir un impact sur **l'évaluation hydraulique** sont les suivantes:
-- Percement depuis le portail Est en phase montante, descendante sous le Twannbach, puis remontante pour jonctionner avec le Ligerztunnel, 
-- Percement de la calotte dans un premier temps et excavation du Stross dans un second temps. 
-- Intersection du Twanntunnel avec le Sondierstollen 
-- Intersection du Twanntunnel avec le Fensterstollen (le radier du stross du Twanntunnel se trouvera plus bas que la galerie du Fensterstollen)
+- Percement depuis le **portail Est** en phase **montante**, **descendante** sous le Twannbach, puis **remontante** pour jonctionner avec le Ligerztunnel; 
+- Percement de la **calotte** dans un premier temps et excavation du **Stross** dans un second temps; 
+- Intersection du Twanntunnel avec le Sondierstollen; 
+- Intersection du Twanntunnel avec le Fensterstollen (le radier du stross du Twanntunnel se trouvera plus bas que le radier de la galerie du Fensterstollen).
 
 Les **contraintes hydrauliques** sont suivantes:
-- Privilégier le drainage des eaux vers les portails Est et Entwaesserungstollen (pour traitement). Pas de traitement des eaux possible au niveau du Fensterstollen.
+- **Privilégier le drainage des eaux vers les portails Est et Entwaesserungstollen** (pour traitement). Pas de traitement des eaux possible au niveau du Fensterstollen.
 - Percement en descente sous la zone du Twannbach, donc potentiel risque d'ennoiement.- 
 
 ## Scénarios de percement
 
-Le tracé du Twanntunnel a été découpé en 11 tronçons depuis le portail Est. Les caractéristiques des tronçons sont présntées dans le tableau suivant. Ils sont décrits 1 par 1 dans les sections suivantes.
+Le tracé du Twanntunnel a été découpé en 11 tronçons depuis le portail Est. Les caractéristiques des tronçons sont présentées dans le tableau suivant. Ils sont décrits 1 par 1 dans les sections suivantes.
+
+>Le **Z "chaussée"** est l'altitude du radier lors du percement de **la calotte**
+>Le **Z "radier"** est l'altitude du radier  lors du percement du **Stross**
 
 | Nr. | Tronçon                                                   | Longueur [m] | Atlitude                                                  | Sens percement          |
 |-----|-----------------------------------------------------------|--------------|-----------------------------------------------------------|-------------------------|

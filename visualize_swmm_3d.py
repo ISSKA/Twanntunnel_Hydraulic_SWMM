@@ -451,8 +451,15 @@ def build_plotly_figure(
             "zaxis_title": "Elevation",
             "aspectmode": "data",
         },
-        legend={"itemsizing": "constant"},
-        margin={"l": 0, "r": 0, "t": 45, "b": 0},
+        legend={
+            "orientation": "h",
+            "itemsizing": "constant",
+            "x": 0.5,
+            "xanchor": "center",
+            "y": -0.08,
+            "yanchor": "top",
+        },
+        margin={"l": 0, "r": 0, "t": 45, "b": 105},
     )
 
     return fig, skipped
@@ -813,7 +820,39 @@ def run(args: argparse.Namespace) -> int:
         return 1
 
     output_path = resolve_path(args.output) if args.output else inp_path.with_name(f"{inp_path.stem}_3d.html")
-    fig.write_html(output_path, include_plotlyjs=True)
+    html = fig.to_html(
+        include_plotlyjs=True,
+        full_html=False,
+        config={"responsive": True},
+        default_width="100%",
+        default_height="100%",
+    )
+    output_path.write_text(
+        "\n".join(
+            (
+                "<!doctype html>",
+                '<html lang="fr">',
+                "<head>",
+                '<meta charset="utf-8">',
+                '<meta name="viewport" content="width=device-width, initial-scale=1">',
+                "<title>Vue 3D du reseau SWMM</title>",
+                "<style>",
+                "html, body { width: 100%; height: 100%; margin: 0; }",
+                "body { font-family: Arial, Helvetica, sans-serif; }",
+                "#swmm-plot { width: 100vw; height: 100vh; }",
+                "</style>",
+                "</head>",
+                "<body>",
+                '<main id="swmm-plot">',
+                html,
+                "</main>",
+                "</body>",
+                "</html>",
+                "",
+            )
+        ),
+        encoding="utf-8",
+    )
     print(f"3D HTML written to: {output_path}")
     skipped_names = sorted(set(skipped + obj_skipped))
     if skipped_names:

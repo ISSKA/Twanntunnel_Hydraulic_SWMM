@@ -238,7 +238,11 @@ def add_sauser_flow(
         if q_amont > 0:
             continue
 
-        add_point(flow_series, target_station, hour, q_aval - q_fenster)
+        q_sauser = q_aval - q_fenster
+        if q_sauser > 0.5:
+            continue
+
+        add_point(flow_series, target_station, hour, q_sauser)
 
 
 def averaged_series(
@@ -273,7 +277,18 @@ def write_sauser_correlation(
     flow_series: OrderedDict[str, dict[datetime, list[float]]],
 ) -> None:
     sauser = averaged_series(flow_series, "Sauser_L")
-    brunn = averaged_series(flow_series, "Brunn_Teich_L")
+    brunn_source: OrderedDict[str, dict[datetime, list[float]]] = OrderedDict()
+    add_excel_series(
+        brunn_source,
+        BASE_STATIONS_DIR
+        / "Brunnmuehle_Quellteich"
+        / "Brunnmuehle_Quellteich_hour_avrg.xlsx",
+        "Brunnmuehle_Quellteich",
+        date_column=1,
+        value_column=2,
+        convert_value=lambda value: value * 0.001,
+    )
+    brunn = averaged_series(brunn_source, "Brunnmuehle_Quellteich")
     points: list[dict[str, object]] = []
 
     for hour in sorted(set(sauser) & set(brunn)):
@@ -287,11 +302,11 @@ def write_sauser_correlation(
         )
 
     CORRELATION_DIR.mkdir(parents=True, exist_ok=True)
-    stem = "Q_Sauser_L_vs_Q_Brunn_Teich_L"
+    stem = "Q_Sauser_L_vs_Q_Brunnmuehle_Quellteich"
     csv_path = CORRELATION_DIR / f"{stem}.csv"
     html_path = CORRELATION_DIR / f"{stem}.html"
 
-    csv_lines = ["date;year;Q_Brunn_Teich_L_m3s;Q_Sauser_L_m3s"]
+    csv_lines = ["date;year;Q_Brunnmuehle_Quellteich_m3s;Q_Sauser_L_m3s"]
     for point in points:
         csv_lines.append(
             f"{point['date']};{point['year']};{point['x']};{point['y']}"
@@ -343,7 +358,7 @@ def write_sauser_correlation(
         <button type="button" id="none">Aucun</button>
       </div>
       <div class="years" id="years"></div>
-      <p class="hint">X : Q_Brunn_Teich_L [m3/s]<br>Y : Q_Sauser_L [m3/s]</p>
+      <p class="hint">X : Q_Brunnmuehle_Quellteich [m3/s]<br>Y : Q_Sauser_L [m3/s]</p>
     </aside>
     <canvas id="chart" width="980" height="680"></canvas>
   </div>
@@ -409,7 +424,7 @@ function draw() {{
   ctx.fillStyle = "#52616b";
   ctx.font = "13px Arial";
   ctx.textAlign = "center";
-  ctx.fillText("Q_Brunn_Teich_L [m3/s]", margin.left + plotW / 2, canvas.height - 18);
+  ctx.fillText("Q_Brunnmuehle_Quellteich [m3/s]", margin.left + plotW / 2, canvas.height - 18);
   ctx.save();
   ctx.translate(18, margin.top + plotH / 2);
   ctx.rotate(-Math.PI / 2);
@@ -511,7 +526,7 @@ def main() -> None:
     hourly_stations = (
         ("Brunnmuehle_Quelle", "Brunn_Teich_L", "Flow", 0.001),
         ("Entwaesserungstollen", "Entw_Sto_L", "Flow", 0.001),
-        ("Fensterstollen", "Fenster_L", "Flow", 0.001),
+        ("Fensterstollen", "Fenster_L", "Flow", 1.0),
         ("Wasserhooliloch_Sonde_2", "Holiloch_sonde", "Level", 1.0),
     )
 

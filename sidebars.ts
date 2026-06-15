@@ -15,9 +15,21 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Prévisions',
       items: [
-        'Prévisions/Débits projet',
-        'Prévisions/Twanntunnel',
-        'Prévisions/Centrales ventilation',
+        {
+          type: 'doc',
+          id: 'Previsions/Debits projet',
+          label: 'Débits projet',
+        },
+        {
+          type: 'doc',
+          id: 'Previsions/Twanntunnel',
+          label: 'Twanntunnel',
+        },
+        {
+          type: 'doc',
+          id: 'Previsions/Centrales ventilation',
+          label: 'Centrales ventilation',
+        },
       ],
     },
     {

@@ -16,7 +16,7 @@ La règle s'applique sur l'ensemble de la chronique **sauf** si:
 
 Le graphique suivant présente la chronique de débits reconstituée entre 2016 et 2026.
 
-<iframe src="./Discharge_Input_SWMM_plot.html"
+<iframe src="/Twanntunnel_Hydraulic_SWMM/Discharge_Input_SWMM_plot.html"
     width="100%"
     height="800px"
     frameborder="0"
@@ -57,7 +57,8 @@ La courbe des débits classés est basée sur l'analyse de 45820 valeurs horaire
 >Qmax = 18.79 m3/s
 >Qmedian = 0.73 m3/s
 
-<iframe src="./Discharge_Input_SWMM_flow_duration_curve.html"
+<iframe src="/Twanntunnel_Hydraulic_SWMM/Discharge_Input_SWMM_flow_duration_curve.html"
+
     width="100%"
     height="800px"
     frameborder="0"

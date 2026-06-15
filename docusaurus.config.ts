@@ -11,7 +11,8 @@ const config: Config = {
   baseUrl: '/Twanntunnel_Hydraulic_SWMM/',
   onBrokenLinks: 'throw',
 
-  staticDirectories: ['PLOTS'],
+  staticDirectories: ['static', 'PLOTS'],
+  
   future: {
     v4: true,
   },

@@ -13,17 +13,17 @@ ALLOW_PONDING        NO
 SKIP_STEADY_STATE    YES
 
 IGNORE_RAINFALL      YES
-START_DATE           06/26/2019
-START_TIME           16:00:00
-REPORT_START_DATE    06/26/2019
-REPORT_START_TIME    16:00:00
-END_DATE             07/30/2019
-END_TIME             06:00:00
-SWEEP_START          05/26
-SWEEP_END            06/30
+START_DATE           09/15/2024
+START_TIME           00:00:00
+REPORT_START_DATE    09/15/2024
+REPORT_START_TIME    00:00:00
+END_DATE             11/15/2024
+END_TIME             00:00:00
+SWEEP_START          09/15
+SWEEP_END            11/15
 DRY_DAYS             0
 REPORT_STEP          01:00:00
-WET_STEP             00:05:00
+WET_STEP             00:01:00
 DRY_STEP             01:00:00
 ROUTING_STEP         0.5
 RULE_STEP            00:00:05
@@ -61,7 +61,7 @@ Sondierstollen   440.8      100        0          0          0
 ;Radier en aval de la Trappe du Fensterstollen
 Aval_Trappe      437.6      100        0          0          0         
 30               437.3      100        0          0          0         
-Gischeren_node   474        5          0          200        0         
+Gischeren_node   474        100        0          200        0         
 34               420        100        14         0          0         
 38               420        150        14         0          0         
 SS6              442        100        0          0          0         
@@ -76,7 +76,7 @@ SondeGischeren   465        100        0          0          0
 50               463        0.6        0          200        0         
 51               420        200        14         0          0         
 Amont_C          418        100        0          0          0         
-52               461        100        0          0          0         
+52               457        100        0          0          0         
 53               467        100        0          0          0         
 54               463        100        0          0          0         
 56               430        100        14         0          0         
@@ -88,7 +88,7 @@ Amont_C          418        100        0          0          0
 ;Radier de la galerie SonSto en face du SS3
 SS3              443        150        0          0          0         
 ;Fond de la vasque SS5
-SS5              438.9      5          0          50         0         
+SS5              438.9      100        0          0          0         
 8                465        0          0          200        0         
 10               468        200        0          0          0         
 ;Radier de la galerie SonSto en face du SS5
@@ -101,6 +101,9 @@ Amont_Trappe     437.7      100        0          0          0
 SonSto_SS6       439.7      100        0          0          0         
 SS2              446        100        0          0          0         
 SonSto_SS2       441.5      100        0          0          0         
+12               449        100        0          0          0         
+14               465        100        0          0          0         
+15               472        100        0          0          0         
 
 [OUTFALLS]
 ;;Name           Elevation  Type       Stage Data       Gated    Route To        
@@ -150,7 +153,7 @@ Amont_L          Amont_C          51               80         0.05       0      
 71               13               53               40         0.05       0          0          0          0         
 72               53               54               30         0.05       0          0          0          0         
 Sauser_L         56               Sauserquelle     15         0.05       0          0          0          0         
-75               54               SS4              40         0.05       0          0          0          0         
+75               54               SS3              40         0.05       0          0          0          0         
 Entw_Sto_L       2                Entw_Stollen     83         0.01       0          0          0          0         
 4                54               2                278        0.05       0          0          0          0         
 5                11               2                150        0.05       0          0          0          0         
@@ -180,6 +183,12 @@ SS6_L            SS6              SonSto_SS6       3          0.05       0      
 ;SonSto_SS4
 3                SS4              SonSto_SS4       3          0.05       0          0          0          0         
 10               SonSto_SS4       SS5              5          0.01       0          0          0          0         
+13               51               12               35         0.05       0          0          0          0         
+22               12               40               40         0.05       0          0          0          0         
+24               51               14               45         0.05       0          0          0          0         
+30               14               40               80         0.05       0          0          0          0         
+34               9                15               75         0.05       0          0          0          0         
+36               15               SonSto_F         50         0.05       0          0          0          0         
 
 [XSECTIONS]
 ;;Link           Shape        Geom1            Geom2      Geom3      Geom4      Barrels    Culvert   
@@ -187,7 +196,7 @@ SS6_L            SS6              SonSto_SS6       3          0.05       0      
 Brunn_Fassung_L  CIRCULAR     0.19             0          0          0          1                    
 11               CIRCULAR     1.8              0          0          0          1                    
 14               CIRCULAR     1.3              0          0          0          1                    
-16               CIRCULAR     0.38             0          0          0          1                    
+16               CIRCULAR     0.33             0          0          0          1                    
 17               CIRCULAR     0.6              0          0          0          1                    
 26               CIRCULAR     0.85             0          0          0          1                    
 27               CIRCULAR     0.22             0          0          0          1                    
@@ -197,8 +206,8 @@ Brunnmuehle_L    CIRCULAR     0.6              0          0          0          
 32               CIRCULAR     3                0          0          0          1                    
 35               CIRCULAR     1.2              0          0          0          1                    
 45               CIRCULAR     3                0          0          0          1                    
-46               CIRCULAR     0.4              0          0          0          1                    
-47               CIRCULAR     0.29             0          0          0          1                    
+46               CIRCULAR     0.6              0          0          0          1                    
+47               CIRCULAR     0.22             0          0          0          1                    
 50               CIRCULAR     0.8              0          0          0          1                    
 51               CIRCULAR     0.35             0          0          0          1                    
 53               CIRCULAR     0.46             0          0          0          1                    
@@ -206,8 +215,8 @@ Fenster_L        CIRCULAR     3                0          0          0          
 58               CIRCULAR     3                0          0          0          1                    
 59               CIRCULAR     3                0          0          0          1                    
 61               CIRCULAR     0.53             0          0          0          1                    
-63               RECT_CLOSED  5                0.07       0          0          1                    
-66               CIRCULAR     0.45             0          0          0          1                    
+63               RECT_CLOSED  2                0.07       0          0          1                    
+66               CIRCULAR     0.35             0          0          0          1                    
 67               CIRCULAR     3                0          0          0          1                    
 Amont_L          CIRCULAR     3                0          0          0          1                    
 69               CIRCULAR     0.3              0          0          0          1                    
@@ -220,7 +229,7 @@ Entw_Sto_L       CIRCULAR     0.18             0          0          0          
 4                CIRCULAR     0.38             0          0          0          1                    
 5                CIRCULAR     0.18             0          0          0          1                    
 6                CIRCULAR     0.2              0          0          0          1                    
-7                CIRCULAR     0.6              0          0          0          1                    
+7                CIRCULAR     0.5              0          0          0          1                    
 Brunn_Teich_L    CIRCULAR     0.65             0          0          0          1                    
 9                CIRCULAR     0.1              0          0          0          1                    
 12               CIRCULAR     1.7              0          0          0          1                    
@@ -229,13 +238,13 @@ Brunn_Teich_L    CIRCULAR     0.65             0          0          0          
 19               RECT_CLOSED  5                0.17       0          0          1                    
 20               RECT_CLOSED  1                1          0          0          1                    
 21               CIRCULAR     5                0          0          0          1                    
-Hooliloch_L      RECT_TRIANGULAR 4                5          1.5        0          1                    
-23               CIRCULAR     0.45             0          0          0          1                    
-25               CIRCULAR     0.8              0          0          0          1                    
+Hooliloch_L      RECT_TRIANGULAR 4                4          2.5        0          1                    
+23               CIRCULAR     0.35             0          0          0          1                    
+25               CIRCULAR     0.75             0          0          0          1                    
 28               CIRCULAR     3                0          0          0          1                    
 29               CIRCULAR     3                0          0          0          1                    
-31               RECT_CLOSED  5                0.18       0          0          1                    
-33               RECT_CLOSED  10               0.17       0          0          1                    
+31               RECT_CLOSED  5                0.17       0          0          1                    
+33               RECT_CLOSED  8                0.15       0          0          1                    
 37               CIRCULAR     3                0          0          0          1                    
 SS3_L            CIRCULAR     2                0          0          0          1                    
 40               MODBASKETHANDLE 4                3          1.5        0          1                    
@@ -244,12 +253,12 @@ SS6_L            CIRCULAR     2                0          0          0          
 2                CIRCULAR     2                0          0          0          1                    
 3                CIRCULAR     1                0          0          0          1                    
 10               CIRCULAR     3                0          0          0          1                    
-
-[LOSSES]
-;;Link           Kentry     Kexit      Kavg       Flap Gate  Seepage   
-;;-------------- ---------- ---------- ---------- ---------- ----------
-28               0          0          0          YES        0         
-29               0          0          0          YES        0         
+13               CIRCULAR     0.35             0          0          0          1                    
+22               CIRCULAR     0.35             0          0          0          1                    
+24               RECT_OPEN    4                0.11       0          0          1                    
+30               RECT_OPEN    4                0.11       0          0          1                    
+34               CIRCULAR     0.5              0          0          0          1                    
+36               CIRCULAR     0.5              0          0          0          1                    
 
 [INFLOWS]
 ;;Node           Constituent      Time Series      Type     Mfactor  Sfactor  Baseline Pattern
@@ -298,7 +307,7 @@ Gischeren_node   9190.422           7742.303
 SS6              7871.224           3096.963          
 40               10688.935          2045.929          
 41               5233.813           2859.712          
-SondeSchuettstein 5590.361           5759.036          
+SondeSchuettstein 5686.518           5834.135          
 SS4              9851.935           3216.156          
 47               2949.408           7556.512          
 48               5638.554           7036.145          
@@ -327,6 +336,9 @@ Amont_Trappe     6903.026           2579.190
 SonSto_SS6       7883.011           2984.991          
 SS2              11283.853          3274.104          
 SonSto_SS2       11307.440          3138.479          
+12               5333.237           2530.174          
+14               6238.812           4286.725          
+15               7401.990           5150.700          
 Brunnm_Fassung   753.498            2712.594          
 Brunnmuehle(Teich) -1061.151          3363.309          
 Fensterstollen   9489.559           2482.599          
@@ -341,4 +353,6 @@ Sous_ecoul.      -1994.083          2792.899
 [VERTICES]
 ;;Link           X-Coord            Y-Coord           
 ;;-------------- ------------------ ------------------
+30               9553.180           2905.942          
+30               10004.023          2362.966          
 

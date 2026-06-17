@@ -1,3 +1,5 @@
+# Généralités
+
 Les sections suivantes affichent **les prévisions de débit** intercepté par l'ouvrage en fonction:
 1. des **scénarios** d'excavation,
 2. des **phases** d'avancement des travaux pour le **scénario** considéré, 

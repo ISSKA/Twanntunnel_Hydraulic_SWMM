@@ -524,7 +524,7 @@ def main() -> None:
     node_elevations = read_swmm_node_elevations(INP_FILE)
 
     hourly_stations = (
-        ("Brunnmuehle_Quelle", "Brunn_Teich_L", "Flow", 0.001),
+        ("Brunnmuehle_Quellteich", "Brunn_Teich_L", "Flow", 0.001),
         ("Entwaesserungstollen", "Entw_Sto_L", "Flow", 0.001),
         ("Fensterstollen", "Fenster_L", "Flow", 1.0),
         ("Wasserhooliloch_Sonde_2", "Holiloch_sonde", "Level", 1.0),

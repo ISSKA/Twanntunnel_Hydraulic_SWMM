@@ -21,14 +21,21 @@ const sidebars: SidebarsConfig = {
           label: 'Débits projet',
         },
         {
-          type: 'doc',
-          id: 'Previsions/Twanntunnel',
+          type: 'category',
           label: 'Twanntunnel',
+          items: [
+            'Previsions/Twanntunnel/Generalites',
+            'Previsions/Twanntunnel/Scenario_1',
+            'Previsions/Twanntunnel/Scenario_2',
+          ]
         },
         {
-          type: 'doc',
-          id: 'Previsions/Centrales ventilation',
-          label: 'Centrales ventilation',
+          type: 'category',
+          label: 'Centrales Ventilation',
+          items: [
+            'Previsions/Centrales Ventilation/Generalites',
+            'Previsions/Centrales Ventilation/Scenario_1',
+          ]
         },
       ],
     },

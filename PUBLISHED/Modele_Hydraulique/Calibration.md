@@ -4,16 +4,20 @@ Le modèle hydraulique est calibré sur la base des mesures réalisées au nivea
 
 Il s'agit essentiellement des mesures suivantes:
 - Mesures de débits:
-    - Source de la Brunnmühle*
-    - Entwaesserungstollen*
-    - Fensterstollen*
+    - Source de la Brunnmühle°
+    - Entwaesserungstollen°
+    - Fensterstollen°
 - Mesures de hauteurs d'eau:
-    - Wasserhooliloch*
+    - Wasserhooliloch°
     - Gischeren 
     - Schüttstein
-    - Venues d'eau dans le Sondierstollen: SS3, SS4, SS5 et SS6
+    - Venues d'eau dans le Sondierstollen°: SS1, SS3, SS4 et SS5
 
-Les stations marquées d'un (*) sont suivies en continue. Les autres stations ont fait l'objet d'un suivi plus court, la plupart du temps sur quelques mois. 
+Les stations marquées d'un (°) sont suivies en continue. Les autres stations ont fait l'objet d'un suivi plus court, la plupart du temps sur quelques mois. 
+
+Certains débits ont pu être reconstitués pour aider à la calibration: 
+- Les débits de débordement du Wasserhooliloch
+- Les débits de la source de la Sauser, en bordure de la vasque du Twannbach
 
 Le modèle est calibré avec une chronique de débits factice en input; il s'agit d'une succession d'évènements de crues entrecoupés de période sans recharge. 
 
@@ -27,6 +31,12 @@ La calibration est opérée selon deux controles:
 ## Débits aux exutoires
 
 En conditions de hautes eaux, la calibration peut être partiellement réalisée sur les mesures de débits du **Fensterstollen** (pas de temps horaire), sachant qu'en conditions de hautes eaux, les débits sont plafonnés par (i) les venues d'eau dans la galerie et (ii) la section de la trappe, et sur les débits reconstitués du **Wasserhooliloch** (pas de temps horaire) - sachant qu'il existe une certaine incertitude sur ces valeurs.  
+
+## Brünnmuehle (source)
+Les débits de la source de la Brünnmuehle sont indirectement mesurés depuis 2013. Ils sont obtenus en soustrayant les débits de l'Entwässerungstollen aux débits du Quellteich. 
+
+> [!IMPORTANT]  
+> Les débits de la source de la Brünnmuehle ont été "perturbés" depuis l'aménagement et la mise en service de la nouvelle station de pompage de Brünmmuehle en 2023. Ces contraintes ont pour conséquence de réduire la période de calibration du modèle hydraulique sur la période post-2023.
 
 ### Fensterstollen
 
@@ -82,6 +92,19 @@ Les débits de la source Sauserquelle sont reconstitués sur la base de la relat
 > [!NOTE] 
 > Q_Sauser n'est pas calculé si Q_Twannbach_Oben > 0.
 
+
+## Hauteurs d'eau
+
+### Wasserhooliloch
+Les hauteurs d'eau sont mesurées au fond de la partie humainement atteignable du gouffre.
+Les mesures sont disponibles depuis ...
+### Gischeren
+Les hauteurs d'eau dans la grotte de **Gischeren** ont fait l'objet de mesures en continu entre 2015 et 2017.
+### Schüttstein
+Les hauteurs d'eau dans la grotte de **Schüttstein** ont fait l'objet de mesures en continu entre 2015 et 2017.
+### Sondierstollen (SS1 à SS6)
+les principales venues d'eau dans le Sondierstollen (**SS1**, **SS3**, **SS4** et **SS5**) ont fait l'objet de mesures entre 2015 et 2017. Les mesures indiquent principalement le "seuil d'activation" et les périodes d'activité de chaque venue d'eau ou groupes de venues d'eau. 
+Les mesures restent qualitatives, elles n'informent pas sur les débits. 
 
 ## Relations hydrauliques
 

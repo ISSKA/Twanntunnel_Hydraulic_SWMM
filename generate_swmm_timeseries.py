@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import shutil
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from html import escape
@@ -14,8 +15,12 @@ BASE_DIR = Path(r"O:\Projets en cours\SCIENCE\SP_Twann_tunnel\1_Data\0_MESURES_S
 OUTPUT_DIR = Path(r"O:\Projets en cours\SCIENCE\Sci.387_N05TWT_Appui_ISSKA_GG\1_PRODUCTION\SWMM\INPUT")
 OUTPUT_FILE = OUTPUT_DIR / "Discharge_Input_SWMM.txt"
 PLOT_FILE = OUTPUT_DIR / "Discharge_Input_SWMM_plot.html"
+FLOW_DURATION_CSV = OUTPUT_DIR / "Discharge_Input_SWMM_flow_duration_curve.csv"
+FLOW_DURATION_HTML = OUTPUT_DIR / "Discharge_Input_SWMM_flow_duration_curve.html"
+PLOTS_DIR = Path(r"D:\Users\ISSKA\Documents\GitHub\Twanntunnel_Hydraulic_SWMM\PLOTS")
 
 MAX_ALLOWED_GAP_HOURS = 48
+HOURS_PER_YEAR = 8760.0
 
 
 @dataclass(frozen=True)
@@ -179,6 +184,15 @@ def combine_flows(values: dict[str, float]) -> float:
         flow -= twannbach_oben
 
     return flow
+
+
+def format_number(value: float, decimals: int = 9) -> str:
+    return f"{value:.{decimals}f}".rstrip("0").rstrip(".")
+
+
+def copy_html_to_plots(output_file: Path) -> None:
+    PLOTS_DIR.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(output_file, PLOTS_DIR / output_file.name)
 
 
 def write_swmm_timeseries(
@@ -433,7 +447,212 @@ th {{ background: #eef2f7; }}
 </html>
 """
     output_file.write_text(html, encoding="utf-8")
+    copy_html_to_plots(output_file)
     return len(rows), len(gaps)
+
+
+def flow_duration_rows(
+    rows: list[tuple[datetime, float]],
+) -> list[dict[str, float | int]]:
+    sorted_flows = sorted((flow for _, flow in rows), reverse=True)
+    count = len(sorted_flows)
+    duration_rows: list[dict[str, float | int]] = []
+
+    for index, flow in enumerate(sorted_flows, start=1):
+        exceedance_probability = index / (count + 1)
+        duration_rows.append(
+            {
+                "Rank": index,
+                "ExceedanceProbability": exceedance_probability,
+                "ExceedancePercent": exceedance_probability * 100.0,
+                "HoursPerYear": exceedance_probability * HOURS_PER_YEAR,
+                "FlowM3s": flow,
+            }
+        )
+
+    return duration_rows
+
+
+def write_flow_duration_csv(
+    output_file: Path,
+    duration_rows: list[dict[str, float | int]],
+) -> None:
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    lines = ["Rank;ExceedanceProbability;ExceedancePercent;HoursPerYear;FlowM3s"]
+
+    for row in duration_rows:
+        lines.append(
+            ";".join(
+                (
+                    str(row["Rank"]),
+                    format_number(float(row["ExceedanceProbability"])),
+                    format_number(float(row["ExceedancePercent"])),
+                    format_number(float(row["HoursPerYear"])),
+                    format_number(float(row["FlowM3s"])),
+                )
+            )
+        )
+
+    output_file.write_text("\n".join(lines) + "\n", encoding="utf-8-sig")
+
+
+def interpolated_flow_at_hours(
+    duration_rows: list[dict[str, float | int]],
+    hours_per_year: float,
+) -> float:
+    if hours_per_year <= float(duration_rows[0]["HoursPerYear"]):
+        return float(duration_rows[0]["FlowM3s"])
+    if hours_per_year >= float(duration_rows[-1]["HoursPerYear"]):
+        return float(duration_rows[-1]["FlowM3s"])
+
+    for previous, current in zip(duration_rows, duration_rows[1:]):
+        previous_hours = float(previous["HoursPerYear"])
+        current_hours = float(current["HoursPerYear"])
+        if previous_hours <= hours_per_year <= current_hours:
+            ratio = (hours_per_year - previous_hours) / (current_hours - previous_hours)
+            previous_flow = float(previous["FlowM3s"])
+            current_flow = float(current["FlowM3s"])
+            return previous_flow + ratio * (current_flow - previous_flow)
+
+    return float(duration_rows[-1]["FlowM3s"])
+
+
+def downsample_duration_rows(
+    duration_rows: list[dict[str, float | int]],
+    max_points: int = 1800,
+) -> list[dict[str, float | int]]:
+    if len(duration_rows) <= max_points:
+        return duration_rows
+
+    step = max(1, len(duration_rows) // max_points)
+    sampled = duration_rows[::step]
+    if sampled[-1] is not duration_rows[-1]:
+        sampled.append(duration_rows[-1])
+    return sampled
+
+
+def write_flow_duration_html(
+    input_file: Path,
+    output_file: Path,
+    rows: list[tuple[datetime, float]],
+    duration_rows: list[dict[str, float | int]],
+) -> None:
+    start = rows[0][0]
+    end = rows[-1][0]
+    max_hours = HOURS_PER_YEAR
+    max_flow = max(float(row["FlowM3s"]) for row in duration_rows) * 1.05
+    min_flow = 0.0
+    flow_range = max(max_flow - min_flow, 0.000001)
+
+    width = 1500
+    height = 880
+    left = 95
+    right = 40
+    top = 60
+    bottom = 110
+    plot_width = width - left - right
+    plot_height = height - top - bottom
+
+    def x_position(hours_per_year: float) -> float:
+        return left + (hours_per_year / max_hours) * plot_width
+
+    def y_position(flow: float) -> float:
+        return top + ((max_flow - flow) / flow_range) * plot_height
+
+    x_ticks = "\n".join(
+        f'<line x1="{x_position(hours):.2f}" y1="{top}" x2="{x_position(hours):.2f}" '
+        f'y2="{top + plot_height}" stroke="#e5e7eb" />'
+        f'<text x="{x_position(hours):.2f}" y="{top + plot_height + 30}" text-anchor="middle">{hours:g}</text>'
+        for hours in [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 8760]
+    )
+    y_ticks = "\n".join(
+        f'<line x1="{left}" y1="{y_position(flow):.2f}" x2="{left + plot_width}" '
+        f'y2="{y_position(flow):.2f}" stroke="#e5e7eb" />'
+        f'<text x="{left - 12}" y="{y_position(flow) + 4:.2f}" text-anchor="end">{format_number(flow, 3)}</text>'
+        for flow in [min_flow + flow_range * index / 7 for index in range(8)]
+    )
+    path_points = [
+        f'{x_position(float(row["HoursPerYear"])):.2f} {y_position(float(row["FlowM3s"])):.2f}'
+        for row in downsample_duration_rows(duration_rows)
+    ]
+    duration_path = "M " + " L ".join(path_points)
+
+    reference_hours = [1, 10, 100, 500, 1000, 2000, 4380, 7000, 8000]
+    reference_rows = "\n".join(
+        "<tr>"
+        f"<td>{hours:g}</td>"
+        f"<td>{format_number(hours / HOURS_PER_YEAR * 100.0, 3)}</td>"
+        f"<td>{format_number(interpolated_flow_at_hours(duration_rows, hours), 3)}</td>"
+        "</tr>"
+        for hours in reference_hours
+    )
+
+    html = f"""<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Courbe des debits classes - Discharge Input SWMM</title>
+<style>
+body {{ margin:0; font-family:Arial, Helvetica, sans-serif; color:#172033; background:#f7f8fb; }}
+main {{ max-width:1620px; margin:0 auto; padding:28px 34px 44px; }}
+h1 {{ margin:0 0 8px; font-size:24px; }}
+h2 {{ margin:26px 0 10px; font-size:18px; }}
+.meta {{ margin-bottom:18px; line-height:1.55; color:#4b5563; font-size:14px; }}
+.figure {{ background:white; border:1px solid #d9dee8; border-radius:8px; padding:18px; }}
+svg {{ width:100%; height:auto; display:block; }}
+text {{ font-size:14px; fill:#374151; }}
+.axis-title {{ font-size:16px; font-weight:700; fill:#172033; }}
+table {{ width:100%; border-collapse:collapse; margin-top:12px; background:white; border:1px solid #d9dee8; }}
+th,td {{ padding:8px 10px; border-bottom:1px solid #e5e7eb; text-align:left; font-size:13px; }}
+th {{ background:#eef2f7; }}
+</style>
+</head>
+<body>
+<main>
+<h1>Courbe des debits classes - Discharge_Input_SWMM</h1>
+<div class="meta">Fichier source: {escape(str(input_file))}<br>Pas de temps: horaire<br>Echelle: duree annuelle de depassement [h/an]<br>Periode: {start:%Y-%m-%d %H:%M} - {end:%Y-%m-%d %H:%M}<br>Nombre de valeurs horaires: {len(rows)}</div>
+<div class="figure">
+<svg viewBox="0 0 {width} {height}" role="img" aria-label="Courbe des debits classes">
+<rect x="0" y="0" width="{width}" height="{height}" fill="#ffffff" />
+<g>
+{x_ticks}
+{y_ticks}
+<line x1="{left}" y1="{top}" x2="{left}" y2="{top + plot_height}" stroke="#172033" stroke-width="1.2" />
+<line x1="{left}" y1="{top + plot_height}" x2="{left + plot_width}" y2="{top + plot_height}" stroke="#172033" stroke-width="1.2" />
+<text class="axis-title" x="{left + plot_width / 2}" y="{height - 35}" text-anchor="middle">Duree annuelle de depassement [h/an]</text>
+<text class="axis-title" x="24" y="{top + plot_height / 2}" transform="rotate(-90 24 {top + plot_height / 2})" text-anchor="middle">Debit [m3/s]</text>
+</g>
+<path d="{duration_path}" fill="none" stroke="#1f6feb" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" />
+</svg>
+</div>
+<h2>Valeurs reperes</h2>
+<table>
+<thead><tr><th>Duree depassee [h/an]</th><th>Frequence annuelle [%]</th><th>Debit classe [m3/s]</th></tr></thead>
+<tbody>
+{reference_rows}
+</tbody>
+</table>
+</main>
+</body>
+</html>
+"""
+    output_file.write_text(html, encoding="utf-8")
+    copy_html_to_plots(output_file)
+
+
+def write_flow_duration_curve(
+    input_file: Path,
+    csv_file: Path,
+    html_file: Path,
+) -> int:
+    rows = read_generated_timeseries(input_file)
+    if not rows:
+        raise RuntimeError(f"Aucune donnee lue dans {input_file}")
+
+    duration_rows = flow_duration_rows(rows)
+    write_flow_duration_csv(csv_file, duration_rows)
+    write_flow_duration_html(input_file, html_file, rows, duration_rows)
+    return len(duration_rows)
 
 
 def main() -> None:
@@ -467,14 +686,22 @@ def main() -> None:
         OUTPUT_FILE,
     )
     plot_rows, plot_gaps = write_timeseries_plot(OUTPUT_FILE, PLOT_FILE)
+    flow_duration_count = write_flow_duration_curve(
+        OUTPUT_FILE,
+        FLOW_DURATION_CSV,
+        FLOW_DURATION_HTML,
+    )
 
     print()
     print(f"Fichier SWMM: {OUTPUT_FILE}")
     print(f"Graphique HTML: {PLOT_FILE}")
+    print(f"Courbe des debits classes HTML: {FLOW_DURATION_HTML}")
+    print(f"Courbe des debits classes CSV: {FLOW_DURATION_CSV}")
     print(f"Periode commune: {start:%Y-%m-%d %H:%M} -> {end:%Y-%m-%d %H:%M}")
     print(f"Lignes ecrites: {rows_written}")
     print(f"Valeurs tracees: {plot_rows}")
     print(f"Lacunes tracees: {plot_gaps}")
+    print(f"Valeurs courbe des debits classes: {flow_duration_count}")
     print("Pas de temps: horaire")
     print(f"Twannbach_Oben non soustrait: {twannbach_oben_ignored} heures")
     print()

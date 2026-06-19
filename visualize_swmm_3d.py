@@ -255,6 +255,19 @@ def conduit_cross_section(conduit: Conduit, scale: float, segments: int) -> list
             (-width / 2.0, height / 2.0),
         ]
 
+    if shape == "RECT_TRIANGULAR":
+        width = max(conduit.geom2 * scale, 0.001)
+        height = max(conduit.geom1 * scale, 0.001)
+        triangle_height = min(max(conduit.geom3 * scale, 0.001), height)
+        triangle_base = height / 2.0 - triangle_height
+        return [
+            (0.0, height / 2.0),
+            (width / 2.0, triangle_base),
+            (width / 2.0, -height / 2.0),
+            (-width / 2.0, -height / 2.0),
+            (-width / 2.0, triangle_base),
+        ]
+
     if shape == "MODBASKETHANDLE":
         width = max(conduit.geom1 * scale, 0.001)
         height = max((conduit.geom2 or conduit.geom1) * scale, 0.001)

@@ -22,7 +22,7 @@ END_TIME             00:00:00
 SWEEP_START          09/15
 SWEEP_END            11/15
 DRY_DAYS             0
-REPORT_STEP          01:00:00
+REPORT_STEP          00:30:00
 WET_STEP             00:01:00
 DRY_STEP             01:00:00
 ROUTING_STEP         0.5
@@ -61,7 +61,7 @@ Sondierstollen   440.8      100        0          0          0
 ;Radier en aval de la Trappe du Fensterstollen
 Aval_Trappe      437.6      100        0          0          0         
 30               437.3      100        0          0          0         
-Gischeren_node   474        100        0          200        0         
+Gischeren_node   476.5      100        0          0          0         
 34               420        100        14         0          0         
 38               420        150        14         0          0         
 SS6              442        100        0          0          0         
@@ -73,7 +73,7 @@ SS4              442        100        0          0          0
 48               471        100        0          15         0         
 SondeGischeren   465        100        0          0          0         
 49               466        200        0          5.5        0         
-50               463        0.6        0          200        0         
+50               463        200        0          0          0         
 51               420        200        14         0          0         
 Amont_C          418        100        0          0          0         
 52               457        100        0          0          0         
@@ -89,7 +89,7 @@ Amont_C          418        100        0          0          0
 SS3              443        150        0          0          0         
 ;Fond de la vasque SS5
 SS5              438.9      100        0          0          0         
-8                465        0          0          200        0         
+8                474        200        0          0          0         
 10               468        200        0          0          0         
 ;Radier de la galerie SonSto en face du SS5
 SonSto_SS5       439.3      100        0          0          0         
@@ -98,12 +98,18 @@ SonSto_SS3       439.7      100        0          0          0
 SonSto_SS4       439.4      100        0          0          0         
 ;Radier en amont de la Trappe du Fensterstollen
 Amont_Trappe     437.7      100        0          0          0         
-SonSto_SS6       439.7      100        0          0          0         
+SonSto_SS6       438.7      100        0          0          0         
 SS2              446        100        0          0          0         
 SonSto_SS2       441.5      100        0          0          0         
 12               449        100        0          0          0         
 14               465        100        0          0          0         
 15               472        100        0          0          0         
+TWT_Portail_Est_61+665 425.6      0          0          0          0         
+TWT_PointHaut_60+650 442.5      0          0          0          0         
+TWT_Fensterstollen_60+375 441.3      0          0          0          0         
+TWT_Acces_LT_60+110 441.5      0          0          0          0         
+TWT_Liaison_LT_59+738 450.6      0          0          0          0         
+Sce_system_Est   0          0          0          0          0         
 
 [OUTFALLS]
 ;;Name           Elevation  Type       Stage Data       Gated    Route To        
@@ -153,7 +159,7 @@ Amont_L          Amont_C          51               80         0.05       0      
 71               13               53               40         0.05       0          0          0          0         
 72               53               54               30         0.05       0          0          0          0         
 Sauser_L         56               Sauserquelle     15         0.05       0          0          0          0         
-75               54               SS3              40         0.05       0          0          0          0         
+75               54               SS4              40         0.05       0          0          0          0         
 Entw_Sto_L       2                Entw_Stollen     83         0.01       0          0          0          0         
 4                54               2                278        0.05       0          0          0          0         
 5                11               2                150        0.05       0          0          0          0         
@@ -189,13 +195,18 @@ SS6_L            SS6              SonSto_SS6       3          0.05       0      
 30               14               40               80         0.05       0          0          0          0         
 34               9                15               75         0.05       0          0          0          0         
 36               15               SonSto_F         50         0.05       0          0          0          0         
+38               8                SondeGischeren   50         0.05       0          0          0          0         
+39               TWT_PointHaut_60+650 TWT_Portail_Est_61+665 1015       0.02       0          0          0          0         
+41               TWT_PointHaut_60+650 TWT_Fensterstollen_60+375 275        0.02       0          0          0          0         
+42               TWT_Fensterstollen_60+375 TWT_Acces_LT_60+110 265        0.02       0          0          0          0         
+43               TWT_Liaison_LT_59+738 TWT_Acces_LT_60+110 348        0.02       0          0          0          0         
 
 [XSECTIONS]
 ;;Link           Shape        Geom1            Geom2      Geom3      Geom4      Barrels    Culvert   
 ;;-------------- ------------ ---------------- ---------- ---------- ---------- ---------- ----------
 Brunn_Fassung_L  CIRCULAR     0.19             0          0          0          1                    
 11               CIRCULAR     1.8              0          0          0          1                    
-14               CIRCULAR     1.3              0          0          0          1                    
+14               CIRCULAR     1.5              0          0          0          1                    
 16               CIRCULAR     0.33             0          0          0          1                    
 17               CIRCULAR     0.6              0          0          0          1                    
 26               CIRCULAR     0.85             0          0          0          1                    
@@ -216,31 +227,31 @@ Fenster_L        CIRCULAR     3                0          0          0          
 59               CIRCULAR     3                0          0          0          1                    
 61               CIRCULAR     0.53             0          0          0          1                    
 63               RECT_CLOSED  2                0.07       0          0          1                    
-66               CIRCULAR     0.35             0          0          0          1                    
+66               CIRCULAR     0.3              0          0          0          1                    
 67               CIRCULAR     3                0          0          0          1                    
 Amont_L          CIRCULAR     3                0          0          0          1                    
-69               CIRCULAR     0.3              0          0          0          1                    
-70               CIRCULAR     0.3              0          0          0          1                    
-71               RECT_CLOSED  5                0.08       0          0          1                    
+69               CIRCULAR     0.40             0          0          0          1                    
+70               CIRCULAR     0.40             0          0          0          1                    
+71               RECT_CLOSED  3                0.08       0          0          1                    
 72               RECT_CLOSED  5                0.06       0          0          1                    
 Sauser_L         CIRCULAR     1                0          0          0          1                    
-75               CIRCULAR     0.45             0          0          0          1                    
+75               CIRCULAR     0.25             0          0          0          1                    
 Entw_Sto_L       CIRCULAR     0.18             0          0          0          1                    
-4                CIRCULAR     0.38             0          0          0          1                    
+4                CIRCULAR     0.19             0          0          0          1                    
 5                CIRCULAR     0.18             0          0          0          1                    
 6                CIRCULAR     0.2              0          0          0          1                    
 7                CIRCULAR     0.5              0          0          0          1                    
 Brunn_Teich_L    CIRCULAR     0.65             0          0          0          1                    
 9                CIRCULAR     0.1              0          0          0          1                    
-12               CIRCULAR     1.7              0          0          0          1                    
-15               CIRCULAR     1.6              0          0          0          1                    
-18               CIRCULAR     1.7              0          0          0          1                    
+12               CIRCULAR     1.9              0          0          0          1                    
+15               CIRCULAR     1.9              0          0          0          1                    
+18               CIRCULAR     1.9              0          0          0          1                    
 19               RECT_CLOSED  5                0.17       0          0          1                    
 20               RECT_CLOSED  1                1          0          0          1                    
 21               CIRCULAR     5                0          0          0          1                    
 Hooliloch_L      RECT_TRIANGULAR 4                4          2.5        0          1                    
-23               CIRCULAR     0.35             0          0          0          1                    
-25               CIRCULAR     0.75             0          0          0          1                    
+23               CIRCULAR     0.3              0          0          0          1                    
+25               RECT_OPEN    2.5              0.12       0          0          1                    
 28               CIRCULAR     3                0          0          0          1                    
 29               CIRCULAR     3                0          0          0          1                    
 31               RECT_CLOSED  5                0.17       0          0          1                    
@@ -255,10 +266,15 @@ SS6_L            CIRCULAR     2                0          0          0          
 10               CIRCULAR     3                0          0          0          1                    
 13               CIRCULAR     0.35             0          0          0          1                    
 22               CIRCULAR     0.35             0          0          0          1                    
-24               RECT_OPEN    4                0.11       0          0          1                    
-30               RECT_OPEN    4                0.11       0          0          1                    
-34               CIRCULAR     0.5              0          0          0          1                    
-36               CIRCULAR     0.5              0          0          0          1                    
+24               RECT_OPEN    4                0.18       0          0          1                    
+30               RECT_OPEN    4                0.18       0          0          1                    
+34               CIRCULAR     0.55             0          0          0          1                    
+36               CIRCULAR     0.55             0          0          0          1                    
+38               CIRCULAR     1                0          0          0          1                    
+39               CIRCULAR     3                0          0          0          1                    
+41               CIRCULAR     3                0          0          0          1                    
+42               CIRCULAR     3                0          0          0          1                    
+43               CIRCULAR     3                0          0          0          1                    
 
 [INFLOWS]
 ;;Node           Constituent      Time Series      Type     Mfactor  Sfactor  Baseline Pattern
@@ -338,7 +354,13 @@ SS2              11283.853          3274.104
 SonSto_SS2       11307.440          3138.479          
 12               5333.237           2530.174          
 14               6238.812           4286.725          
-15               7401.990           5150.700          
+15               7556.433           6570.317          
+TWT_Portail_Est_61+665 16352.237          1297.836          
+TWT_PointHaut_60+650 13484.640          1714.292          
+TWT_Fensterstollen_60+375 6749.950           1523.912          
+TWT_Acces_LT_60+110 967.159            274.544           
+TWT_Liaison_LT_59+738 -6624.240          1297.836          
+Sce_system_Est   16778.362          2818.886          
 Brunnm_Fassung   753.498            2712.594          
 Brunnmuehle(Teich) -1061.151          3363.309          
 Fensterstollen   9489.559           2482.599          

@@ -14,6 +14,7 @@ from openpyxl.utils.datetime import from_excel
 BASE_DIR = Path(r"O:\Projets en cours\SCIENCE\SP_Twann_tunnel\1_Data\0_MESURES_STATIONS")
 OUTPUT_DIR = Path(r"O:\Projets en cours\SCIENCE\Sci.387_N05TWT_Appui_ISSKA_GG\1_PRODUCTION\SWMM\INPUT")
 OUTPUT_FILE = OUTPUT_DIR / "Discharge_Input_SWMM.txt"
+SYSTEME_EST_FILE = OUTPUT_DIR / "Discharge_Input_SWMM_Systeme_Est.txt"
 PLOT_FILE = OUTPUT_DIR / "Discharge_Input_SWMM_plot.html"
 FLOW_DURATION_CSV = OUTPUT_DIR / "Discharge_Input_SWMM_flow_duration_curve.csv"
 FLOW_DURATION_HTML = OUTPUT_DIR / "Discharge_Input_SWMM_flow_duration_curve.html"
@@ -222,6 +223,32 @@ def write_swmm_timeseries(
             rows_written += 1
 
     return rows_written, twannbach_oben_ignored
+
+
+def write_scaled_timeseries(
+    input_file: Path,
+    output_file: Path,
+    scale: float,
+) -> int:
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    rows_written = 0
+
+    with input_file.open("r", encoding="mbcs") as source, output_file.open(
+        "w",
+        encoding="mbcs",
+        newline="\r\n",
+    ) as target:
+        for line in source:
+            line = line.strip()
+            if not line:
+                continue
+
+            date_text, time_text, value_text = line.split(maxsplit=2)
+            scaled_value = float(value_text) * scale
+            target.write(f"{date_text} {time_text}\t{scaled_value:.9f}\n")
+            rows_written += 1
+
+    return rows_written
 
 
 def read_generated_timeseries(path: Path) -> list[tuple[datetime, float]]:
@@ -685,6 +712,11 @@ def main() -> None:
         end,
         OUTPUT_FILE,
     )
+    systeme_est_rows = write_scaled_timeseries(
+        OUTPUT_FILE,
+        SYSTEME_EST_FILE,
+        scale=0.1,
+    )
     plot_rows, plot_gaps = write_timeseries_plot(OUTPUT_FILE, PLOT_FILE)
     flow_duration_count = write_flow_duration_curve(
         OUTPUT_FILE,
@@ -694,11 +726,13 @@ def main() -> None:
 
     print()
     print(f"Fichier SWMM: {OUTPUT_FILE}")
+    print(f"Fichier SWMM Systeme Est: {SYSTEME_EST_FILE}")
     print(f"Graphique HTML: {PLOT_FILE}")
     print(f"Courbe des debits classes HTML: {FLOW_DURATION_HTML}")
     print(f"Courbe des debits classes CSV: {FLOW_DURATION_CSV}")
     print(f"Periode commune: {start:%Y-%m-%d %H:%M} -> {end:%Y-%m-%d %H:%M}")
     print(f"Lignes ecrites: {rows_written}")
+    print(f"Lignes Systeme Est ecrites: {systeme_est_rows}")
     print(f"Valeurs tracees: {plot_rows}")
     print(f"Lacunes tracees: {plot_gaps}")
     print(f"Valeurs courbe des debits classes: {flow_duration_count}")

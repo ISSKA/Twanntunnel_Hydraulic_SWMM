@@ -10,7 +10,13 @@ Ce dossier contient une premiere base pour lancer des simulations SWMM en masse 
 
 ## Lancement
 
-Depuis la racine du depot:
+Depuis la racine du depot, avec le Python QGIS disponible sur cette machine:
+
+```powershell
+& "C:\Program Files\QGIS 3.28.0\bin\python-qgis.bat" MASS_COMPUTATION\run_swmm_mass_computation.py --dry-run
+```
+
+Ou avec un Python classique:
 
 ```powershell
 python MASS_COMPUTATION\run_swmm_mass_computation.py --dry-run
@@ -28,48 +34,99 @@ Si `epaswmm` ou `swmm-toolkit` n'est pas disponible dans l'environnement Python,
 python MASS_COMPUTATION\run_swmm_mass_computation.py --engine "C:\chemin\vers\swmm5.exe"
 ```
 
-Pour limiter l'extraction a quelques conduits:
+Le script lit les resultats via `swmm-toolkit` si disponible. Sinon, il utilise le rapport `.rpt` de SWMM comme fallback pour les maxima aux exutoires et le flooding.
 
-```powershell
-python MASS_COMPUTATION\run_swmm_mass_computation.py --links 69 70 Amont_L
+Par defaut, le script lance les combinaisons intermediaires de chaque phase:
+
+```text
+phase 1_1a: variantes 1_1a seulement
+phase 1_1b: variantes 1_1a + variantes 1_1b
+phase 1_2a: variantes 1_1a + variantes 1_1b + variantes 1_2a
 ```
 
-Par defaut, le script lance uniquement les combinaisons finales de la derniere phase. Avec 8 phases et 3 variantes par phase, cela donne `3^8 = 6561` combinaisons, avant multiplication par les 3 hydrologies.
-
-Pour lancer aussi les combinaisons intermediaires de chaque phase:
+Pour ne lancer que la derniere phase cumulee:
 
 ```powershell
-python MASS_COMPUTATION\run_swmm_mass_computation.py --all-phases
+python MASS_COMPUTATION\run_swmm_mass_computation.py --final-phase-only
 ```
 
-Dans ce mode, le nombre de combinaisons par phase est:
+## Configuration actuelle
 
-- phase 1 avec 3 variantes: `3` combinaisons;
-- phase 2 avec 3 variantes: `3 x 3 = 9` combinaisons;
-- phase 3 avec 3 variantes: `3 x 3 x 3 = 27` combinaisons.
+Le fichier `scenarios.txt` est configure pour:
 
-Ces nombres sont ensuite multiplies par les situations hydrologiques declarees dans `scenarios.txt`.
+- scenario `scenario1`;
+- phases cumulees jusqu'a la phase indiquee par `stop_after_phase`;
+- variantes combinees aussi a l'interieur de chaque phase via `combine_variants_within_phase yes`;
+- hydrologie unique `Q14_7`, soit un debit constant de `14.7 m3/s` injecte sur `Amont_C` / `Amont_L`;
+- injection secondaire automatique de `Q/10` sur le noeud amont du conduit `48`;
+- simulation horaire du `01/01/2000 00:00` au `02/01/2000 00:00`;
+- extraction des debits maximums aux exutoires `Fensterstollen`, `Entw_Stollen`, `Brunnmuehle(Teich)` et `TWT_Portail_Est_61+665`.
 
-## Principe de calcul du maximum stable
+Avec `combine_variants_within_phase yes`, les variantes peuvent aussi etre additionnees entre elles dans la meme phase. Les variantes sans action, typiquement `V0`, sont traitees comme des cas "sans modification": elles sont lancees seules mais ne sont pas combinees avec les variantes actives, car `V0+V1` est equivalent a `V1`.
 
-Le script evite les pics instantanes isoles en cherchant le maximum dans une fenetre de plusieurs pas de sortie. Par defaut:
+Exemple avec 4 variantes dont une `V0` sans action: `1 + (2^3 - 1) = 8` branches.
 
-- fenetre: `4` heures;
-- au moins `3` points proches du pic;
-- seuil proche du pic: `95 %` du maximum brut.
+Exemple avec 4, 4, 5 et 8 variantes par phase, chacune ayant une `V0` sans action:
 
-Ces constantes sont modifiables en haut de `run_swmm_mass_computation.py`.
+- ancienne logique: `4 x 4 x 5 x 8 = 640`;
+- nouvelle logique sans multiplier les doublons `V0`: `8 x 8 x 16 x 128 = 1'048'576`.
+
+Le script bloque par defaut au-dessus de `100000` simulations pour eviter un lancement accidentel massif. Pour lancer quand meme:
+
+```powershell
+python MASS_COMPUTATION\run_swmm_mass_computation.py --allow-large-run
+```
+
+Ou pour ajuster le seuil:
+
+```powershell
+python MASS_COMPUTATION\run_swmm_mass_computation.py --max-cases 200000 --allow-large-run
+```
+
+Le CSV final `MASS_COMPUTATION\runs\Q14_7_mass_simulations_results.csv` contient une ligne par simulation avec:
+
+- `simulation_id`;
+- `phase`;
+- `variant_combination`;
+- `combination_probability`;
+- les colonnes `qmax_*_m3s` pour les exutoires;
+- `flooding_warning` et `flooding_nodes`.
+
+Le script genere aussi un fichier HTML par phase dans `MASS_COMPUTATION\runs`, par exemple:
+
+```text
+1_1a_debits_vs_probability.html
+```
+
+Chaque fichier trace les debits maximums aux exutoires en fonction de `combination_probability`, pour les combinaisons disponibles a cette phase uniquement.
+
+## Performance
+
+Les simulations sont independantes et peuvent etre lancees en parallele. Exemple prudent:
+
+```powershell
+python MASS_COMPUTATION\run_swmm_mass_computation.py --workers 4 --use-rpt-only
+```
+
+- `--workers 4` lance 4 simulations SWMM en parallele.
+- `--use-rpt-only` extrait les maxima et le flooding depuis les rapports `.rpt`, sans ouvrir les fichiers `.out`.
+
+Si la machine reste reactive, augmenter progressivement a `--workers 6` ou `--workers 8`. Si elle devient lente ou si le disque sature, redescendre a `--workers 2` ou `--workers 4`.
+
+## Principe d'extraction
+
+Pour le cas actuel, le script extrait le debit maximum horaire aux quatre exutoires listes plus haut. Il teste aussi les series de flooding des noeuds et inscrit `flooding_warning=YES` si au moins une jonction deborde.
 
 ## Format minimal de scenarios.txt
 
 ```text
-timeseries seche timeseries/seche.dat
-timeseries normale timeseries/normale.dat
-timeseries hautes_eaux timeseries/hautes_eaux.dat
+constant_flow Q14_7 14.7
 
 scenario scenario1
+stop_after_phase 1_2_b
+combine_variants_within_phase yes
 
-phase 1_1
+phase 1_1_a
   variant V1
     set_diameter link=69 diameter=1.0
 
@@ -91,3 +148,29 @@ phase 1_2
 ```
 
 Les actions directement sous une phase sont communes a toutes les variantes de cette phase. Les actions sous une variante ne s'appliquent qu'a cette branche, mais elles sont reprises par toutes les phases suivantes de la meme combinaison.
+
+## Probabilites
+
+Le champ optionnel `prob` peut etre place sur une ligne seule dans une variante sans action:
+
+```text
+variant 1_1a_0
+  prob=0.71
+```
+
+ou sur une action de variante:
+
+```text
+variant 1_1a_1
+  add_conduit name=... from=... to=... length=10 roughness=0.05 diameter=1 prob=0.15
+```
+
+Pour les variantes actives d'une meme phase, le script suppose des evenements independants:
+
+```text
+P(V1+V2) = P(V1) x P(V2) x (1 - P(V3)) x ...
+```
+
+La variante sans action, typiquement `V0`, utilise sa probabilite explicite si elle est renseignee. Sinon, elle est deduite avec le produit des `(1 - prob)` des variantes actives de la phase.
+
+La colonne `combination_probability` du CSV multiplie ensuite les probabilites des phases cumulees.

@@ -57,6 +57,9 @@ RESULT_OUTFALLS = [
 STABLE_WINDOW_HOURS = 4
 MIN_POINTS_NEAR_PEAK = 3
 NEAR_PEAK_RATIO = 0.95
+FLOODING_MIN_RATE_M3S = 0.01
+FLOODING_MIN_CONSECUTIVE_STEPS = 2
+FLOODING_MIN_HOURS = 6.0
 
 
 @dataclass(frozen=True)
@@ -1094,7 +1097,7 @@ def extract_simulation_summary(
         flooding_nodes = sorted(
             node
             for node, records in flooding_records.items()
-            if any(value > 1e-9 for _, value in records)
+            if has_significant_flooding(records)
         )
         return outfall_maxima, bool(flooding_nodes), flooding_nodes
     except RuntimeError:
@@ -1135,12 +1138,25 @@ def parse_node_flooding_summary(lines: list[str]) -> list[str]:
     flooding_nodes: list[str] = []
     for row in rows:
         tokens = row.split()
-        if len(tokens) < 4:
+        if len(tokens) < 3:
             continue
-        numeric_values = [parse_float(token, default=0.0) for token in tokens[2:]]
-        if any(value > 1e-9 for value in numeric_values):
+        hours_flooded = parse_float(tokens[1], default=0.0)
+        max_rate = parse_float(tokens[2], default=0.0)
+        if hours_flooded >= FLOODING_MIN_HOURS and max_rate >= FLOODING_MIN_RATE_M3S:
             flooding_nodes.append(tokens[0])
     return flooding_nodes
+
+
+def has_significant_flooding(records: list[tuple[datetime | None, float]]) -> bool:
+    consecutive = 0
+    for _, value in records:
+        if value >= FLOODING_MIN_RATE_M3S:
+            consecutive += 1
+            if consecutive >= FLOODING_MIN_CONSECUTIVE_STEPS:
+                return True
+        else:
+            consecutive = 0
+    return False
 
 
 def report_table_rows(lines: list[str], title: str) -> list[str]:
@@ -1499,6 +1515,9 @@ def render_phase_probability_plot(
             "svg{width:100%;height:auto;display:block}",
             ".axis{stroke:#555;stroke-width:1}",
             ".gridline{stroke:#e3e3e3;stroke-width:1}",
+            ".reference-flow{stroke:#1f6fbd;stroke-width:2}",
+            ".reference-probability{stroke:#1f6fbd;stroke-width:1.8;stroke-dasharray:6 5}",
+            ".reference-label{fill:#1f6fbd;font-size:11px;font-weight:600}",
             ".point{fill:#2468a8;fill-opacity:.72;stroke:#123b5f;stroke-width:.6}",
             ".point:hover{fill:#d24b2a;fill-opacity:1}",
             ".label{fill:#555;font-size:11px}",
@@ -1549,8 +1568,10 @@ def render_probability_svg(
     plot_width = width - left - right
     plot_height = height - top - bottom
     log_probabilities = [math.log10(probability) for probability, _, _ in points]
-    min_log_x = min(log_probabilities)
-    max_log_x = max(log_probabilities)
+    reference_probability = 1e-5
+    reference_log_x = math.log10(reference_probability)
+    min_log_x = min(*log_probabilities, reference_log_x)
+    max_log_x = max(*log_probabilities, reference_log_x)
     max_y = max(flow for _, flow, _ in points)
     max_y = max(max_y, 1e-12)
     if min_log_x == max_log_x:
@@ -1585,6 +1606,39 @@ def render_probability_svg(
             f'<text class="label" x="{left - 8}" y="{y + 4:.1f}" text-anchor="end">{y_value:.3g}</text>'
         )
 
+    highest_probability, flow_at_highest_probability, highest_probability_label = max(
+        points,
+        key=lambda item: item[0],
+    )
+    reference_flow_y = y_scale(flow_at_highest_probability)
+    reference_probability_x = x_scale(reference_probability)
+    reference_elements = [
+        (
+            f'<line class="reference-flow" x1="{left}" y1="{reference_flow_y:.1f}" '
+            f'x2="{left + plot_width}" y2="{reference_flow_y:.1f}">'
+            f'<title>Debit du cas le plus probable: '
+            f'{escape(highest_probability_label)} ; '
+            f'P={highest_probability:.6g} ; Qmax={flow_at_highest_probability:.6g} m3/s</title>'
+            "</line>"
+        ),
+        (
+            f'<text class="reference-label" x="{left + plot_width - 4}" '
+            f'y="{max(top + 12, reference_flow_y - 5):.1f}" text-anchor="end">'
+            f'Q a P max = {flow_at_highest_probability:.3g}'
+            "</text>"
+        ),
+        (
+            f'<line class="reference-probability" x1="{reference_probability_x:.1f}" '
+            f'y1="{top}" x2="{reference_probability_x:.1f}" y2="{top + plot_height}">'
+            f"<title>Probabilite de reference: {reference_probability:.0e}</title>"
+            "</line>"
+        ),
+        (
+            f'<text class="reference-label" x="{reference_probability_x + 4:.1f}" '
+            f'y="{top + 14}" text-anchor="start">P=1e-5</text>'
+        ),
+    ]
+
     point_elements = []
     for probability, flow, label in sorted(points):
         x = x_scale(probability)
@@ -1602,6 +1656,7 @@ def render_probability_svg(
             *grid_lines,
             f'<line class="axis" x1="{left}" y1="{top + plot_height}" x2="{left + plot_width}" y2="{top + plot_height}"/>',
             f'<line class="axis" x1="{left}" y1="{top}" x2="{left}" y2="{top + plot_height}"/>',
+            *reference_elements,
             f'<text class="label" x="{left + plot_width / 2:.1f}" y="{height - 6}" text-anchor="middle">Probabilite de la combinaison (log10)</text>',
             f'<text class="label" x="14" y="{top + plot_height / 2:.1f}" transform="rotate(-90 14 {top + plot_height / 2:.1f})" text-anchor="middle">Qmax (m3/s)</text>',
             *point_elements,
@@ -1646,6 +1701,41 @@ def simulation_id_for_index(index: int) -> str:
     return f"sim_{index:04d}"
 
 
+def scenario_output_dir(output_dir: Path, scenario_name: str) -> Path:
+    return output_dir / slugify(scenario_name)
+
+
+def phase_output_dir(output_dir: Path, case: SimulationCase) -> Path:
+    return scenario_output_dir(output_dir, case.scenario) / slugify(case.phase)
+
+
+def case_output_dir(output_dir: Path, case: SimulationCase, simulation_id: str) -> Path:
+    return phase_output_dir(output_dir, case) / simulation_id
+
+
+def write_results_by_scenario(
+    output_dir: Path,
+    rows: list[dict[str, object]],
+    hydrologies: dict[str, Hydrology],
+    outfalls: list[str],
+) -> list[Path]:
+    rows_by_scenario: dict[str, list[dict[str, object]]] = {}
+    for row in rows:
+        scenario = str(row.get("scenario", "scenario") or "scenario")
+        rows_by_scenario.setdefault(scenario, []).append(row)
+
+    written_paths: list[Path] = []
+    for scenario, scenario_rows in sorted(rows_by_scenario.items()):
+        scenario_dir = scenario_output_dir(output_dir, scenario)
+        results_path = scenario_dir / results_csv_name(hydrologies)
+        write_results_csv(results_path, scenario_rows)
+        written_paths.append(results_path)
+        written_paths.extend(
+            write_phase_probability_plots(scenario_dir, scenario_rows, outfalls)
+        )
+    return written_paths
+
+
 def run_case_task(
     index: int,
     total: int,
@@ -1657,7 +1747,7 @@ def run_case_task(
     use_rpt_only: bool,
 ) -> CaseRunResult:
     simulation_id = simulation_id_for_index(index)
-    case_dir = output_dir / simulation_id
+    case_dir = case_output_dir(output_dir, case, simulation_id)
     messages = [f"[{index}/{total}] {simulation_id}: {case.variant}"]
 
     inp_path = write_case_inp(base_inp, case, case_dir, simulation_id)
@@ -1678,6 +1768,7 @@ def run_case_task(
 
     row: dict[str, object] = {
         "simulation_id": simulation_id,
+        "case_directory": str(case_dir),
         "scenario": case.scenario,
         "phase": case.phase,
         "variant_combination": case.variant,
@@ -1843,7 +1934,7 @@ def main() -> int:
     if args.dry_run:
         for index, case in enumerate(cases, start=1):
             simulation_id = simulation_id_for_index(index)
-            case_dir = args.output_dir / simulation_id
+            case_dir = case_output_dir(args.output_dir, case, simulation_id)
             print(f"[{index}/{len(cases)}] {simulation_id}: {case.variant}")
             inp_path = write_case_inp(args.base_inp, case, case_dir, simulation_id)
             print(f"  INP genere: {inp_path}")
@@ -1894,14 +1985,15 @@ def main() -> int:
                 rows.append(result.row)
 
     if rows:
-        results_path = args.output_dir / results_csv_name(hydrologies)
-        write_results_csv(results_path, rows)
-        print(f"Tableau provisoire: {results_path}")
-        plot_paths = write_phase_probability_plots(args.output_dir, rows, args.outfalls)
-        if plot_paths:
-            print("Plots probabilite/debit:")
-            for path in plot_paths:
-                print(f"  - {path}")
+        written_paths = write_results_by_scenario(
+            args.output_dir,
+            rows,
+            hydrologies,
+            args.outfalls,
+        )
+        print("Fichiers de synthese:")
+        for path in written_paths:
+            print(f"  - {path}")
 
     if args.dry_run:
         print("Dry-run termine: les .inp ont ete generes, SWMM n'a pas ete lance.")

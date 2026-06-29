@@ -6,7 +6,7 @@ Ce dossier contient une premiere base pour lancer des simulations SWMM en masse 
 
 - `run_swmm_mass_computation.py`: genere les fichiers `.inp`, lance SWMM, lit les `.out` et extrait les debits maximums stables.
 - `scenarios.txt`: exemple de definition des situations hydrologiques, phases et variantes.
-- `runs/`: dossier cree automatiquement avec un sous-dossier par simulation.
+- `runs/`: dossier cree automatiquement avec un sous-dossier par scenario, puis par phase, puis par simulation.
 
 ## Lancement
 
@@ -83,16 +83,31 @@ Ou pour ajuster le seuil:
 python MASS_COMPUTATION\run_swmm_mass_computation.py --max-cases 200000 --allow-large-run
 ```
 
-Le CSV final `MASS_COMPUTATION\runs\Q14_7_mass_simulations_results.csv` contient une ligne par simulation avec:
+Le CSV final `MASS_COMPUTATION\runs\scenario1\Q14_7_mass_simulations_results.csv` contient une ligne par simulation avec:
 
 - `simulation_id`;
+- `case_directory`;
 - `phase`;
 - `variant_combination`;
 - `combination_probability`;
 - les colonnes `qmax_*_m3s` pour les exutoires;
 - `flooding_warning` et `flooding_nodes`.
 
-Le script genere aussi un fichier HTML par phase dans `MASS_COMPUTATION\runs`, par exemple:
+Les resultats sont ranges par scenario et par phase:
+
+```text
+MASS_COMPUTATION\runs\scenario1\1_1a\sim_0001\
+MASS_COMPUTATION\runs\scenario1\1_1b\sim_0009\
+MASS_COMPUTATION\runs\scenario1\1_2a\sim_0073\
+```
+
+Le CSV de synthese est ecrit dans le dossier du scenario:
+
+```text
+MASS_COMPUTATION\runs\scenario1\Q14_7_mass_simulations_results.csv
+```
+
+Le script genere aussi un fichier HTML par phase dans le dossier du scenario, par exemple:
 
 ```text
 1_1a_debits_vs_probability.html
@@ -115,7 +130,17 @@ Si la machine reste reactive, augmenter progressivement a `--workers 6` ou `--wo
 
 ## Principe d'extraction
 
-Pour le cas actuel, le script extrait le debit maximum horaire aux quatre exutoires listes plus haut. Il teste aussi les series de flooding des noeuds et inscrit `flooding_warning=YES` si au moins une jonction deborde.
+Pour le cas actuel, le script extrait le debit maximum horaire aux quatre exutoires listes plus haut.
+
+Le flooding est filtre pour eviter de signaler les instabilites numeriques tres courtes. Les seuils sont definis en haut du script:
+
+```python
+FLOODING_MIN_RATE_M3S = 0.01
+FLOODING_MIN_CONSECUTIVE_STEPS = 2
+FLOODING_MIN_HOURS = 6.0
+```
+
+Avec les fichiers `.out`, `flooding_warning=YES` demande au moins 2 pas de sortie consecutifs au-dessus de `0.01 m3/s`. Avec `--use-rpt-only`, le filtre utilise le resume SWMM: au moins 6 heures de flooding et un debit maximum au-dessus de `0.01 m3/s`.
 
 ## Format minimal de scenarios.txt
 

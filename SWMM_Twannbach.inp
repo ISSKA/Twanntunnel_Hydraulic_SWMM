@@ -13,11 +13,11 @@ ALLOW_PONDING        NO
 SKIP_STEADY_STATE    YES
 
 IGNORE_RAINFALL      YES
-START_DATE           09/15/2024
+START_DATE           09/30/2024
 START_TIME           00:00:00
-REPORT_START_DATE    09/15/2024
+REPORT_START_DATE    09/30/2024
 REPORT_START_TIME    00:00:00
-END_DATE             11/15/2024
+END_DATE             10/15/2024
 END_TIME             00:00:00
 SWEEP_START          09/15
 SWEEP_END            11/15
@@ -53,7 +53,7 @@ DRY_ONLY         NO
 9                438.5      100        0          0          0         
 Holiloch_sonde   440        200        0          0          0         
 11               410        150        24         0          0         
-13               438        100        0          0          0         
+13               438        400        0          0          0         
 21               400        150        34         0          0         
 SonSto_F         437.8      100        0          0          0         
 ;Radier du Sondierstollen avant virage
@@ -66,7 +66,7 @@ Gischeren_node   476.5      100        0          0          0
 38               420        150        14         0          0         
 SS6              448        100        0          0          0         
 40               419        100        14         0          0         
-41               437.5      150        0          0          0         
+41               437.5      250        0          0          0         
 SondeSchuettstein 459        2          0          150        0         
 SS4              448        100        0          0          0         
 47               464.9      100        0          0          0         
@@ -74,11 +74,11 @@ SS4              448        100        0          0          0
 SondeGischeren   465        100        0          0          0         
 49               466        200        0          5.5        0         
 50               463        200        0          0          0         
-51               420        200        14         0          0         
-Amont_C          418        100        0          0          0         
+51               420        400        14         0          0         
+Amont_C          418        400        0          0          0         
 52               457        100        0          0          0         
-53               467        100        0          0          0         
-54               463        100        0          0          0         
+53               467        200        0          0          0         
+54               463        200        0          0          0         
 56               430        100        14         0          0         
 2                438        1          0          100        0         
 4                428        100        0          0          0         
@@ -101,8 +101,8 @@ Amont_Trappe     437.7      100        0          0          0
 SonSto_SS6       438.7      100        0          0          0         
 SS2              448        100        0          0          0         
 SonSto_SS2       441.5      100        0          0          0         
-12               449        100        0          0          0         
-14               465        100        0          0          0         
+12               449        200        0          0          0         
+14               465        200        0          0          0         
 15               472        100        0          0          0         
 TWT_PointHaut_60+650 442.5      100        0          0          0         
 TWT_Fensterstollen_60+375 441.3      100        0          0          0         
@@ -286,7 +286,7 @@ SS6_L            CIRCULAR     2                0          0          0          
 [INFLOWS]
 ;;Node           Constituent      Time Series      Type     Mfactor  Sfactor  Baseline Pattern
 ;;-------------- ---------------- ---------------- -------- -------- -------- -------- --------
-Amont_C          FLOW             Real_disch_as_input FLOW     1.0      1        0.005   
+Amont_C          FLOW             Real_disch_as_input FLOW     1.0      2.2      0.005   
 Syst_Est_amont   FLOW             Real_disch_as_input FLOW     1.0      0.1              
 
 [TIMESERIES]
@@ -393,4 +393,3 @@ TWT_Portail_Est_61+665 17981.873          -1028.550
 30               9553.180           2905.942          
 30               10004.023          2362.966          
 
-[Polygons]

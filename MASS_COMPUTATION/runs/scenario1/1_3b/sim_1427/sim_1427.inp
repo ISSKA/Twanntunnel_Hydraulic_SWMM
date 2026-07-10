@@ -1,0 +1,462 @@
+[TITLE]
+;;Project Title/Notes
+Brunnmuehle (Twann)
+
+[OPTIONS]
+;;Option             Value
+FLOW_UNITS           CMS
+INFILTRATION         GREEN_AMPT
+FLOW_ROUTING         DYNWAVE
+LINK_OFFSETS         DEPTH
+MIN_SLOPE            0
+ALLOW_PONDING        NO
+SKIP_STEADY_STATE    YES
+
+IGNORE_RAINFALL      YES
+START_DATE 01/01/2000
+START_TIME 00:00:00
+REPORT_START_DATE 01/01/2000
+REPORT_START_TIME 00:00:00
+END_DATE 01/02/2000
+END_TIME 00:00:00
+SWEEP_START          09/15
+SWEEP_END            11/15
+DRY_DAYS             0
+REPORT_STEP 01:00:00
+WET_STEP             00:01:00
+DRY_STEP 01:00:00
+ROUTING_STEP         0.5
+RULE_STEP            00:00:05
+
+INERTIAL_DAMPING     PARTIAL
+NORMAL_FLOW_LIMITED  BOTH
+FORCE_MAIN_EQUATION  H-W
+VARIABLE_STEP        0.75
+LENGTHENING_STEP     0
+MIN_SURFAREA         1.167
+MAX_TRIALS           8
+HEAD_TOLERANCE       0.0015
+SYS_FLOW_TOL         5
+LAT_FLOW_TOL         5
+MINIMUM_STEP         0.5
+THREADS              1
+
+[EVAPORATION]
+;;Data Source    Parameters
+;;-------------- ----------------
+CONSTANT         0.0
+DRY_ONLY         NO
+
+[JUNCTIONS]
+;;Name           Elevation  MaxDepth   InitDepth  SurDepth   Aponded   
+;;-------------- ---------- ---------- ---------- ---------- ----------
+9                438.5      100        0          0          0         
+Holiloch_sonde   440        200        0          0          0         
+11               410        150        24         0          0         
+13               438        400        0          0          0         
+21               400        150        34         0          0         
+SonSto_F         437.8      100        0          0          0         
+;Radier du Sondierstollen avant virage
+Sondierstollen   440.8      100        0          0          0         
+;Radier en aval de la Trappe du Fensterstollen
+Aval_Trappe      437.6      100        0          0          0         
+30               437.3      100        0          0          0         
+Gischeren_node   476.5      100        0          0          0         
+34               420        100        14         0          0         
+38               420        150        14         0          0         
+SS6              448        100        0          0          0         
+40               419        100        14         0          0         
+41               437.5      250        0          0          0         
+SondeSchuettstein 459        2          0          150        0         
+SS4              448        100        0          0          0         
+47               464.9      100        0          0          0         
+48               471        100        0          15         0         
+SondeGischeren   465        100        0          0          0         
+49               466        200        0          5.5        0         
+50               463        200        0          0          0         
+51               420        400        14         0          0         
+Amont_C          418        400        0          0          0         
+52               457        100        0          0          0         
+53               467        200        0          0          0         
+54               463        200        0          0          0         
+56               430        100        14         0          0         
+2                438        1          0          100        0         
+4                428        100        0          0          0         
+5                472.5      50         0          0          0         
+6                458        200        0          0          0         
+7                475        100        0          0          0         
+;Radier de la galerie SonSto en face du SS3
+SS3              448        150        0          0          0         
+;Fond de la vasque SS5
+SS5              438.9      100        0          0          0         
+8                474        200        0          0          0         
+10               468        200        0          0          0         
+;Radier de la galerie SonSto en face du SS5
+SonSto_SS5       439.3      100        0          0          0         
+SonSto_SS3       439.7      100        0          0          0         
+;Radier du SonSto en face de 46
+SonSto_SS4       439.4      100        0          0          0         
+;Radier en amont de la Trappe du Fensterstollen
+Amont_Trappe     437.7      100        0          0          0         
+SonSto_SS6       438.7      100        0          0          0         
+SS2              448        100        0          0          0         
+SonSto_SS2       441.5      100        0          0          0         
+12               449        200        0          0          0         
+14               465        200        0          0          0         
+15               472        100        0          0          0         
+TWT_PointHaut_60+650 438.5 100 0 0 0
+TWT_Fensterstollen_60+375 441.3      100        0          0          0         
+TWT_Acces_LT_60+110 441.5      0          0          0          0         
+TWT_Liaison_LT_59+738 450.6      0          0          0          0         
+Syst_Est_amont   430        100        0          0          0         
+Syst_Est_interm  410        100        0          0          0         
+TWT_Branche_Est_Sonsto_60+540 442.4      100        0          0          0         
+TWT_Intersection_Sonsto_60+345 440.9      0          0          0          0         
+TWT_Chrosweg_61+140 432 100 0 0 0
+SonSto_F_sup     448        100        0          0          0         
+SonSto_porte     438.5      0          0          0          0         
+
+[OUTFALLS]
+;;Name           Elevation  Type       Stage Data       Gated    Route To        
+;;-------------- ---------- ---------- ---------------- -------- ----------------
+Brunnm_Fassung   433.8      FIXED      0                NO                       
+Brunnmuehle(Teich) 435.5      FREE                        NO                       
+Fensterstollen   437        FREE                        NO                       
+Gischeren        480        FREE                        NO                       
+Schuettstein     477.55     FREE                        NO                       
+Holiloch         476.5      FREE                        NO                       
+Sauserquelle     435.55     FREE                        NO                       
+Entw_Stollen     436.5      FREE                        NO                       
+Sous_lacustre    429.2      FREE                        NO                       
+Sous_ecoul.      433        FREE                        NO                       
+Syst_Est_aval    429        FREE                        NO                       
+TWT_Portail_Est_61+665 421.6 FREE NO
+
+[CONDUITS]
+;;Name           From Node        To Node          Length     Roughness  InOffset   OutOffset  InitFlow   MaxFlow   
+;;-------------- ---------------- ---------------- ---------- ---------- ---------- ---------- ---------- ----------
+Brunn_Fassung_L  34               Brunnm_Fassung   25         0.05       0          0          0          0         
+11               9                Holiloch_sonde   30         0.05       0          0          0          0         
+14               13               9                50         0.05       0          0          0          0         
+16               11               51               52         0.05       0          0          0          0         
+17               21               38               150        0.05       0          0          0          0         
+26               13               41               15         0.05       0          0          0          0         
+27               SonSto_F         30               25         0.01       0          0          0          0         
+Gischeren_L      Gischeren_node   Gischeren        7          0.05       0          0          0          0         
+Schuettstein_L   48               Schuettstein     8          0.05       0          0          0          0         
+Brunnmuehle_L    21               34               23         0.05       0          0          0          0         
+32               SonSto_SS2       Sondierstollen   56         0.01       0          0          0          0         
+35               SondeGischeren   Gischeren_node   40         0.05       0          0          0          0         
+45               SonSto_F         SonSto_SS6       16         0.01       0          0          0          0         
+46               40               56               30         0.05       0          0          0          0         
+47               51               40               47         0.05       0          0          0          0         
+50               SondeSchuettstein 48               13         0.05       0          0          0          0         
+51               SS5              40               30         0.05       0          0          0          0         
+53               38               11               160        0.05       0          0          0          0         
+Fenster_L        30               Fensterstollen   10         0.01       0          0          0          0         
+58               Aval_Trappe      30               17         0.01       0          0          0          0         
+59               SonSto_SS6       SonSto_SS5       23         0.01       0          0          0          0         
+61               41               SondeSchuettstein 60         0.05       0          0          0          0         
+63               10               SS6              40         0.05       0          0          0          0         
+66               50               SondeGischeren   22         0.05       0          0          0          0         
+67               51               13               30         0.05       0          0          0          0         
+Amont_L          Amont_C          51               80         0.05       0          0          0          0         
+69               51               52               170        0.05       0          0          0          0         
+70               52               21               170        0.05       0          0          0          0         
+71               13               53               40         0.05       0          0          0          0         
+72               53               54               30         0.05       0          0          0          0         
+Sauser_L         56               Sauserquelle     15         0.05       0          0          0          0         
+75               54               SS4              40         0.05       0          0          0          0         
+Entw_Sto_L       2                Entw_Stollen     83         0.01       0          0          0          0         
+4                54               2                278        0.05       0          0          0          0         
+5                11               2                150        0.05       0          0          0          0         
+6                21               Sous_lacustre    56         0.05       0          0          0          0         
+7                34               4                20         0.05       0          0          0          0         
+Brunn_Teich_L    4                Brunnmuehle(Teich) 18.5       0.05       0          0          0          0         
+9                4                Sous_ecoul.      5          0.05       0          0          0          0         
+12               47               5                8.5        0.05       0          0          0          0         
+15               Holiloch_sonde   6                23         0.05       0          0          0          0         
+18               6                47               15         0.05       0          0          0          0         
+19               6                49               75         0.05       0          0          0          0         
+20               Amont_Trappe     Aval_Trappe      1          0.01       0          0          0          0         
+21               5                7                23         0.05       0          0          0          0         
+Hooliloch_L      7                Holiloch         22         0.05       0          0          0          0         
+23               50               SS3              40         0.05       0          0          0          0         
+25               13               8                41         0.05       0          0          0          0         
+28               SonSto_SS3       SonSto_SS4       20         0.01       0          0          0          0         
+29               SonSto_SS5       SonSto_SS4       3          0.05       0          0          0          0         
+31               8                Gischeren_node   10         0.05       0          0          0          0         
+33               49               10               5.5        0.05       0          0          0          0         
+37               SS5              SonSto_SS5       3          0.05       0          0          0          0         
+SS3_L            SS3              SonSto_SS3       4          0.05       0          0          0          0         
+40               SonSto_F         Amont_Trappe     4          0.01       0          0          0          0         
+SS6_L            SS6              SonSto_SS6       3          0.05       0          0          0          0         
+1                SonSto_SS2       SonSto_SS3       30         0.01       0          0          0          0         
+2                SS2              SonSto_SS2       5          0.05       0          0          0          0         
+;SonSto_SS4
+3                SS4              SonSto_SS4       3          0.05       0          0          0          0         
+10               SonSto_SS4       SS5              5          0.01       0          0          0          0         
+13               51               12               35         0.05       0          0          0          0         
+22               12               40               40         0.05       0          0          0          0         
+24               51               14               45         0.05       0          0          0          0         
+30               14               40               80         0.05       0          0          0          0         
+34               9                15               75         0.05       0          0          0          0         
+36               15               SonSto_F_sup     50         0.05       0          0          0          0         
+38               8                SondeGischeren   50         0.05       0          0          0          0         
+48               Syst_Est_amont   Syst_Est_interm  350        0.05       0          0          0          0         
+54               Syst_Est_interm  Syst_Est_aval    230        0.05       0          0          0          0         
+68               SonSto_F_sup     SonSto_F         10         0.01       0          0          0          0         
+73               SonSto_porte     2                260        0.02       0          0          0          0         
+
+TWT1 TWT_Chrosweg_61+140 TWT_Portail_Est_61+665 515 0.01 0 0 0 0
+TWT2 TWT_PointHaut_60+650 TWT_Chrosweg_61+140 510 0.01 0 0 0 0
+1_1_b_1 TWT_PointHaut_60+650 Syst_Est_amont 10 0.05 0 0 0 0
+TWT3 TWT_Branche_Est_Sonsto_60+540 TWT_PointHaut_60+650 100 0.01 0 0 0 0
+TWT4 TWT_Branche_Est_Sonsto_60+540 TWT_Fensterstollen_60+375 165 0.01 0 0 0 0
+1_2_b_ TWT_Branche_Est_Sonsto_60+540 Sondierstollen 1 0.05 0 0 0 0
+1_2_b_2 TWT_Fensterstollen_60+375 SonSto_F_sup 1 0.05 0 0 0 0
+1_2_b_3 TWT_Fensterstollen_60+375 40 10 0.05 0 0 0 0
+1_3_b_2 TWT_PointHaut_60+650 Syst_Est_interm 10 0.05 0 0 0 0
+[XSECTIONS]
+;;Link           Shape        Geom1            Geom2      Geom3      Geom4      Barrels    Culvert   
+;;-------------- ------------ ---------------- ---------- ---------- ---------- ---------- ----------
+Brunn_Fassung_L  CIRCULAR     0.19             0          0          0          1                    
+11               CIRCULAR     1.8              0          0          0          1                    
+14               CIRCULAR     1.5              0          0          0          1                    
+16               CIRCULAR     0.33             0          0          0          1                    
+17               CIRCULAR     0.6              0          0          0          1                    
+26               CIRCULAR     0.85             0          0          0          1                    
+27               CIRCULAR     0.22             0          0          0          1                    
+Gischeren_L      CIRCULAR     1.2              0          0          0          1                    
+Schuettstein_L   CIRCULAR     0.5              0          0          0          1                    
+Brunnmuehle_L    CIRCULAR     0.6              0          0          0          1                    
+32               CIRCULAR     3                0          0          0          1                    
+35               CIRCULAR     1.2              0          0          0          1                    
+45               CIRCULAR     3                0          0          0          1                    
+46               CIRCULAR     0.6              0          0          0          1                    
+47               CIRCULAR     0.22             0          0          0          1                    
+50               CIRCULAR     0.8              0          0          0          1                    
+51               CIRCULAR     0.35             0          0          0          1                    
+53               CIRCULAR     0.46             0          0          0          1                    
+Fenster_L        CIRCULAR     3                0          0          0          1                    
+58               CIRCULAR     3                0          0          0          1                    
+59               CIRCULAR     3                0          0          0          1                    
+61               CIRCULAR     0.53             0          0          0          1                    
+63               RECT_CLOSED  2                0.07       0          0          1                    
+66               CIRCULAR     0.3              0          0          0          1                    
+67               CIRCULAR     3                0          0          0          1                    
+Amont_L          CIRCULAR     3                0          0          0          1                    
+69               CIRCULAR     0.40             0          0          0          1                    
+70               CIRCULAR     0.40             0          0          0          1                    
+71               RECT_CLOSED  3                0.08       0          0          1                    
+72               RECT_CLOSED  5                0.06       0          0          1                    
+Sauser_L         CIRCULAR     1                0          0          0          1                    
+75               CIRCULAR     0.25             0          0          0          1                    
+Entw_Sto_L       CIRCULAR     0.18             0          0          0          1                    
+4                CIRCULAR     0.19             0          0          0          1                    
+5                CIRCULAR     0.18             0          0          0          1                    
+6                CIRCULAR     0.2              0          0          0          1                    
+7                CIRCULAR     0.5              0          0          0          1                    
+Brunn_Teich_L    CIRCULAR     0.65             0          0          0          1                    
+9                CIRCULAR     0.1              0          0          0          1                    
+12               CIRCULAR     1.9              0          0          0          1                    
+15               CIRCULAR     1.9              0          0          0          1                    
+18               CIRCULAR     1.9              0          0          0          1                    
+19               RECT_CLOSED  5                0.17       0          0          1                    
+20               RECT_CLOSED  1                1          0          0          1                    
+21               CIRCULAR     5                0          0          0          1                    
+Hooliloch_L      RECT_TRIANGULAR 4                4          2.5        0          1                    
+23               CIRCULAR     0.3              0          0          0          1                    
+25               RECT_OPEN    2.5              0.12       0          0          1                    
+28               CIRCULAR     3                0          0          0          1                    
+29               CIRCULAR     3                0          0          0          1                    
+31               RECT_CLOSED  5                0.17       0          0          1                    
+33               RECT_CLOSED  8                0.15       0          0          1                    
+37               CIRCULAR     3                0          0          0          1                    
+SS3_L            CIRCULAR     2                0          0          0          1                    
+40               MODBASKETHANDLE 4                3          1.5        0          1                    
+SS6_L            CIRCULAR     2                0          0          0          1                    
+1                CIRCULAR     3                0          0          0          1                    
+2                CIRCULAR     2                0          0          0          1                    
+3                CIRCULAR     1                0          0          0          1                    
+10               CIRCULAR     3                0          0          0          1                    
+13               CIRCULAR     0.35             0          0          0          1                    
+22               CIRCULAR     0.35             0          0          0          1                    
+24               RECT_OPEN    4                0.18       0          0          1                    
+30               RECT_OPEN    4                0.18       0          0          1                    
+34               CIRCULAR     0.55             0          0          0          1                    
+36               CIRCULAR     0.55             0          0          0          1                    
+38               CIRCULAR     1                0          0          0          1                    
+48               CIRCULAR     1                0          0          0          1                    
+54               CIRCULAR     1.5              0          0          0          1                    
+68               CIRCULAR     3                0          0          0          1                    
+73               CIRCULAR     2                0          0          0          1                    
+
+TWT1 CIRCULAR 8.0 0 0 0 1
+TWT2 CIRCULAR 8.0 0 0 0 1
+1_1_b_1 CIRCULAR 1 0 0 0 1
+TWT3 CIRCULAR 8.0 0 0 0 1
+TWT4 CIRCULAR 8.0 0 0 0 1
+1_2_b_ CIRCULAR 3 0 0 0 1
+1_2_b_2 CIRCULAR 1 0 0 0 1
+1_2_b_3 CIRCULAR 1 0 0 0 1
+1_3_b_2 CIRCULAR 1 0 0 0 1
+[INFLOWS]
+;;Node           Constituent      Time Series      Type     Mfactor  Sfactor  Baseline Pattern
+;;-------------- ---------------- ---------------- -------- -------- -------- -------- --------
+Amont_C FLOW Real_disch_as_input FLOW 1.0 1 0
+Syst_Est_amont FLOW Real_disch_as_input_conduit_48 FLOW 1.0 1 0
+
+[TIMESERIES]
+;;Name           Date       Time       Value     
+;;-------------- ---------- ---------- ----------
+;Data file created by Arnauld from measured discharge rates at the various outlets
+
+Real_disch_as_input 01/01/2000 00:00 14.7
+Real_disch_as_input 01/01/2000 01:00 14.7
+Real_disch_as_input 01/01/2000 02:00 14.7
+Real_disch_as_input 01/01/2000 03:00 14.7
+Real_disch_as_input 01/01/2000 04:00 14.7
+Real_disch_as_input 01/01/2000 05:00 14.7
+Real_disch_as_input 01/01/2000 06:00 14.7
+Real_disch_as_input 01/01/2000 07:00 14.7
+Real_disch_as_input 01/01/2000 08:00 14.7
+Real_disch_as_input 01/01/2000 09:00 14.7
+Real_disch_as_input 01/01/2000 10:00 14.7
+Real_disch_as_input 01/01/2000 11:00 14.7
+Real_disch_as_input 01/01/2000 12:00 14.7
+Real_disch_as_input 01/01/2000 13:00 14.7
+Real_disch_as_input 01/01/2000 14:00 14.7
+Real_disch_as_input 01/01/2000 15:00 14.7
+Real_disch_as_input 01/01/2000 16:00 14.7
+Real_disch_as_input 01/01/2000 17:00 14.7
+Real_disch_as_input 01/01/2000 18:00 14.7
+Real_disch_as_input 01/01/2000 19:00 14.7
+Real_disch_as_input 01/01/2000 20:00 14.7
+Real_disch_as_input 01/01/2000 21:00 14.7
+Real_disch_as_input 01/01/2000 22:00 14.7
+Real_disch_as_input 01/01/2000 23:00 14.7
+Real_disch_as_input 01/02/2000 00:00 14.7
+Real_disch_as_input_conduit_48 01/01/2000 00:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 01:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 02:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 03:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 04:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 05:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 06:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 07:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 08:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 09:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 10:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 11:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 12:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 13:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 14:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 15:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 16:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 17:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 18:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 19:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 20:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 21:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 22:00 0.735
+Real_disch_as_input_conduit_48 01/01/2000 23:00 0.735
+Real_disch_as_input_conduit_48 01/02/2000 00:00 0.735
+[PATTERNS]
+;;Name           Type       Multipliers
+;;-------------- ---------- -----------
+pattern_test     MONTHLY    1.0   1.0   1.0   1.0   1.0   1.0  
+pattern_test                1.0   1.0   1.0   1.0   1.0   1.0  
+
+[REPORT]
+;;Reporting Options
+SUBCATCHMENTS ALL
+NODES ALL
+LINKS ALL
+
+[TAGS]
+
+[MAP]
+DIMENSIONS -7854.546 -1617.939 19212.179 10436.945
+Units      None
+
+[COORDINATES]
+;;Node           X-Coord            Y-Coord           
+;;-------------- ------------------ ------------------
+9                3304.629           3057.051          
+Holiloch_sonde   2987.976           3856.700          
+11               3756.728           1162.540          
+13               4175.627           2771.804          
+21               -1396.807          980.616           
+SonSto_F         6492.806           3057.554          
+Sondierstollen   12884.835          3158.495          
+Aval_Trappe      7028.571           2457.143          
+30               8585.799           2437.870          
+Gischeren_node   9190.422           7742.303          
+34               -1302.476          1819.160          
+38               2405.929           1254.276          
+SS6              7871.224           3096.963          
+40               10688.935          2045.929          
+41               5233.813           2859.712          
+SondeSchuettstein 5686.518           5834.135          
+SS4              9851.935           3216.156          
+47               2949.408           7556.512          
+48               5638.554           7036.145          
+SondeGischeren   9164.927           6659.708          
+49               3927.711           6771.084          
+50               9102.296           5678.497          
+51               3996.579           2257.697          
+Amont_C          -2502.959          6852.071          
+52               1385.405           2417.332          
+53               4407.070           5906.499          
+54               5205.245           5598.632          
+56               11396.807          2200.684          
+2                2906.055           2935.712          
+4                -1201.183          2485.207          
+5                2889.908           8501.529          
+6                2467.456           6426.036          
+7                3272.189           8627.219          
+SS3              10847.104          3226.770          
+SS5              9679.941           2888.695          
+8                7638.554           7397.590          
+10               4650.602           6843.373          
+SonSto_SS5       9647.528           3092.013          
+SonSto_SS3       10870.691          3120.628          
+SonSto_SS4       9910.297           3088.123          
+Amont_Trappe     6903.026           2579.190          
+SonSto_SS6       7883.011           2984.991          
+SS2              11283.853          3274.104          
+SonSto_SS2       11307.440          3138.479          
+12               5333.237           2530.174          
+14               6238.812           4286.725          
+15               7556.433           6570.317          
+TWT_PointHaut_60+650 13472.741          191.253           
+TWT_Fensterstollen_60+375 6714.253           -130.014          
+TWT_Acces_LT_60+110 501.293            -421.695          
+TWT_Liaison_LT_59+738 -6624.240          1297.836          
+Syst_Est_amont   15674.009          4950.751          
+Syst_Est_interm  15935.781          3189.736          
+TWT_Branche_Est_Sonsto_60+540 8804.200           -100.844          
+TWT_Intersection_Sonsto_60+345 4772.922           -516.270          
+TWT_Chrosweg_61+140 15554.453          -208.901          
+SonSto_F_sup     6457.536           3314.011          
+SonSto_porte     5451.694           2998.762          
+Brunnm_Fassung   753.498            2712.594          
+Brunnmuehle(Teich) -1061.151          3363.309          
+Fensterstollen   9489.559           2482.599          
+Gischeren        11470.924          8608.894          
+Schuettstein     5511.302           9138.859          
+Holiloch         3757.396           8733.728          
+Sauserquelle     12269.099          2405.929          
+Entw_Stollen     1377.095           2982.999          
+Sous_lacustre    -4822.485          1786.982          
+Sous_ecoul.      -1994.083          2792.899          
+Syst_Est_aval    17435.023          2654.293          
+TWT_Portail_Est_61+665 17981.873          -1028.550         
+
+[VERTICES]
+;;Link           X-Coord            Y-Coord           
+;;-------------- ------------------ ------------------
+30               9553.180           2905.942          
+30               10004.023          2362.966          
+

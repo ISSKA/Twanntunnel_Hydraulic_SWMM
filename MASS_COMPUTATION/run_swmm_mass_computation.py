@@ -58,8 +58,9 @@ STABLE_WINDOW_HOURS = 4
 MIN_POINTS_NEAR_PEAK = 3
 NEAR_PEAK_RATIO = 0.95
 FLOODING_MIN_RATE_M3S = 0.01
-FLOODING_MIN_CONSECUTIVE_STEPS = 2
+FLOODING_MIN_CONSECUTIVE_STEPS = 4
 FLOODING_MIN_HOURS = 6.0
+MIN_COMBINATION_PROBABILITY = 1e-4
 
 
 @dataclass(frozen=True)
@@ -436,21 +437,29 @@ def estimate_case_count(
     scenarios: list[Scenario],
     hydrologies: dict[str, Hydrology],
     final_phase_only: bool = False,
+    min_combination_probability: float | None = MIN_COMBINATION_PROBABILITY,
 ) -> int:
     total = 0
     hydrology_count = len(hydrologies)
     for scenario in scenarios:
-        combinations = 1
+        combinations = [VariantCombination(names=(), actions=(), probability=1.0)]
         phases = selected_phases(scenario)
         for phase_index, phase in enumerate(phases):
-            combinations *= count_phase_alternatives(
+            phase_alternatives = phase_variant_alternatives(
                 phase,
                 scenario.combine_variants_within_phase,
+            )
+            next_combinations = combine_variant_paths(combinations, phase_alternatives)
+            combinations = filter_combinations_by_probability(
+                next_combinations,
+                min_combination_probability,
             )
             is_last_phase = phase_index == len(phases) - 1
             if final_phase_only and not is_last_phase:
                 continue
-            total += combinations * hydrology_count
+            total += len(combinations) * hydrology_count
+            if not combinations:
+                break
     return total
 
 
@@ -458,36 +467,23 @@ def build_cases(
     scenarios: list[Scenario],
     hydrologies: dict[str, Hydrology],
     final_phase_only: bool = False,
+    min_combination_probability: float | None = MIN_COMBINATION_PROBABILITY,
 ) -> list[SimulationCase]:
     cases: list[SimulationCase] = []
 
     for scenario in scenarios:
-        combinations = [VariantCombination(names=(), actions=())]
+        combinations = [VariantCombination(names=(), actions=(), probability=1.0)]
         phases = selected_phases(scenario)
         for phase_index, phase in enumerate(phases):
             phase_alternatives = phase_variant_alternatives(
                 phase,
                 scenario.combine_variants_within_phase,
             )
-            next_combinations: list[VariantCombination] = []
-
-            for combination in combinations:
-                for phase_alternative in phase_alternatives:
-                    next_combinations.append(
-                        VariantCombination(
-                            names=(*combination.names, *phase_alternative.names),
-                            actions=(
-                                *combination.actions,
-                                *phase_alternative.actions,
-                            ),
-                            probability=multiply_probabilities(
-                                combination.probability,
-                                phase_alternative.probability,
-                            ),
-                        )
+            next_combinations = combine_variant_paths(combinations, phase_alternatives)
+            combinations = filter_combinations_by_probability(
+                next_combinations,
+                min_combination_probability,
             )
-
-            combinations = next_combinations
             is_last_phase = phase_index == len(phases) - 1
             if final_phase_only and not is_last_phase:
                 continue
@@ -506,7 +502,47 @@ def build_cases(
                         )
                     )
 
+            if not combinations:
+                break
+
     return cases
+
+
+def combine_variant_paths(
+    combinations: list[VariantCombination],
+    phase_alternatives: list[VariantCombination],
+) -> list[VariantCombination]:
+    next_combinations: list[VariantCombination] = []
+    for combination in combinations:
+        for phase_alternative in phase_alternatives:
+            next_combinations.append(
+                VariantCombination(
+                    names=(*combination.names, *phase_alternative.names),
+                    actions=(
+                        *combination.actions,
+                        *phase_alternative.actions,
+                    ),
+                    probability=multiply_probabilities(
+                        combination.probability,
+                        phase_alternative.probability,
+                    ),
+                )
+            )
+    return next_combinations
+
+
+def filter_combinations_by_probability(
+    combinations: list[VariantCombination],
+    min_probability: float | None,
+) -> list[VariantCombination]:
+    if min_probability is None or min_probability <= 0:
+        return combinations
+    return [
+        combination
+        for combination in combinations
+        if combination.probability is not None
+        and combination.probability > min_probability
+    ]
 
 
 def selected_phases(scenario: Scenario) -> list[Phase]:
@@ -585,6 +621,27 @@ def replace_token(
         )
     tokens[token_index] = value
     lines[row_index] = format_row(tokens)
+
+
+def replace_token_in_first_existing_section(
+    lines: list[str],
+    sections: dict[str, tuple[int, int]],
+    section_names: tuple[str, ...],
+    name: str,
+    token_index: int,
+    value: str,
+) -> None:
+    for section in section_names:
+        try:
+            replace_token(lines, sections, section, name, token_index, value)
+            return
+        except KeyError:
+            continue
+    raise KeyError(
+        f"Element '{name}' introuvable dans "
+        + " ou ".join(f"[{section}]" for section in section_names)
+        + "."
+    )
 
 
 def get_token(
@@ -724,7 +781,20 @@ def apply_action(
     if command in {"set_junction_elevation", "junction_elevation", "invert_elev", "radier"}:
         node = get_value(action, "node", "junction", "_0")
         elevation = get_value(action, "elevation", "invert_elev", "radier", "_1")
-        replace_token(lines, sections, "JUNCTIONS", node, 1, str(elevation))
+        replace_token_in_first_existing_section(
+            lines,
+            sections,
+            ("JUNCTIONS", "OUTFALLS"),
+            node,
+            1,
+            str(elevation),
+        )
+        return sections
+
+    if command in {"set_outfall_elevation", "outfall_elevation"}:
+        outfall = get_value(action, "outfall", "node", "_0")
+        elevation = get_value(action, "elevation", "invert_elev", "radier", "_1")
+        replace_token(lines, sections, "OUTFALLS", outfall, 1, str(elevation))
         return sections
 
     if command in {"add_conduit", "conduit"}:
@@ -1854,6 +1924,15 @@ def parse_args() -> argparse.Namespace:
         help="Lit les maxima et le flooding dans les rapports .rpt, sans ouvrir les fichiers .out.",
     )
     parser.add_argument(
+        "--min-combination-probability",
+        type=float,
+        default=MIN_COMBINATION_PROBABILITY,
+        help=(
+            "Seuil strict de probabilite pour simuler une combinaison et la transmettre "
+            "a la phase suivante. Utiliser 0 pour desactiver le filtrage."
+        ),
+    )
+    parser.add_argument(
         "--max-cases",
         type=int,
         default=100000,
@@ -1888,6 +1967,7 @@ def main() -> int:
         scenarios,
         hydrologies,
         final_phase_only=final_phase_only,
+        min_combination_probability=args.min_combination_probability,
     )
     if estimated_cases > args.max_cases and not args.allow_large_run:
         raise RuntimeError(
@@ -1901,6 +1981,7 @@ def main() -> int:
         scenarios,
         hydrologies,
         final_phase_only=final_phase_only,
+        min_combination_probability=args.min_combination_probability,
     )
 
     if not cases:
@@ -1926,6 +2007,11 @@ def main() -> int:
     workers = max(1, args.workers)
     rows: list[dict[str, object]] = []
     print(f"{len(cases)} simulations preparees.")
+    if args.min_combination_probability > 0:
+        print(
+            "Filtre probabilite: "
+            f"combination_probability > {args.min_combination_probability:g}."
+        )
     if not args.dry_run and workers > 1:
         print(f"Execution parallele: {workers} workers.")
     if not args.dry_run and args.use_rpt_only:

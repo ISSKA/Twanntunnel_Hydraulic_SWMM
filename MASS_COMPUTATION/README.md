@@ -83,6 +83,30 @@ Ou pour ajuster le seuil:
 python MASS_COMPUTATION\run_swmm_mass_computation.py --max-cases 200000 --allow-large-run
 ```
 
+Les combinaisons tres improbables sont filtrees par defaut:
+
+```python
+MIN_COMBINATION_PROBABILITY = 1e-4
+```
+
+Une combinaison cumulee est simulee et transmise a la phase suivante seulement si:
+
+```text
+combination_probability > 1e-4
+```
+
+Le seuil peut etre ajuste au lancement:
+
+```powershell
+python MASS_COMPUTATION\run_swmm_mass_computation.py --min-combination-probability 5e-4
+```
+
+Pour desactiver le filtrage:
+
+```powershell
+python MASS_COMPUTATION\run_swmm_mass_computation.py --min-combination-probability 0
+```
+
 Le CSV final `MASS_COMPUTATION\runs\scenario1\Q14_7_mass_simulations_results.csv` contient une ligne par simulation avec:
 
 - `simulation_id`;
@@ -173,6 +197,18 @@ phase 1_2
 ```
 
 Les actions directement sous une phase sont communes a toutes les variantes de cette phase. Les actions sous une variante ne s'appliquent qu'a cette branche, mais elles sont reprises par toutes les phases suivantes de la meme combinaison.
+
+Pour modifier une altitude de noeud:
+
+```text
+set_junction_elevation node=<junction_ou_outfall> elevation=<radier_m>
+```
+
+La commande cherche d'abord dans `[JUNCTIONS]`, puis dans `[OUTFALLS]`. Pour cibler explicitement un exutoire:
+
+```text
+set_outfall_elevation outfall=<outfall> elevation=<radier_m>
+```
 
 ## Probabilites
 

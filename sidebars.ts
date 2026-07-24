@@ -39,14 +39,6 @@ const sidebars: SidebarsConfig = {
         },
       ],
     },
-    {
-      type: 'category',
-      label: 'Variantes constructives',
-      items: [
-        'Variantes_Constructives/Twanntunnel_Variantes',
-        'Variantes_Constructives/Twanntunnel_Centrales_Ventilation',
-      ],
-    },
   ],
 };
 

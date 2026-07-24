@@ -1,23 +1,7 @@
-# Simulations hydrauliques
-## Inputs
 
-Une chronique de débits en input du modèle hyraulique a été reconstituée, sur la base des mesures disponibles entre 2016 et 2026, au pas de temps horaire, à savoir:
-- Les débits de la source de la Brunnmühle 
-- Les débits de l'Entwaesserungstollen
-- Les débits du Twannbach aval
-- Les débits du Twannbach amont
-
-La règle de reconstitution de la chronique de débits en input du modèle hyraulique est la suivante:
->Q<small>input</small> = [Q_Brunnmühle + Q_Entwaesserungstollen + Q_Twannbach_Unten] - Q_Twannbach_Oben
-
-La règle s'applique sur l'ensemble de la chronique **sauf** si:
-- **Q_Twannbach_Oben > Q_Twannbach_Unten** (ce qui en théorie n'est pas possible, mais étant donné que la courbe de conversion des débits de la station Twannbach_Oben est relativement incertaine en trés hautes eaux),
-- Une station au moins ne présente pas de mesures sur la période considérée. 
-
-Le graphique suivant présente la chronique de débits reconstituée entre 2016 et 2026.
 
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/Discharge_Input_SWMM_plot.html"
+    src="/Twanntunnel_Hydraulic_SWMM/PLOTS/Discharge_Input_SWMM_plot.html"
     width="100%"
     height="800px"
     frameborder="0"

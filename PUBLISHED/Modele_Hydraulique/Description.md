@@ -8,7 +8,7 @@ Le modèle hydraulique "**Twannbach**" est construit à l'aide du logiciel **EPA
 
 L'objectif principal du modèle hydraulique "**Twannbach**" est d'évaluer les débits et charges hydrauliques associées en conditions de **hautes eaux**. 
 
-Ce modèle est utilisé pour l'évaluation en phase "**travaux**" et en phase "**exploitation**", en fonction des **scénarios** envisagées pour le [percement du Twanntunnel](../Variantes_Constructives/Twanntunnel_Variantes.md) et pour [l'excavation des centrales de ventilation](../Variantes_Constructives/Twanntunnel_Centrales_Ventilation.md).   
+Ce modèle est utilisé pour l'évaluation en phase "**travaux**" et en phase "**exploitation**", en fonction des **scénarios** envisagées pour le percement du Twanntunnel et pour l'excavation des centrales de ventilation.   
 
 ## Architecture
 Le modèle se compose d'un réseau de "conduits" et de "junctions". Les conduits sont soit des conduits karstiques, soit des galeries artificielles, les junctions réprésentent les noeuds d'écoulement entre chaque conduits. 

@@ -1795,13 +1795,14 @@ def write_results_by_scenario(
         rows_by_scenario.setdefault(scenario, []).append(row)
 
     written_paths: list[Path] = []
+    plots_dir = output_dir / "plots"
     for scenario, scenario_rows in sorted(rows_by_scenario.items()):
         scenario_dir = scenario_output_dir(output_dir, scenario)
         results_path = scenario_dir / results_csv_name(hydrologies)
         write_results_csv(results_path, scenario_rows)
         written_paths.append(results_path)
         written_paths.extend(
-            write_phase_probability_plots(scenario_dir, scenario_rows, outfalls)
+            write_phase_probability_plots(plots_dir, scenario_rows, outfalls)
         )
     return written_paths
 

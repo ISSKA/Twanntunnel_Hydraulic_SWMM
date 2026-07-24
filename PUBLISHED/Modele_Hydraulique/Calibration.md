@@ -35,11 +35,11 @@ La règle s'applique sur l'ensemble de la chronique **sauf** si:
 Le graphique suivant présente la chronique de débits reconstituée entre 2016 et 2026.
 
 <iframe
-    src="/Twanntunnel_Hydraulic_SWMM/PLOTS/Discharge_Input_SWMM_plot.html"
+    src="/Twanntunnel_Hydraulic_SWMM/Discharge_Input_SWMM_plot.html"
     width="100%"
     height="800px"
-    frameborder="0"
 ></iframe>
+
 ## Débits aux exutoires
 En conditions de hautes eaux, la calibration peut être partiellement réalisée sur les mesures de débits du **Fensterstollen** (pas de temps horaire), sachant qu'en conditions de hautes eaux, les débits sont plafonnés par (i) les venues d'eau dans la galerie et (ii) la section de la trappe, et sur les débits reconstitués du **Wasserhooliloch** (pas de temps horaire) - sachant qu'il existe une certaine incertitude sur ces valeurs.  
 ## Brunnmühle (source)

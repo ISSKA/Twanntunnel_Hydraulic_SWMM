@@ -29,10 +29,10 @@ Comme le modèle est supposé évoluer en fonction du percement du Twanntunnel. 
 ## Aperçu
 
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/PLOTS/SWMM_Twannbach_3d.html"
+    src="/Twanntunnel_Hydraulic_SWMM/SWMM_Twannbach_3d.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 Le modèle affiche les junctions et les conduits:

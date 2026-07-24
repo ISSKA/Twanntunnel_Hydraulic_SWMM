@@ -1,10 +1,10 @@
 
 
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/PLOTS/Discharge_Input_SWMM_plot.html"
+    src="/Twanntunnel_Hydraulic_SWMM/Discharge_Input_SWMM_plot.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 La liste suivante pointe les périodes de lacunes pour chaque station présentant des lacunes de mesures. 
@@ -46,7 +46,7 @@ La courbe des débits classés est basée sur l'analyse de 45820 valeurs horaire
 
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 ## Situation avant travaux

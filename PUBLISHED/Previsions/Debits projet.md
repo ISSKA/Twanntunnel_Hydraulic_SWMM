@@ -34,5 +34,5 @@ Le tableau ci-dessous présente les valeurs de débits considérés pour les tem
 <iframe src="/Twanntunnel_Hydraulic_SWMM/Discharge_Input_SWMM_Gumbel.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>

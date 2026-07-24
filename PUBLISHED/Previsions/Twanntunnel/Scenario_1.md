@@ -20,10 +20,10 @@ Intersection d'un conduit **intermédiaire** du "système karstique Est" (1 m de
 Intersection d'un conduit en connexion hydraulique directe avec le Wasserhooliloch (1 m de diamètre).
 #### Résultats
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/MASS_COMPUTATION/runs/scenario1/1_1a_debits_vs_probability.html"
+    src="/Twanntunnel_Hydraulic_SWMM/runs/scenario1/1_1a_debits_vs_probability.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 
@@ -40,10 +40,10 @@ Intersection d'un conduit **intermédiaire** du "système karstique Est" (1 m de
 Intersection d'un conduit en connexion hydraulique directe avec le **Wasserhooliloch** (1 m de diamètre).
 #### Résultats
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/MASS_COMPUTATION/runs/scenario1/1_1b_debits_vs_probability.html"
+    src="/Twanntunnel_Hydraulic_SWMM/runs/scenario1/1_1b_debits_vs_probability.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 
@@ -67,10 +67,10 @@ Intersection d'un conduit en connexion hydraulique directe avec la venue d'eau *
 Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (1 m de diamètre). 
 #### Résultats
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/MASS_COMPUTATION/runs/scenario1/1_2a_debits_vs_probability.html"
+    src="/Twanntunnel_Hydraulic_SWMM/runs/scenario1/1_2a_debits_vs_probability.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 
@@ -94,10 +94,10 @@ Intersection d'un conduit en connexion hydraulique directe avec la venue d'eau *
 Intersection d'un conduit en connexion hydraulique directe avec la venue d'eau **SS6** du Sondierstollen (1 m de diamètre). 
 #### Résultats
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/MASS_COMPUTATION/runs/scenario1/1_2b_debits_vs_probability.html"
+    src="/Twanntunnel_Hydraulic_SWMM/runs/scenario1/1_2b_debits_vs_probability.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 
@@ -119,10 +119,10 @@ Intersection d'un conduit **intermédiaire** du "système karstique Est" (1 m de
 Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (1 m de diamètre). 
 #### Résultats
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/MASS_COMPUTATION/runs/scenario1/1_3a_debits_vs_probability.html"
+    src="/Twanntunnel_Hydraulic_SWMM/runs/scenario1/1_3a_debits_vs_probability.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 
@@ -132,10 +132,10 @@ Excavation du **Stross** depuis l'Anticlinal de **Chros (61+140)** jusqu'au **po
 Pas de conduits recoupé sur cette section.
 #### Résultats
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/MASS_COMPUTATION/runs/scenario1/1_3b_debits_vs_probability.html"
+    src="/Twanntunnel_Hydraulic_SWMM/runs/scenario1/1_3b_debits_vs_probability.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 
@@ -154,10 +154,10 @@ Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooli
 Intersection d'un conduit en connexion hydraulique directe avec un conduit de base conduisant à **la Brunnmühle** (1 m de diamètre).
 #### Résultats
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/MASS_COMPUTATION/runs/scenario1/1_4a_debits_vs_probability.html"
+    src="/Twanntunnel_Hydraulic_SWMM/runs/scenario1/1_4a_debits_vs_probability.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 
@@ -171,10 +171,10 @@ Intersection d'un conduit en connexion hydraulique directe avec un conduit de ba
 Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (1 m de diamètre).
 #### Résultats
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/MASS_COMPUTATION/runs/scenario1/1_4b_debits_vs_probability.html"
+    src="/Twanntunnel_Hydraulic_SWMM/runs/scenario1/1_4b_debits_vs_probability.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 
@@ -187,10 +187,10 @@ Pas de conduits recoupé sur cette section.
 Intersection d'un conduit en connexion hydraulique directe avec **la Brunnmühle** (1 m de diamètre).
 #### Résultats
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/MASS_COMPUTATION/runs/scenario1/1_5a_debits_vs_probability.html"
+    src="/Twanntunnel_Hydraulic_SWMM/runs/scenario1/1_5a_debits_vs_probability.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 
@@ -209,10 +209,10 @@ Intersection d'un conduit en connexion hydraulique directe avec un conduit de ba
 Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (1 m de diamètre).
 #### Résultats
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/MASS_COMPUTATION/runs/scenario1/1_6a_debits_vs_probability.html"
+    src="/Twanntunnel_Hydraulic_SWMM/runs/scenario1/1_6a_debits_vs_probability.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 
@@ -226,10 +226,10 @@ Intersection d'un conduit en connexion hydraulique directe avec un conduit de ba
 Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (1 m de diamètre).
 #### Résultats
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/MASS_COMPUTATION/runs/scenario1/1_6b_debits_vs_probability.html"
+    src="/Twanntunnel_Hydraulic_SWMM/runs/scenario1/1_6b_debits_vs_probability.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 
@@ -252,10 +252,10 @@ Intersection d'un conduit en connexion hydraulique directe avec **SS3**  (1 m de
 Intersection d'un conduit en connexion hydraulique directe avec **SS6**  (1 m de diamètre).
 #### Résultats
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/MASS_COMPUTATION/runs/scenario1/1_7a_debits_vs_probability.html"
+    src="/Twanntunnel_Hydraulic_SWMM/runs/scenario1/1_7a_debits_vs_probability.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 
@@ -275,10 +275,10 @@ Intersection d'un conduit en connexion hydraulique directe avec **Sauserquelle**
 Intersection d'un conduit en connexion hydraulique directe avec  **le Wasserhooliloch** (1 m de diamètre).
 #### Résultats
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/MASS_COMPUTATION/runs/scenario1/1_7b_debits_vs_probability.html"
+    src="/Twanntunnel_Hydraulic_SWMM/runs/scenario1/1_7b_debits_vs_probability.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 
@@ -294,10 +294,10 @@ Intersection d'un conduit en connexion hydraulique directe avec un conduit de ba
 Intersection d'un conduit en connexion hydraulique directe avec  **le Wasserhooliloch** (1 m de diamètre).
 #### Résultats
 <iframe 
-    src="/Twanntunnel_Hydraulic_SWMM/MASS_COMPUTATION/runs/scenario1/1_8a_debits_vs_probability.html"
+    src="/Twanntunnel_Hydraulic_SWMM/runs/scenario1/1_8a_debits_vs_probability.html"
     width="100%"
     height="800px"
-    frameborder="0"
+    frameBorder="0"
 ></iframe>
 
 

@@ -1,4 +1,4 @@
-# Tronçons
+## Tronçons
 
 Le tracé du Twanntunnel a été découpé en **7 tronçons** depuis le portail Est. Les caractéristiques des tronçons sont présentées dans le tableau suivant. 
 
@@ -7,14 +7,14 @@ Le tracé du Twanntunnel a été découpé en **7 tronçons** depuis le portail 
 
 | Nr. | Tronçon                                                   | Longueur [m] | Atlitude                                                  | Sens percement          |
 | --- | --------------------------------------------------------- | ------------ | --------------------------------------------------------- | ----------------------- |
-| 1   | Portail Est (61+665) vers  Chrosweg (61+140)              | 515          | Z chaussée : 425.6-436 m <br/>Z radier : 421.6-432 m       | Ascendant               |
-| 2   | Chrosweg (61+140) vers PointHaut (60+650)                 | 490          | Z chaussée : 436-442.5 m<br/>Z radier : 432-438.5 m        | Ascendant               |
-| 3   | PointHaut (60+650) vers Branche Est SonSto (60+540 )      | 110          | Z chaussée : 442.5-442.4 m <br/>Z radier : 438.5-438.4 m   | Descendant              |
-| 4   | Branche Est SonSto (60+540) vers Fensterstollen (60+375)  | 165          | Z chaussée : 442.4-441.3 m <br/>Z radier : 438.4-437.3 m   | Descendant              |
-| 5   | Fensterstollen (60+375) vers intersection Sonsto (60+345) | 30           | Z chaussée : 441.3-441 m<br/>Z radier : 437.3-437 m        | Descendant              |
-| 6   | Intersection Sonsto (60+345) vers Accès LT (60+110)       | 245          | Z chaussée : 441-441.5 m<br/>Z radier : 437-437.5 m        | Descendant et remontant |
-| 7   | Accès LT (60+110) vers Liaison LT (59+738)                | 372          | Z chaussée : 441.5-450.6 m <br/>Z radier : 437.5 – 446.5 m | Ascendant               |
-# Scénarios
+| 1   | Portail Est (61+665) vers  Chrosweg (61+140)              | 515          | Z chaussée : 425.6-436 m, Z radier : 421.6-432 m       | Ascendant               |
+| 2   | Chrosweg (61+140) vers PointHaut (60+650)                 | 490          | Z chaussée : 436-442.5 m, Z radier : 432-438.5 m        | Ascendant               |
+| 3   | PointHaut (60+650) vers Branche Est SonSto (60+540 )      | 110          | Z chaussée : 442.5-442.4 m, Z radier : 438.5-438.4 m   | Descendant              |
+| 4   | Branche Est SonSto (60+540) vers Fensterstollen (60+375)  | 165          | Z chaussée : 442.4-441.3 m, Z radier : 438.4-437.3 m   | Descendant              |
+| 5   | Fensterstollen (60+375) vers intersection Sonsto (60+345) | 30           | Z chaussée : 441.3-441 m, Z radier : 437.3-437 m        | Descendant              |
+| 6   | Intersection Sonsto (60+345) vers Accès LT (60+110)       | 245          | Z chaussée : 441-441.5 m, Z radier : 437-437.5 m        | Descendant et remontant |
+| 7   | Accès LT (60+110) vers Liaison LT (59+738)                | 372          | Z chaussée : 441.5-450.6 m, Z radier : 437.5 – 446.5 m | Ascendant               |
+## Scénarios
 Les sections suivantes affichent **les prévisions de débit** intercepté par l'ouvrage en fonction:
 - des **scénarios** d'excavation,
 - des **conditions hydrologiques** (ou [débits projets](obsidian://open?vault=PUBLISHED&file=Pr%C3%A9visions%2FD%C3%A9bits%20projet)) définies,
@@ -36,8 +36,8 @@ Les **contraintes hydrauliques** sont suivantes:
 - Privilégier le drainage des eaux vers les portails Est et Entwaesserungstollen (pour traitement). 
 - Pas de traitement des eaux possible au niveau du Fensterstollen.
 - Percement en descente sous la zone du Twannbach, donc potentiel risque d'ennoiement.
-# Principes de calcul des prévisions
-## Combinaisons
+## Principes de calcul des prévisions
+### Combinaisons
 Les prévisions sont basées sur de multiples simulations du modèle hydraulique SWMM en intégrant les différentes combinaisons possibles des variantes, phase après phase. 
 Par exemple: 
 - Scénario 1:
@@ -89,9 +89,9 @@ Alors:
 P(V0) = (1 - 0.10) x (1 - 0.20) x (1 - 0.05)
       = 0.684
 ```
-## Seuil de probabilité
+### Seuil de probabilité
 Etant donné le nombre relativement important de phases et de variantes, les combinaisons possibles se chiffrent à environ $6.10^{12}$ simulations pour le **scénario 1**, et pour une **unique condition hydrologique** donnée, ce qui représente des temps de calculs considérables - surtout au regard d'un grand nombre de combinaisons de variantes de très faible probabilité. 
-Ainsi, un seuil de probabilité admissible a été défini à $1.10^{-4}$, ce qui signifie que les combinaisons dont la probabilité de se produire est inférieure à cette valeur ne sont pas reprises dans les combinaisons suivantes. 
+Ainsi, un seuil de probabilité admissible a été défini à ==$1.10^{-4}$,== ce qui signifie que les combinaisons dont la probabilité de se produire est inférieure à cette valeur ne sont pas reprises dans les combinaisons suivantes. 
 En appliquant ce filtre, les combinaisons dont la probabilité de se produire dépasse le seuil de $1.10^{-4}$ sont estimées à environ 9'000.
 
 

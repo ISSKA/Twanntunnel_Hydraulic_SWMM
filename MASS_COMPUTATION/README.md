@@ -57,7 +57,7 @@ Le fichier `scenarios.txt` est configure pour:
 - scenario `scenario1`;
 - phases cumulees jusqu'a la phase indiquee par `stop_after_phase`;
 - variantes combinees aussi a l'interieur de chaque phase via `combine_variants_within_phase yes`;
-- hydrologie unique `Q14_7`, soit un debit constant de `14.7 m3/s` injecte sur `Amont_C` / `Amont_L`;
+- hydrologie `T3`, soit un debit constant de `14.7 m3/s` injecte sur `Amont_C` / `Amont_L`;
 - injection secondaire automatique de `Q/10` sur le noeud amont du conduit `48`;
 - simulation horaire du `01/01/2000 00:00` au `02/01/2000 00:00`;
 - extraction des debits maximums aux exutoires `Fensterstollen`, `Entw_Stollen`, `Brunnmuehle(Teich)` et `TWT_Portail_Est_61+665`.
@@ -107,7 +107,18 @@ Pour desactiver le filtrage:
 python MASS_COMPUTATION\run_swmm_mass_computation.py --min-combination-probability 0
 ```
 
-Le CSV final `MASS_COMPUTATION\runs\scenario1\Q14_7_mass_simulations_results.csv` contient une ligne par simulation avec:
+Les temps de retour peuvent etre declares comme hydrologies constantes:
+
+```text
+constant_flow T3 14.7
+constant_flow T10 18.4
+constant_flow T30 21.5
+constant_flow T50 22.9
+```
+
+Les valeurs T3, T10 et T30 proviennent du tableau Gumbel, avec arrondi au dixieme. T50 n'est pas liste explicitement dans le HTML Gumbel actuel; `22.9 m3/s` est interpole sur la courbe Gumbel.
+
+Le CSV final `MASS_COMPUTATION\runs\scenario1\T3\T3_mass_simulations_results.csv` contient une ligne par simulation avec:
 
 - `simulation_id`;
 - `case_directory`;
@@ -117,24 +128,24 @@ Le CSV final `MASS_COMPUTATION\runs\scenario1\Q14_7_mass_simulations_results.csv
 - les colonnes `qmax_*_m3s` pour les exutoires;
 - `flooding_warning` et `flooding_nodes`.
 
-Les resultats sont ranges par scenario et par phase:
+Les resultats sont ranges par scenario, hydrologie/temps de retour, puis phase:
 
 ```text
-MASS_COMPUTATION\runs\scenario1\1_1a\sim_0001\
-MASS_COMPUTATION\runs\scenario1\1_1b\sim_0009\
-MASS_COMPUTATION\runs\scenario1\1_2a\sim_0073\
+MASS_COMPUTATION\runs\scenario1\T3\1_1a\sim_0001\
+MASS_COMPUTATION\runs\scenario1\T3\1_1b\sim_0009\
+MASS_COMPUTATION\runs\scenario1\T3\1_2a\sim_0073\
 ```
 
-Le CSV de synthese est ecrit dans le dossier du scenario:
+Le CSV de synthese est ecrit dans le dossier de l'hydrologie:
 
 ```text
-MASS_COMPUTATION\runs\scenario1\Q14_7_mass_simulations_results.csv
+MASS_COMPUTATION\runs\scenario1\T3\T3_mass_simulations_results.csv
 ```
 
-Le script genere aussi un fichier HTML par phase dans le dossier du scenario, par exemple:
+Le script genere aussi un fichier HTML par phase dans le sous-dossier `plots` de l'hydrologie, par exemple:
 
 ```text
-1_1a_debits_vs_probability.html
+MASS_COMPUTATION\runs\scenario1\T3\plots\1_1a_debits_vs_probability.html
 ```
 
 Chaque fichier trace les debits maximums aux exutoires en fonction de `combination_probability`, pour les combinaisons disponibles a cette phase uniquement.
@@ -169,7 +180,10 @@ Avec les fichiers `.out`, `flooding_warning=YES` demande au moins 2 pas de sorti
 ## Format minimal de scenarios.txt
 
 ```text
-constant_flow Q14_7 14.7
+constant_flow T3 14.7
+# constant_flow T10 18.4
+# constant_flow T30 21.465
+# constant_flow T50 22.873
 
 scenario scenario1
 stop_after_phase 1_2_b

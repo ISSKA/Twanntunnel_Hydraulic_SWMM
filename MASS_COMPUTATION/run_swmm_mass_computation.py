@@ -182,6 +182,7 @@ def results_csv_name(hydrologies: dict[str, Hydrology]) -> str:
 def parse_scenarios(path: Path) -> tuple[list[Scenario], dict[str, Hydrology]]:
     scenarios: list[Scenario] = []
     hydrologies = dict(DEFAULT_HYDROLOGIES)
+    explicit_hydrologies_declared = False
     current_scenario: Scenario | None = None
     current_phase: Phase | None = None
     current_variant: Variant | None = None
@@ -201,6 +202,9 @@ def parse_scenarios(path: Path) -> tuple[list[Scenario], dict[str, Hydrology]]:
                     raise ValueError(
                         f"Ligne {line_number}: utiliser 'timeseries nom chemin'."
                     )
+                if not explicit_hydrologies_declared:
+                    hydrologies = {}
+                    explicit_hydrologies_declared = True
                 hydrologies[rest[0]] = Hydrology(
                     name=rest[0],
                     timeseries_file=resolve_path(" ".join(rest[1:]), path.parent),
@@ -212,9 +216,13 @@ def parse_scenarios(path: Path) -> tuple[list[Scenario], dict[str, Hydrology]]:
                     raise ValueError(
                         f"Ligne {line_number}: utiliser 'constant_flow nom debit_m3s'."
                     )
-                hydrologies = {
-                    rest[0]: Hydrology(name=rest[0], constant_flow_m3s=float(rest[1]))
-                }
+                if not explicit_hydrologies_declared:
+                    hydrologies = {}
+                    explicit_hydrologies_declared = True
+                hydrologies[rest[0]] = Hydrology(
+                    name=rest[0],
+                    constant_flow_m3s=float(rest[1]),
+                )
                 continue
 
             if keyword == "stop_after_phase":
@@ -1775,8 +1783,12 @@ def scenario_output_dir(output_dir: Path, scenario_name: str) -> Path:
     return output_dir / slugify(scenario_name)
 
 
+def hydrology_output_dir(output_dir: Path, scenario_name: str, hydrology_name: str) -> Path:
+    return scenario_output_dir(output_dir, scenario_name) / slugify(hydrology_name)
+
+
 def phase_output_dir(output_dir: Path, case: SimulationCase) -> Path:
-    return scenario_output_dir(output_dir, case.scenario) / slugify(case.phase)
+    return hydrology_output_dir(output_dir, case.scenario, case.hydrology) / slugify(case.phase)
 
 
 def case_output_dir(output_dir: Path, case: SimulationCase, simulation_id: str) -> Path:
@@ -1789,20 +1801,21 @@ def write_results_by_scenario(
     hydrologies: dict[str, Hydrology],
     outfalls: list[str],
 ) -> list[Path]:
-    rows_by_scenario: dict[str, list[dict[str, object]]] = {}
+    rows_by_group: dict[tuple[str, str], list[dict[str, object]]] = {}
     for row in rows:
         scenario = str(row.get("scenario", "scenario") or "scenario")
-        rows_by_scenario.setdefault(scenario, []).append(row)
+        hydrology = str(row.get("hydrology", "hydrology") or "hydrology")
+        rows_by_group.setdefault((scenario, hydrology), []).append(row)
 
     written_paths: list[Path] = []
-    plots_dir = output_dir / "plots"
-    for scenario, scenario_rows in sorted(rows_by_scenario.items()):
-        scenario_dir = scenario_output_dir(output_dir, scenario)
-        results_path = scenario_dir / results_csv_name(hydrologies)
-        write_results_csv(results_path, scenario_rows)
+    for (scenario, hydrology), group_rows in sorted(rows_by_group.items()):
+        group_dir = hydrology_output_dir(output_dir, scenario, hydrology)
+        group_hydrologies = {hydrology: hydrologies[hydrology]} if hydrology in hydrologies else hydrologies
+        results_path = group_dir / results_csv_name(group_hydrologies)
+        write_results_csv(results_path, group_rows)
         written_paths.append(results_path)
         written_paths.extend(
-            write_phase_probability_plots(plots_dir, scenario_rows, outfalls)
+            write_phase_probability_plots(group_dir / "plots", group_rows, outfalls)
         )
     return written_paths
 

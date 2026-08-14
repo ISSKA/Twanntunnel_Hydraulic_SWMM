@@ -7,7 +7,7 @@ const sidebars: SidebarsConfig = {
       label: 'Modèle hydraulique',
       items: [
         'Modele_Hydraulique/Description',
-        'Modele_Hydraulique/Calibration',
+        'Modele_Hydraulique/Principes',
         'Modele_Hydraulique/Simulations',
       ],
     },
@@ -56,7 +56,13 @@ const sidebars: SidebarsConfig = {
           label: 'Centrales Ventilation',
           items: [
             'Previsions/Centrales Ventilation/Generalites',
-            'Previsions/Centrales Ventilation/Scenario_1',
+            {
+              type: 'category',
+              label: 'Scénario 1',
+              items: [
+                'Previsions/Twanntunnel/Scenario_1/Description',
+              ]
+            },
           ]
         },
       ],

@@ -1550,6 +1550,7 @@ def write_phase_probability_plots(
     outfalls: list[str],
     filename_prefix: str = "",
     title_prefix: str = "",
+    reference_probability: float | None = MIN_COMBINATION_PROBABILITY,
 ) -> list[Path]:
     if not rows:
         return []
@@ -1562,7 +1563,13 @@ def write_phase_probability_plots(
 
     plot_paths: list[Path] = []
     for phase, phase_rows in sorted(rows_by_phase.items()):
-        html = render_phase_probability_plot(phase, phase_rows, outfalls, title_prefix)
+        html = render_phase_probability_plot(
+            phase,
+            phase_rows,
+            outfalls,
+            title_prefix,
+            reference_probability,
+        )
         path = output_dir / plot_filename(filename_prefix, phase)
         path.write_text(html, encoding="utf-8")
         plot_paths.append(path)
@@ -1589,9 +1596,10 @@ def render_phase_probability_plot(
     rows: list[dict[str, object]],
     outfalls: list[str],
     title_prefix: str = "",
+    reference_probability: float | None = MIN_COMBINATION_PROBABILITY,
 ) -> str:
     chart_blocks = [
-        render_probability_svg(phase, rows, outfall)
+        render_probability_svg(phase, rows, outfall, reference_probability)
         for outfall in outfalls
     ]
     return "\n".join(
@@ -1635,6 +1643,7 @@ def render_probability_svg(
     phase: str,
     rows: list[dict[str, object]],
     outfall: str,
+    reference_probability: float | None = MIN_COMBINATION_PROBABILITY,
 ) -> str:
     q_key = f"qmax_{slugify(outfall)}_m3s"
     points: list[tuple[float, float, str]] = []
@@ -1664,10 +1673,22 @@ def render_probability_svg(
     plot_width = width - left - right
     plot_height = height - top - bottom
     log_probabilities = [math.log10(probability) for probability, _, _ in points]
-    reference_probability = 1e-5
-    reference_log_x = math.log10(reference_probability)
-    min_log_x = min(*log_probabilities, reference_log_x)
-    max_log_x = max(*log_probabilities, reference_log_x)
+    show_reference_probability = (
+        reference_probability is not None and reference_probability > 0
+    )
+    reference_log_x = (
+        math.log10(reference_probability)
+        if show_reference_probability
+        else None
+    )
+    min_log_x = min(
+        *log_probabilities,
+        *((reference_log_x,) if reference_log_x is not None else ()),
+    )
+    max_log_x = max(
+        *log_probabilities,
+        *((reference_log_x,) if reference_log_x is not None else ()),
+    )
     max_y = max(flow for _, flow, _ in points)
     max_y = max(max_y, 1e-12)
     if min_log_x == max_log_x:
@@ -1707,7 +1728,6 @@ def render_probability_svg(
         key=lambda item: item[0],
     )
     reference_flow_y = y_scale(flow_at_highest_probability)
-    reference_probability_x = x_scale(reference_probability)
     reference_elements = [
         (
             f'<line class="reference-flow" x1="{left}" y1="{reference_flow_y:.1f}" '
@@ -1723,17 +1743,24 @@ def render_probability_svg(
             f'Q a P max = {flow_at_highest_probability:.3g}'
             "</text>"
         ),
-        (
-            f'<line class="reference-probability" x1="{reference_probability_x:.1f}" '
-            f'y1="{top}" x2="{reference_probability_x:.1f}" y2="{top + plot_height}">'
-            f"<title>Probabilite de reference: {reference_probability:.0e}</title>"
-            "</line>"
-        ),
-        (
-            f'<text class="reference-label" x="{reference_probability_x + 4:.1f}" '
-            f'y="{top + 14}" text-anchor="start">P=1e-5</text>'
-        ),
     ]
+    if show_reference_probability:
+        reference_probability_x = x_scale(reference_probability)
+        reference_label = format_probability_tick(reference_probability)
+        reference_elements.extend(
+            [
+                (
+                    f'<line class="reference-probability" x1="{reference_probability_x:.1f}" '
+                    f'y1="{top}" x2="{reference_probability_x:.1f}" y2="{top + plot_height}">'
+                    f"<title>Probabilite de reference: {reference_probability:.0e}</title>"
+                    "</line>"
+                ),
+                (
+                    f'<text class="reference-label" x="{reference_probability_x + 4:.1f}" '
+                    f'y="{top + 14}" text-anchor="start">P={reference_label}</text>'
+                ),
+            ]
+        )
 
     point_elements = []
     for probability, flow, label in sorted(points):
@@ -1818,6 +1845,7 @@ def write_results_by_scenario(
     rows: list[dict[str, object]],
     hydrologies: dict[str, Hydrology],
     outfalls: list[str],
+    reference_probability: float | None = MIN_COMBINATION_PROBABILITY,
 ) -> list[Path]:
     rows_by_group: dict[tuple[str, str], list[dict[str, object]]] = {}
     for row in rows:
@@ -1842,6 +1870,7 @@ def write_results_by_scenario(
                 outfalls,
                 filename_prefix=plot_prefix,
                 title_prefix=plot_title_prefix,
+                reference_probability=reference_probability,
             )
         )
     return written_paths
@@ -2117,6 +2146,7 @@ def main() -> int:
             rows,
             hydrologies,
             args.outfalls,
+            reference_probability=args.min_combination_probability,
         )
         print("Fichiers de synthese:")
         for path in written_paths:

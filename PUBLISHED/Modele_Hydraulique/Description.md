@@ -3,13 +3,10 @@ slug: /
 hide_table_of_contents: true
 ---
 
-# Description du modèle hydraulique
-Le modèle hydraulique "**Twannbach**" est construit à l'aide du logiciel **EPA Storm Water Management Model** ([SWMM](https://www.epa.gov/water-research/storm-water-management-model-swmm)). Il s'agit d'une mise à jour du premier modèle établi en 2016 pour l'évaluation des risques hydrogéologiques karstiques lors du percement de la galerie de sécurité du Tunnel de Ligerztunnel ("SiSto Ligerz").
-
+## Description
+Le modèle hydraulique "**Twannbach**" est construit à l'aide du logiciel **EPA Storm Water Management Model** ([SWMM](https://www.epa.gov/water-research/storm-water-management-model-swmm)). Il s'agit d'une mise à jour du premier modèle établi en 2016 pour l'évaluation des risques hydrogéologiques karstiques lors du percement de la galerie de sécurité du Tunnel de Ligerztunnel ("**SiSto Ligerz**").
 L'objectif principal du modèle hydraulique "**Twannbach**" est d'évaluer les débits et charges hydrauliques associées en conditions de **hautes eaux**. 
-
 Ce modèle est utilisé pour l'évaluation en phase "**travaux**" et en phase "**exploitation**", en fonction des **scénarios** envisagées pour le percement du Twanntunnel et pour l'excavation des centrales de ventilation.   
-
 ## Architecture
 Le modèle se compose d'un réseau de "conduits" et de "junctions". Les conduits sont soit des conduits karstiques, soit des galeries artificielles, les junctions réprésentent les noeuds d'écoulement entre chaque conduits. 
 Les conduits affichent les propriétés suivantes:
@@ -44,4 +41,4 @@ Le modèle affiche les junctions et les conduits:
     - Si **1.4 < Ratio** (longueur saisie dans SWMM trés inférieure à la longueur euclidienne), le conduit apparait en **bleu**
 
 > [!WARNING] 
-> Actuellement la représentation 3D est légèrement faussée car les conduits sont connectés aux junctions par leur axe central alors qu'ils devraient normalement être connectés aux junctions par le radier!
+> Actuellement la représentation 3D est légèrement faussée car les conduits sont connectés aux junctions par leur axe central alors qu'ils devraient normalement être connectés aux junctions par le radier! Il ne s'agit que d'un artefact visuel.

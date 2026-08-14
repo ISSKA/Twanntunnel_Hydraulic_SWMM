@@ -1,18 +1,18 @@
-# Principes
-Le modèle hydraulique est calibré sur la base des mesures réalisées au niveau des exutoires, dans les galeries (Sondierstollen ou Fensterstollen) et dans le réseau karstique. 
+# Calibration
+Le modèle hydraulique est calibré sur la base des mesures réalisées au niveau des **exutoires**, dans les **galeries** (Sondierstollen ou Fensterstollen) et dans le **réseau karstique**. 
 Il s'agit essentiellement des mesures suivantes:
-- Mesures de débits:
+- Mesures de **débits**:
     - Source de la Brunnmühle°
     - Entwaesserungstollen°
     - Fensterstollen°
-- Mesures de hauteurs d'eau:
+- Mesures de **hauteurs d'eau**:
     - Wasserhooliloch°
     - Gischeren 
     - Schüttstein
     - Venues d'eau dans le Sondierstollen°: SS1, SS3, SS4 et SS5
 Les stations marquées d'un (°) sont suivies en continue. Les autres stations ont fait l'objet d'un suivi plus court, la plupart du temps sur quelques mois. 
 Certains débits ont pu être reconstitués pour aider à la calibration: 
-- Les débits de débordement du Wasserhooliloch
+- Les débits de **débordement** du Wasserhooliloch
 - Les débits de la source de la Sauser, en bordure de la vasque du Twannbach
 Le modèle est calibré avec une chronique de débits factice en input; il s'agit d'une succession d'évènements de crues entrecoupés de période sans recharge. 
 La calibration est opérée selon deux controles: 
@@ -21,14 +21,20 @@ La calibration est opérée selon deux controles:
     - Q vs. Q (Débit exutoire A vs. débit exutoire B)
     - Q vs. H (Débit exutoire A vs. hauteur d'eau point C du réseau de conduits)
     - H vs. H (Hauteur d'eau point C du réseau de conduits vs. hauteur d'eau point D du réseau de conduits)
-# Inputs
-Une chronique de débits en input du modèle hydraulique a été reconstituée, sur la base des mesures disponibles entre 2016 et 2026, au pas de temps horaire, à savoir:
+
+> [!NOTE] 
+> - Comme convenu avec le MO/BAMO, les régimes de références pour la calibration sont ceux mesurés depuis 2023, en raison des modifications du régime hydrologique apportées par les travaux de la nouvelle station de pompage de la Brunnmühle. 
+
+## Inputs
+Une **chronique de débits** en input du modèle hydraulique a été reconstituée, sur la base des mesures disponibles entre 2016 et 2026, au pas de temps horaire, à savoir:
 - Les débits de la source de la Brunnmühle 
 - Les débits de l'Entwaesserungstollen
 - Les débits du Twannbach aval
 - Les débits du Twannbach amont
+
 La règle de reconstitution de la chronique de débits en input du modèle hyraulique est la suivante:
 >Q<small>input</small> = [Q_Brunnmühle + Q_Entwaesserungstollen + Q_Twannbach_Unten] - Q_Twannbach_Oben
+
 La règle s'applique sur l'ensemble de la chronique **sauf** si:
 - **Q_Twannbach_Oben > Q_Twannbach_Unten** (ce qui en théorie n'est pas possible, mais étant donné que la courbe de conversion des débits de la station Twannbach_Oben est relativement incertaine en trés hautes eaux),
 - Une station au moins ne présente pas de mesures sur la période considérée. 
@@ -42,7 +48,7 @@ Le graphique suivant présente la chronique de débits reconstituée entre 2016 
 
 ## Débits aux exutoires
 En conditions de hautes eaux, la calibration peut être partiellement réalisée sur les mesures de débits du **Fensterstollen** (pas de temps horaire), sachant qu'en conditions de hautes eaux, les débits sont plafonnés par (i) les venues d'eau dans la galerie et (ii) la section de la trappe, et sur les débits reconstitués du **Wasserhooliloch** (pas de temps horaire) - sachant qu'il existe une certaine incertitude sur ces valeurs.  
-## Brunnmühle (source)
+### Brunnmühle (source)
 Les débits de la source de la Brunnmühle sont indirectement mesurés depuis 2013. Ils sont obtenus en soustrayant les débits de l'Entwässerungstollen aux débits du Quellteich. 
 > [!IMPORTANT]  
 > Les débits de la source de la Brunnmühle ont été "perturbés" depuis l'aménagement et la mise en service de la nouvelle station de pompage de Brunnmühle en 2023. Ces contraintes ont pour conséquence de réduire la période de calibration du modèle hydraulique sur la période post-2023.
@@ -62,7 +68,7 @@ Le tableau indique aussi les dates des évènements observés en fonction de leu
 | T300                     | 2.67                        | Pas d’évènement                                                                                     |
 
 > [!IMPORTANT]  
-> Les débits T300 doivent être considérés avec la plus grande prudence. 
+> Les débits >T30 doivent être considérés avec la plus grande prudence. 
 ### Wasserhooliloch
 Les débits de débordement du Wasserhooliloch ne sont pas mesurés. Ils peuvent être reconstruits au pas de temps horaire selon la règle suivante:
 
@@ -70,8 +76,7 @@ Les débits de débordement du Wasserhooliloch ne sont pas mesurés. Ils peuvent
 
 > [!NOTE] 
 > - Q_Wasserhooliloch n'est pas calculé si Q_Twannbach_unten < (Q_Twannbach_Oben + Q_Fensterstollen).
-
-- Idem, si au moins une des stations présente une lacune de mesures > 48 h, le calcul n'est pas réalisé.
+> - Idem, si au moins une des stations présente une lacune de mesures > 48 h, le calcul n'est pas réalisé.
 
 Le tableau suivant présente les débits de débordement mesurés et/ou extrapolés pour la station **Wasserhooliloch**, ainsi que l'intervalle de confiance IC95 et les dates supposées des évènements si ils ont été mesurés. 
 
@@ -87,9 +92,9 @@ Le tableau suivant présente les débits de débordement mesurés et/ou extrapol
 | T300            | 21.3     | 14.7 - 24.4 | Aucun évènement                                                 |
 
 > [!IMPORTANT]  
-> T300 est très extrapolé par rapport à la période observée. 
+> Les débits de temps de retour >T30 sont très extrapolés par rapport à la période observée. 
 ### Sauserquelle
-Les débits de la source Sauserquelle sont reconstitués sur la base de la relation suivante: 
+Les débits de la source Sauserquelle ne sont pas mesurés. Ils sont **reconstitués** sur la base de la relation suivante: 
 
 > Q_Sauser = Q_Twannbach_unten - (Q_Fensterstollen)
 
@@ -98,14 +103,17 @@ Les débits de la source Sauserquelle sont reconstitués sur la base de la relat
 ## Hauteurs d'eau
 ### Wasserhooliloch
 Les hauteurs d'eau sont mesurées au fond de la partie humainement atteignable du gouffre.
-Les mesures sont disponibles depuis ...
+Les mesures sont disponibles depuis 2014.
 ### Gischeren
-Les hauteurs d'eau dans la grotte de **Gischeren** ont fait l'objet de mesures en continu entre 2015 et 2017.
+Les hauteurs d'eau dans la grotte de **Gischeren** ont fait l'objet de mesures en continu entre 2015 et 2017. La chronique totalise seulement 2 années de mesures. 
 ### Schüttstein
-Les hauteurs d'eau dans la grotte de **Schüttstein** ont fait l'objet de mesures en continu entre 2015 et 2017.
+Les hauteurs d'eau dans la grotte de **Schüttstein** ont fait l'objet de mesures en continu entre 2015 et 2017. La chronique totalise seulement 2 années de mesures. 
 ### Sondierstollen (SS1 à SS6)
-les principales venues d'eau dans le Sondierstollen (**SS1**, **SS3**, **SS4** et **SS5**) ont fait l'objet de mesures entre 2015 et 2017. Les mesures indiquent principalement le "seuil d'activation" et les périodes d'activité de chaque venue d'eau ou groupes de venues d'eau. 
+les principales venues d'eau dans le Sondierstollen (**SS1**, **SS3**, **SS4** et **SS5**) ont fait l'objet de mesures entre 2015 et 2017. Les mesures indiquent principalement le **"seuil d'activation"** et les **périodes d'activité** de chaque venue d'eau ou groupes de venues d'eau. 
 Les mesures restent qualitatives, elles n'informent pas sur les débits. 
 ## Relations hydrauliques
-
-iframe relations hydrauliques ?
+La calibration du modèle hydraulique repose sur les relations hydrauliques observés entre les différentes stations de mesures. Elles sont de 3 types:
+- Hauteurs d'eau station(x) vs. Hauteurs d'eau station(y)
+- Débits station(x) vs. Débits station(y)
+- Hauteurs d'eau station(x) vs. Débits station(y)
+Les relations principales relations hydrauliques ont été analysés dans les rapports 2014, 2015, 2016 et 2017. L'article [Jeannin et al. 2016](https://link.springer.com/article/10.1007/s12665-015-4655-5) présente une synthèse de ces calibrations. 

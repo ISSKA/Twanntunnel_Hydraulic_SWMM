@@ -1,4 +1,6 @@
-
+# Simulations
+Le graphique ci-dessous présente la chronique de débits reconstituée, et utilisée pour la calibration et les simulations du modèle hydraulique. 
+Cette chronique est injectée en input du modèle hydraulique. Les débits et hauteurs d'eau simulés aux exutoires et aux stations sont ainsi comparés avec les chroniques mesurés. 
 
 <iframe 
     src="/Twanntunnel_Hydraulic_SWMM/Discharge_Input_SWMM_plot.html"
@@ -48,7 +50,3 @@ La courbe des débits classés est basée sur l'analyse de 45820 valeurs horaire
     height="800px"
     frameBorder="0"
 ></iframe>
-
-## Situation avant travaux
-> Résultats des simulations de débits et de hauteurs d'eau pour la **situation mi-2026**, avant travaux. Les temps de retour considérés sont **T0.5**, **T1**, **T2**, etc.
->

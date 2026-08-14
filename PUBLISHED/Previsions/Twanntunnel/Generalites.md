@@ -91,8 +91,8 @@ P(V0) = (1 - 0.10) x (1 - 0.20) x (1 - 0.05)
 ```
 ### Seuil de probabilité
 Etant donné le nombre relativement important de phases et de variantes, les combinaisons possibles se chiffrent à environ $6.10^{12}$ simulations pour le **scénario 1**, et pour une **unique condition hydrologique** donnée, ce qui représente des temps de calculs considérables - surtout au regard d'un grand nombre de combinaisons de variantes de très faible probabilité. 
-Ainsi, un seuil de probabilité admissible a été défini à ==$1.10^{-4}$,== ce qui signifie que les combinaisons dont la probabilité de se produire est inférieure à cette valeur ne sont pas reprises dans les combinaisons suivantes. 
-En appliquant ce filtre, les combinaisons dont la probabilité de se produire dépasse le seuil de $1.10^{-4}$ sont estimées à environ 9'000.
+Ainsi, un seuil de probabilité admissible a été défini à <mark>1.10<sup>-4</sup></mark>, ce qui signifie que les combinaisons dont la probabilité de se produire est inférieure à cette valeur ne sont pas reprises dans les combinaisons suivantes. 
+En appliquant ce filtre, les combinaisons dont la probabilité de se produire dépasse le seuil de 1.10<sup>-4</sup> sont estimées à environ 9'000.
 
 
 

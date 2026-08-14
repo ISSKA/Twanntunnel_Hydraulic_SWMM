@@ -25,8 +25,30 @@ const sidebars: SidebarsConfig = {
           label: 'Twanntunnel',
           items: [
             'Previsions/Twanntunnel/Generalites',
-            'Previsions/Twanntunnel/Scenario_1',
-            'Previsions/Twanntunnel/Scenario_2',
+            {
+              type: 'category',
+              label: 'Scénario 1',
+              items: [
+                'Previsions/Twanntunnel/Scenario_1/Description',
+                {
+                  type: 'category',
+                  label: 'Résultats',
+                  items: [
+                    'Previsions/Twanntunnel/Scenario_1/Resultats/T3',
+                    'Previsions/Twanntunnel/Scenario_1/Resultats/T10',
+                    'Previsions/Twanntunnel/Scenario_1/Resultats/T30',
+                    'Previsions/Twanntunnel/Scenario_1/Resultats/T50',
+                  ]
+                },
+              ]
+            },
+            {
+              type: 'category',
+              label: 'Scénario 2',
+              items: [
+                'Previsions/Twanntunnel/Scenario_2/Description',
+              ]
+            },
           ]
         },
         {

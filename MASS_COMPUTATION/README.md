@@ -142,10 +142,11 @@ Le CSV de synthese est ecrit dans le dossier de l'hydrologie:
 MASS_COMPUTATION\runs\scenario1\T3\T3_mass_simulations_results.csv
 ```
 
-Le script genere aussi un fichier HTML par phase dans le sous-dossier `plots` de l'hydrologie, par exemple:
+Le script genere aussi un fichier HTML par phase dans le dossier central `MASS_COMPUTATION\runs\plots`. Le nom contient le scenario, le temps de retour et la phase:
 
 ```text
-MASS_COMPUTATION\runs\scenario1\T3\plots\1_1a_debits_vs_probability.html
+MASS_COMPUTATION\runs\plots\1_T3_1a_debits_vs_probability.html
+MASS_COMPUTATION\runs\plots\1_T10_4b_debits_vs_probability.html
 ```
 
 Chaque fichier trace les debits maximums aux exutoires en fonction de `combination_probability`, pour les combinaisons disponibles a cette phase uniquement.

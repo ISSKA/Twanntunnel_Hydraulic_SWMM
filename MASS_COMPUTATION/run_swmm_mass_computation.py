@@ -1548,6 +1548,8 @@ def write_phase_probability_plots(
     output_dir: Path,
     rows: list[dict[str, object]],
     outfalls: list[str],
+    filename_prefix: str = "",
+    title_prefix: str = "",
 ) -> list[Path]:
     if not rows:
         return []
@@ -1560,17 +1562,33 @@ def write_phase_probability_plots(
 
     plot_paths: list[Path] = []
     for phase, phase_rows in sorted(rows_by_phase.items()):
-        html = render_phase_probability_plot(phase, phase_rows, outfalls)
-        path = output_dir / f"{slugify(phase)}_debits_vs_probability.html"
+        html = render_phase_probability_plot(phase, phase_rows, outfalls, title_prefix)
+        path = output_dir / plot_filename(filename_prefix, phase)
         path.write_text(html, encoding="utf-8")
         plot_paths.append(path)
     return plot_paths
+
+
+def plot_filename(filename_prefix: str, phase: str) -> str:
+    prefix = f"{filename_prefix}_" if filename_prefix else ""
+    return f"{prefix}{phase_filename_part(phase)}_debits_vs_probability.html"
+
+
+def scenario_filename_part(scenario: str) -> str:
+    match = re.search(r"(\d+)$", scenario)
+    return match.group(1) if match else slugify(scenario)
+
+
+def phase_filename_part(phase: str) -> str:
+    match = re.match(r"^\d+_(.+)$", phase)
+    return slugify(match.group(1) if match else phase)
 
 
 def render_phase_probability_plot(
     phase: str,
     rows: list[dict[str, object]],
     outfalls: list[str],
+    title_prefix: str = "",
 ) -> str:
     chart_blocks = [
         render_probability_svg(phase, rows, outfall)
@@ -1583,7 +1601,7 @@ def render_phase_probability_plot(
             "<head>",
             '<meta charset="utf-8">',
             '<meta name="viewport" content="width=device-width, initial-scale=1">',
-            f"<title>Debits vs probabilite - {escape(phase)}</title>",
+            f"<title>Debits vs probabilite - {escape(title_prefix + phase)}</title>",
             "<style>",
             "body{font-family:Segoe UI,Arial,sans-serif;margin:24px;background:#f7f7f5;color:#202124}",
             "h1{font-size:22px;margin:0 0 18px}",
@@ -1603,7 +1621,7 @@ def render_phase_probability_plot(
             "</style>",
             "</head>",
             "<body>",
-            f"<h1>Phase {escape(phase)} - debit maximum en fonction de la probabilite</h1>",
+            f"<h1>{escape(title_prefix)}Phase {escape(phase)} - debit maximum en fonction de la probabilite</h1>",
             '<div class="grid">',
             *chart_blocks,
             "</div>",
@@ -1808,14 +1826,23 @@ def write_results_by_scenario(
         rows_by_group.setdefault((scenario, hydrology), []).append(row)
 
     written_paths: list[Path] = []
+    plots_dir = output_dir / "plots"
     for (scenario, hydrology), group_rows in sorted(rows_by_group.items()):
         group_dir = hydrology_output_dir(output_dir, scenario, hydrology)
         group_hydrologies = {hydrology: hydrologies[hydrology]} if hydrology in hydrologies else hydrologies
         results_path = group_dir / results_csv_name(group_hydrologies)
         write_results_csv(results_path, group_rows)
         written_paths.append(results_path)
+        plot_prefix = f"{scenario_filename_part(scenario)}_{slugify(hydrology)}"
+        plot_title_prefix = f"Scenario {scenario_filename_part(scenario)} - {hydrology} - "
         written_paths.extend(
-            write_phase_probability_plots(group_dir / "plots", group_rows, outfalls)
+            write_phase_probability_plots(
+                plots_dir,
+                group_rows,
+                outfalls,
+                filename_prefix=plot_prefix,
+                title_prefix=plot_title_prefix,
+            )
         )
     return written_paths
 

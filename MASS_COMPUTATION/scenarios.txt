@@ -29,7 +29,7 @@
 # constant_flow T3 14.7
 # constant_flow T10 18.4
 # constant_flow T30 21.5
-# constant_flow T50 22.9
+constant_flow T50 22.9
 
 scenario scenario1
 # stop_after_phase 1_2a
@@ -44,15 +44,15 @@ phase 1_1a
     
   variant 1_1a_1
     # Ajout du conduit 1_1_a_1
-    add_conduit name=1_1_a_1 from=TWT_Chrosweg_61+140 to=Syst_Est_amont length=10 roughness=0.05 diameter=1 prob=0.15
+    add_conduit name=1_1_a_1 from=TWT_Chrosweg_61+140 to=Syst_Est_amont length=10 roughness=0.05 diameter=0.5 prob=0.15
 
   variant 1_1a_2
     # Ajout du conduit 1_1_a_2
-    add_conduit name=1_1_a_2 from=TWT_Chrosweg_61+140 to=Syst_Est_interm length=10 roughness=0.05 diameter=1 prob=0.15
+    add_conduit name=1_1_a_2 from=TWT_Chrosweg_61+140 to=Syst_Est_interm length=10 roughness=0.05 diameter=0.5 prob=0.15
 
   variant 1_1a_3
     # Ajout du conduit 1_1_a_3
-    add_conduit name=1_1_a_3 from=TWT_Chrosweg_61+140 to=Holiloch_sonde length=750 roughness=0.05 diameter=1 prob=0.01
+    add_conduit name=1_1_a_3 from=TWT_Chrosweg_61+140 to=Holiloch_sonde length=750 roughness=0.05 diameter=0.5 prob=0.01
 
 phase 1_1b
   # Actions communes a toutes les variantes de la phase 1_1b, si necessaire.
@@ -63,15 +63,15 @@ phase 1_1b
 
   variant 1_1b_1
     # Ajout du conduit 1_1_b_1
-    add_conduit name=1_1_b_1 from=TWT_PointHaut_60+650 to=Syst_Est_amont length=10 roughness=0.05 diameter=1 prob=0.15
+    add_conduit name=1_1_b_1 from=TWT_PointHaut_60+650 to=Syst_Est_amont length=10 roughness=0.05 diameter=0.5 prob=0.15
 
   variant 1_1b_2
     # Ajout du conduit 1_1_b_2
-    add_conduit name=1_1_b_2 from=TWT_PointHaut_60+650 to=Syst_Est_interm length=10 roughness=0.05 diameter=1 prob=0.15
+    add_conduit name=1_1_b_2 from=TWT_PointHaut_60+650 to=Syst_Est_interm length=10 roughness=0.05 diameter=0.5 prob=0.15
     
   variant 1_1b_3
     # Ajout du conduit 1_1_b_3
-    add_conduit name=1_1_b_3 from=TWT_PointHaut_60+650 to=Holiloch_sonde length=750 roughness=0.05 diameter=1 prob=0.04   
+    add_conduit name=1_1_b_3 from=TWT_PointHaut_60+650 to=Holiloch_sonde length=750 roughness=0.05 diameter=0.5 prob=0.04   
 
 phase 1_2a
   # Add conduits TWT3
@@ -82,19 +82,19 @@ phase 1_2a
 
   variant 1_2a_1
     # Ajout du conduit 1_2_a_1
-    add_conduit name=1_2_a_1 from=TWT_Branche_Est_Sonsto_60+540 to=Syst_Est_amont length=255 roughness=0.05 diameter=1 prob=0.009
+    add_conduit name=1_2_a_1 from=TWT_Branche_Est_Sonsto_60+540 to=Syst_Est_amont length=255 roughness=0.05 diameter=0.5 prob=0.009
 
   variant 1_2a_2
     # Ajout du conduit 1_2_a_2
-    add_conduit name=1_2_a_2 from=TWT_Branche_Est_Sonsto_60+540 to=Syst_Est_interm length=255 roughness=0.05 diameter=1 prob=0.009
+    add_conduit name=1_2_a_2 from=TWT_Branche_Est_Sonsto_60+540 to=Syst_Est_interm length=255 roughness=0.05 diameter=0.5 prob=0.009
 
   variant 1_2a_3
     # Ajout du conduit 1_2_a_3
-    add_conduit name=1_2_a_3 from=TWT_Branche_Est_Sonsto_60+540 to=SS3 length=30 roughness=0.05 diameter=1 prob=0.009
+    add_conduit name=1_2_a_3 from=TWT_Branche_Est_Sonsto_60+540 to=SS3 length=30 roughness=0.05 diameter=0.5 prob=0.009
   
   variant 1_2a_4
     # Ajout du conduit 1_2_a_4
-    add_conduit name=1_2_a_4 from=TWT_Branche_Est_Sonsto_60+540 to=13 length=20 roughness=0.05 diameter=1 prob=0.009
+    add_conduit name=1_2_a_4 from=TWT_Branche_Est_Sonsto_60+540 to=13 length=20 roughness=0.05 diameter=0.5 prob=0.009
     
 phase 1_2b
   # Add conduit TWT4
@@ -106,27 +106,27 @@ phase 1_2b
 
   variant 1_2b_1
     # Ajout du conduit 1_2_b_1
-    add_conduit name=1_2_b_1 from=TWT_Fensterstollen_60+375 to=13 length=10 roughness=0.05 diameter=1 prob=0.63
+    add_conduit name=1_2_b_1 from=TWT_Fensterstollen_60+375 to=13 length=10 roughness=0.05 diameter=0.5 prob=0.63
     
   variant 1_2b_2
     # Ajout du conduit 1_2_b_2
-    add_conduit name=1_2_b_2 from=TWT_Fensterstollen_60+375 to=SonSto_F_sup length=1 roughness=0.05 diameter=1 prob=1   
+    add_conduit name=1_2_b_2 from=TWT_Fensterstollen_60+375 to=SonSto_F_sup length=1 roughness=0.05 diameter=0.5 prob=1   
 
   variant 1_2b_3
     # Ajout du conduit 1_2_b_3
-    add_conduit name=1_2_b_3 from=TWT_Fensterstollen_60+375 to=40 length=10 roughness=0.05 diameter=1 prob=0.33 
+    add_conduit name=1_2_b_3 from=TWT_Fensterstollen_60+375 to=40 length=10 roughness=0.05 diameter=0.5 prob=0.33 
 
   variant 1_2b_4
     # Ajout du conduit 1_2_b_4
-    add_conduit name=1_2_b_4 from=TWT_Fensterstollen_60+375 to=SS4 length=1 roughness=0.05 diameter=1 prob=0.05 
+    add_conduit name=1_2_b_4 from=TWT_Fensterstollen_60+375 to=SS4 length=1 roughness=0.05 diameter=0.5 prob=0.05 
     
   variant 1_2b_5
     # Ajout du conduit 1_2_b_5
-    add_conduit name=1_2_b_5 from=TWT_Fensterstollen_60+375 to=SS3 length=1 roughness=0.05 diameter=1 prob=0.05
+    add_conduit name=1_2_b_5 from=TWT_Fensterstollen_60+375 to=SS3 length=1 roughness=0.05 diameter=0.5 prob=0.05
     
   variant 1_2b_6
     # Ajout du conduit 1_2_b_6
-    add_conduit name=1_2_b_6 from=TWT_Fensterstollen_60+375 to=SS6 length=1 roughness=0.05 diameter=1 prob=0.18          
+    add_conduit name=1_2_b_6 from=TWT_Fensterstollen_60+375 to=SS6 length=1 roughness=0.05 diameter=0.5 prob=0.18          
     
 phase 1_3a
   # Excavation Stross entre TWT_Portail_Est_61+665 et TWT_Chrosweg_61+140
@@ -138,15 +138,15 @@ phase 1_3a
 
   variant 1_3a_1    
     # Ajout du conduit 1_3_a_1    
-    add_conduit name=1_3_a_1 from=TWT_Chrosweg_61+140 to=Syst_Est_amont length=10 roughness=0.05 diameter=1 prob=0.15
+    add_conduit name=1_3_a_1 from=TWT_Chrosweg_61+140 to=Syst_Est_amont length=10 roughness=0.05 diameter=0.5 prob=0.15
     
   variant 1_3a_2    
     # Ajout du conduit 1_3_a_2   
-    add_conduit name=1_3_a_2 from=TWT_Chrosweg_61+140 to=Syst_Est_interm length=10 roughness=0.05 diameter=1 prob=0.15
+    add_conduit name=1_3_a_2 from=TWT_Chrosweg_61+140 to=Syst_Est_interm length=10 roughness=0.05 diameter=0.5 prob=0.15
 
   variant 1_3a_3    
     # Ajout du conduit 1_3_a_3
-    add_conduit name=1_3_a_3 from=TWT_Chrosweg_61+140 to=13 length=750 roughness=0.05 diameter=1 prob=0.01
+    add_conduit name=1_3_a_3 from=TWT_Chrosweg_61+140 to=13 length=750 roughness=0.05 diameter=0.5 prob=0.01
 
 phase 1_3b
   # Excavation Stross entre TWT_Chrosweg_61+140 et TWT_PointHaut_60+650
@@ -157,15 +157,15 @@ phase 1_3b
 
   variant 1_3b_1    
     # Ajout du conduit 1_3_b_1    
-    add_conduit name=1_3_b_1 from=TWT_PointHaut_60+650 to=Syst_Est_amont length=10 roughness=0.05 diameter=1 prob=0.15
+    add_conduit name=1_3_b_1 from=TWT_PointHaut_60+650 to=Syst_Est_amont length=10 roughness=0.05 diameter=0.5 prob=0.15
     
   variant 1_3b_2    
     # Ajout du conduit 1_3_b_2   
-    add_conduit name=1_3_b_2 from=TWT_PointHaut_60+650 to=Syst_Est_interm length=10 roughness=0.05 diameter=1 prob=0.15
+    add_conduit name=1_3_b_2 from=TWT_PointHaut_60+650 to=Syst_Est_interm length=10 roughness=0.05 diameter=0.5 prob=0.15
 
   variant 1_3b_3    
     # Ajout du conduit 1_3_b_3
-    add_conduit name=1_3_b_3 from=TWT_PointHaut_60+650 to=13 length=250 roughness=0.05 diameter=1 prob=0.04  
+    add_conduit name=1_3_b_3 from=TWT_PointHaut_60+650 to=13 length=250 roughness=0.05 diameter=0.5 prob=0.04  
     
 phase 1_4a
   # Add conduits TWT5
@@ -177,11 +177,11 @@ phase 1_4a
 
   variant 1_4a_1
     # Ajout du conduit 1_4_a_1
-    add_conduit name=1_4_a_1 from=TWT_Intersection_Sonsto_60+345 to=13 length=2 roughness=0.05 diameter=1 prob=0.14
+    add_conduit name=1_4_a_1 from=TWT_Intersection_Sonsto_60+345 to=13 length=2 roughness=0.05 diameter=0.5 prob=0.14
 
   variant 1_4a_2
     # Ajout du conduit 1_4_a_2
-    add_conduit name=1_4_a_2 from=TWT_Intersection_Sonsto_60+345 to=11 length=2 roughness=0.05 diameter=1 prob=0.14    
+    add_conduit name=1_4_a_2 from=TWT_Intersection_Sonsto_60+345 to=11 length=2 roughness=0.05 diameter=0.5 prob=0.14    
     
 phase 1_4b
   # Add conduits TWT6
@@ -193,11 +193,11 @@ phase 1_4b
 
   variant 1_4b_1
     # Ajout du conduit 1_4_b_1
-    add_conduit name=1_4_b_1 from=TWT_Acces_LT_60+110 to=11 length=30 roughness=0.05 diameter=1 prob=0.08   
+    add_conduit name=1_4_b_1 from=TWT_Acces_LT_60+110 to=11 length=30 roughness=0.05 diameter=0.5 prob=0.08   
     
   variant 1_4b_2
     # Ajout du conduit 1_4_b_2
-    add_conduit name=1_4_b_2 from=TWT_Acces_LT_60+110 to=13 length=30 roughness=0.05 diameter=1 prob=0.08       
+    add_conduit name=1_4_b_2 from=TWT_Acces_LT_60+110 to=13 length=30 roughness=0.05 diameter=0.5 prob=0.08       
     
 phase 1_5a
   # Add conduits TWT7
@@ -209,7 +209,7 @@ phase 1_5a
       
   variant 1_5a_1
     # Ajout du conduit 1_5_a_1
-    add_conduit name=1_5_a_1 from=TWT_Liaison_LT_59+738 to=38 length=180 roughness=0.05 diameter=1 prob=0.007       
+    add_conduit name=1_5_a_1 from=TWT_Liaison_LT_59+738 to=38 length=180 roughness=0.05 diameter=0.5 prob=0.007       
       
 phase 1_6a
   # Excavation Stross entre TWT_Acces_LT_60+110 et TWT_Intersection_Sonsto_60+345 
@@ -221,11 +221,11 @@ phase 1_6a
      
   variant 1_6a_1
     # Ajout du conduit 1_6_a_1    
-    add_conduit name=1_6_a_1 from=TWT_Acces_LT_60+110 to=11 length=30 roughness=0.05 diameter=1 prob=0.08
+    add_conduit name=1_6_a_1 from=TWT_Acces_LT_60+110 to=11 length=30 roughness=0.05 diameter=0.5 prob=0.08
 
   variant 1_6a_2
     # Ajout du conduit 1_6_a_2
-    add_conduit name=1_6_a_2 from=TWT_Acces_LT_60+110 to=13 length=30 roughness=0.05 diameter=1 prob=0.08                
+    add_conduit name=1_6_a_2 from=TWT_Acces_LT_60+110 to=13 length=30 roughness=0.05 diameter=0.5 prob=0.08                
 
 phase 1_6b    
   # Excavation Stross entre TWT_Intersection_Sonsto_60+345 et TWT_Fensterstollen_60+375  
@@ -236,37 +236,37 @@ phase 1_6b
 
   variant 1_6b_1
     # Ajout du conduit 1_6_b_1    
-    add_conduit name=1_6_b_1 from=TWT_Intersection_Sonsto_60+345 to=11 length=10 roughness=0.05 diameter=1 prob=0.15
+    add_conduit name=1_6_b_1 from=TWT_Intersection_Sonsto_60+345 to=11 length=10 roughness=0.05 diameter=0.5 prob=0.15
     
   variant 1_6b_2
     # Ajout du conduit 1_6_b_2    
-    add_conduit name=1_6_b_2 from=TWT_Intersection_Sonsto_60+345 to=13 length=10 roughness=0.05 diameter=1 prob=0.15    
+    add_conduit name=1_6_b_2 from=TWT_Intersection_Sonsto_60+345 to=13 length=10 roughness=0.05 diameter=0.5 prob=0.15    
     
 phase 1_7a
   # Excavation Stross entre TWT_Fensterstollen_60+375 et TWT_Branche_Est_Sonsto_60+540      
   set_junction_elevation node=TWT_Branche_Est_Sonsto_60+540 elevation=438.4
   add_conduit name=1_7_a from=TWT_Fensterstollen_60+375 to=30 length=82 roughness=0.01 diameter=5
-  add_conduit name=1_7_a_ from=TWT_Branche_Est_Sonsto_60+540 to=SonSto_F_sup length=1 roughness=0.01 diameter=1  
-  add_conduit name=1_7_a__ from=TWT_Branche_Est_Sonsto_60+540 to=40 length=10 roughness=0.01 diameter=1 
+  add_conduit name=1_7_a_ from=TWT_Branche_Est_Sonsto_60+540 to=SonSto_F_sup length=1 roughness=0.01 diameter=0.5  
+  add_conduit name=1_7_a__ from=TWT_Branche_Est_Sonsto_60+540 to=40 length=10 roughness=0.01 diameter=0.5 
     
   variant 1_7a_0
     # Pas de conduits recoupé
 
   variant 1_7a_1
     # Ajout du conduit 1_7_a_1  
-    add_conduit name=1_7_a_1 from=TWT_Branche_Est_Sonsto_60+540 to=13 length=10 roughness=0.05 diameter=1 prob=0.83  
+    add_conduit name=1_7_a_1 from=TWT_Branche_Est_Sonsto_60+540 to=13 length=10 roughness=0.05 diameter=0.5 prob=0.83  
     
   variant 1_7a_2
     # Ajout du conduit 1_7_a_2
-    add_conduit name=1_7_a_2 from=TWT_Branche_Est_Sonsto_60+540 to=SS4 length=1 roughness=0.05 diameter=1 prob=0.05       
+    add_conduit name=1_7_a_2 from=TWT_Branche_Est_Sonsto_60+540 to=SS4 length=1 roughness=0.05 diameter=0.5 prob=0.05       
 
   variant 1_7a_3
     # Ajout du conduit 1_7_a_3
-    add_conduit name=1_7_a_3 from=TWT_Branche_Est_Sonsto_60+540 to=SS3 length=1 roughness=0.05 diameter=1 prob=0.05  
+    add_conduit name=1_7_a_3 from=TWT_Branche_Est_Sonsto_60+540 to=SS3 length=1 roughness=0.05 diameter=0.5 prob=0.05  
     
   variant 1_7a_4
     # Ajout du conduit 1_7_a_4
-    add_conduit name=1_7_a_4 from=TWT_Branche_Est_Sonsto_60+540 to=SS6 length=1 roughness=0.05 diameter=1 prob=0.2     
+    add_conduit name=1_7_a_4 from=TWT_Branche_Est_Sonsto_60+540 to=SS6 length=1 roughness=0.05 diameter=0.5 prob=0.2     
         
 phase 1_7b
   # Excavation Stross entre TWT_Branche_Est_Sonsto_60+540 et TWT_PointHaut_60+650
@@ -276,23 +276,23 @@ phase 1_7b
     
   variant 1_7b_1
     # Ajout du conduit 1_7_b_1 
-    add_conduit name=1_7_b_1 from=TWT_Branche_Est_Sonsto_60+540 to=Syst_Est_amont length=255 roughness=0.05 diameter=1 prob=0.009
+    add_conduit name=1_7_b_1 from=TWT_Branche_Est_Sonsto_60+540 to=Syst_Est_amont length=255 roughness=0.05 diameter=0.5 prob=0.009
     
   variant 1_7b_2
     # Ajout du conduit 1_7_b_2 
-    add_conduit name=1_7_b_2 from=TWT_Branche_Est_Sonsto_60+540 to=Syst_Est_interm length=255 roughness=0.05 diameter=1 prob=0.009
+    add_conduit name=1_7_b_2 from=TWT_Branche_Est_Sonsto_60+540 to=Syst_Est_interm length=255 roughness=0.05 diameter=0.5 prob=0.009
 
   variant 1_7b_3
     # Ajout du conduit 1_7_b_3
-    add_conduit name=1_7_b_3 from=TWT_Branche_Est_Sonsto_60+540 to=SS3 length=30 roughness=0.05 diameter=1 prob=0.009  
+    add_conduit name=1_7_b_3 from=TWT_Branche_Est_Sonsto_60+540 to=SS3 length=30 roughness=0.05 diameter=0.5 prob=0.009  
 
   variant 1_7b_4
     # Ajout du conduit 1_7_b_4
-    add_conduit name=1_7_b_4 from=TWT_Branche_Est_Sonsto_60+540 to=40 length=10 roughness=0.05 diameter=1 prob=0.009            
+    add_conduit name=1_7_b_4 from=TWT_Branche_Est_Sonsto_60+540 to=40 length=10 roughness=0.05 diameter=0.5 prob=0.009            
 
   variant 1_7b_5
     # Ajout du conduit 1_7_b_5
-    add_conduit name=1_7_b_5 from=TWT_Branche_Est_Sonsto_60+540 to=13 length=20 roughness=0.05 diameter=1 prob=0.009
+    add_conduit name=1_7_b_5 from=TWT_Branche_Est_Sonsto_60+540 to=13 length=20 roughness=0.05 diameter=0.5 prob=0.009
        
 phase 1_8a
   # Excavation Stross entre TWT_Acces_LT_60+110 et TWT_Liaison_LT_59+738
@@ -304,8 +304,8 @@ phase 1_8a
       
   variant 1_8a_1
     # Ajout du conduit 1_8_a_1     
-    add_conduit name=1_8_a_1 from=TWT_Liaison_LT_59+738 to=11 length=200 roughness=0.05 diameter=1 prob=0.03
+    add_conduit name=1_8_a_1 from=TWT_Liaison_LT_59+738 to=11 length=200 roughness=0.05 diameter=0.5 prob=0.03
     
   variant 1_8a_2
     # Ajout du conduit 1_8_a_2
-    add_conduit name=1_8_a_2 from=TWT_Liaison_LT_59+738 to=13 length=350 roughness=0.05 diameter=1 prob=0.007
+    add_conduit name=1_8_a_2 from=TWT_Liaison_LT_59+738 to=13 length=350 roughness=0.05 diameter=0.5 prob=0.007

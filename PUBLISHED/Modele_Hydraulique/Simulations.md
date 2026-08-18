@@ -41,8 +41,8 @@ La liste suivante pointe les périodes de lacunes pour chaque station présentan
     - 2021-03-31 14:00 -> 2021-04-23 06:00 (545 h)
 
 La courbe des débits classés est basée sur l'analyse de 45820 valeurs horaires. Elle est affichée ci-dessous. 
->Qmax = 18.79 m3/s
->Qmedian = 0.73 m3/s
+>Qmax = 18.79 m<sup>3</sup>/s
+>Qmedian = 0.73 m<sup>3</sup>/s
 
 <iframe src="/Twanntunnel_Hydraulic_SWMM/Discharge_Input_SWMM_flow_duration_curve.html"
 

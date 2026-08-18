@@ -28,11 +28,13 @@ Le tableau ci-dessous présente les valeurs de débits considérés pour les tem
 | 100    | extrapolé       | 24.78     | 28.02          | 36.83         |
 | 300    | extrapolé       | 27.77     | 32.26          | 49.79         |
 
-> [!NOTE]  
-> La valeur **T0.5** est peu standard dans l'approche de type Gumbel, elle est donc approximée.
-  
+ 
 > [!IMPORTANT]
 > Les valeurs **T30**, **T50**, **T100** et **T300** sont toutes les quatre extrapolées! **T300** est très fortement extrapolé car l’ajustement repose sur **7 maxima annuels**, avec un temps de retour empirique maximal d’environ 12.7 ans...
+> 
+> Il est important de noter que ces valeurs sont des **"débits hydrologiques"**, c.à.d. fonction de la recharge appliqué sur le bassin. Ils ne doivent pas être confondus avec les débits **instantanés  considérés** qui peuvent survenir lors du percement d'un volume noyée (une "**poche**"). Ces débits instantanés peuvent être beaucoup plus élevées, mais sur des temps plus courts - fonction du volume à vidanger. 
+> 
+> A noter que dans des conditions défavorables, les deux types de débit peuvent s'additionner...
 
 <iframe src="/Twanntunnel_Hydraulic_SWMM/Discharge_Input_SWMM_Gumbel.html"
     width="100%"

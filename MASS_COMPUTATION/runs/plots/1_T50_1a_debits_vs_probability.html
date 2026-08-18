@@ -15,10 +15,15 @@ svg{width:100%;height:auto;display:block}
 .gridline{stroke:#e3e3e3;stroke-width:1}
 .reference-flow{stroke:#1f6fbd;stroke-width:2}
 .reference-probability{stroke:#1f6fbd;stroke-width:1.8;stroke-dasharray:6 5}
-.reference-label{fill:#1f6fbd;font-size:11px;font-weight:600}
+.reference-label{fill:#1f6fbd;font-size:13px;font-weight:600}
+.measured-flow{stroke:#198754;stroke-width:1.7;stroke-dasharray:5 4}
+.measured-flow-min{stroke-opacity:.55}
+.measured-flow-moy{stroke-opacity:.85}
+.measured-flow-max{stroke-opacity:1}
+.measured-label{fill:#198754;font-size:13px;font-weight:600}
 .point{fill:#2468a8;fill-opacity:.72;stroke:#123b5f;stroke-width:.6}
 .point:hover{fill:#d24b2a;fill-opacity:1}
-.label{fill:#555;font-size:11px}
+.label{fill:#555;font-size:13px}
 .empty{color:#777;font-size:13px}
 </style>
 </head>
@@ -28,58 +33,64 @@ svg{width:100%;height:auto;display:block}
 <section class="chart">
 <p class="title">Fensterstollen</p>
 <svg viewBox="0 0 720 420" role="img" aria-label="Fensterstollen">
-<line class="gridline" x1="68.0" y1="24" x2="68.0" y2="366"/>
-<text class="label" x="68.0" y="396" text-anchor="middle">1e-4</text>
-<line class="gridline" x1="231.4" y1="24" x2="231.4" y2="366"/>
-<text class="label" x="231.4" y="396" text-anchor="middle">1e-3</text>
-<line class="gridline" x1="394.9" y1="24" x2="394.9" y2="366"/>
-<text class="label" x="394.9" y="396" text-anchor="middle">1e-2</text>
-<line class="gridline" x1="558.3" y1="24" x2="558.3" y2="366"/>
-<text class="label" x="558.3" y="396" text-anchor="middle">1e-1</text>
-<line class="gridline" x1="721.8" y1="24" x2="721.8" y2="366"/>
-<text class="label" x="721.8" y="396" text-anchor="middle">1e0</text>
-<line class="gridline" x1="68" y1="366.0" x2="698" y2="366.0"/>
-<text class="label" x="60" y="370.0" text-anchor="end">0</text>
-<line class="gridline" x1="68" y1="297.6" x2="698" y2="297.6"/>
-<text class="label" x="60" y="301.6" text-anchor="end">0.343</text>
-<line class="gridline" x1="68" y1="229.2" x2="698" y2="229.2"/>
-<text class="label" x="60" y="233.2" text-anchor="end">0.687</text>
-<line class="gridline" x1="68" y1="160.8" x2="698" y2="160.8"/>
-<text class="label" x="60" y="164.8" text-anchor="end">1.03</text>
-<line class="gridline" x1="68" y1="92.4" x2="698" y2="92.4"/>
-<text class="label" x="60" y="96.4" text-anchor="end">1.37</text>
-<line class="gridline" x1="68" y1="24.0" x2="698" y2="24.0"/>
-<text class="label" x="60" y="28.0" text-anchor="end">1.72</text>
-<line class="axis" x1="68" y1="366" x2="698" y2="366"/>
-<line class="axis" x1="68" y1="24" x2="68" y2="366"/>
-<line class="reference-flow" x1="68" y1="28.6" x2="698" y2="28.6"><title>Debit du cas le plus probable: 1_1a-1_1a_0 ; P=0.715275 ; Qmax=1.69419 m3/s</title></line>
-<text class="reference-label" x="694" y="36.0" text-anchor="end">Q a P max = 1.69</text>
-<line class="reference-probability" x1="68.0" y1="24" x2="68.0" y2="366"><title>Probabilite de reference: 1e-04</title></line>
-<text class="reference-label" x="72.0" y="38" text-anchor="start">P=1e-4</text>
-<text class="label" x="383.0" y="414" text-anchor="middle">Probabilite de la combinaison (log10)</text>
-<text class="label" x="14" y="195.0" transform="rotate(-90 14 195.0)" text-anchor="middle">Qmax (m3/s)</text>
-<circle class="point" cx="125.6" cy="52.4" r="3.4"><title>1_1a-1_1a_1+1_1a_2+1_1a_3
+<line class="gridline" x1="76.0" y1="24" x2="76.0" y2="358"/>
+<text class="label" x="76.0" y="396" text-anchor="middle">1e-4</text>
+<line class="gridline" x1="236.3" y1="24" x2="236.3" y2="358"/>
+<text class="label" x="236.3" y="396" text-anchor="middle">1e-3</text>
+<line class="gridline" x1="396.7" y1="24" x2="396.7" y2="358"/>
+<text class="label" x="396.7" y="396" text-anchor="middle">1e-2</text>
+<line class="gridline" x1="557.0" y1="24" x2="557.0" y2="358"/>
+<text class="label" x="557.0" y="396" text-anchor="middle">1e-1</text>
+<line class="gridline" x1="717.3" y1="24" x2="717.3" y2="358"/>
+<text class="label" x="717.3" y="396" text-anchor="middle">1e0</text>
+<line class="gridline" x1="76" y1="358.0" x2="694" y2="358.0"/>
+<text class="label" x="68" y="362.0" text-anchor="end">0</text>
+<line class="gridline" x1="76" y1="291.2" x2="694" y2="291.2"/>
+<text class="label" x="68" y="295.2" text-anchor="end">0.4</text>
+<line class="gridline" x1="76" y1="224.4" x2="694" y2="224.4"/>
+<text class="label" x="68" y="228.4" text-anchor="end">0.8</text>
+<line class="gridline" x1="76" y1="157.6" x2="694" y2="157.6"/>
+<text class="label" x="68" y="161.6" text-anchor="end">1.2</text>
+<line class="gridline" x1="76" y1="90.8" x2="694" y2="90.8"/>
+<text class="label" x="68" y="94.8" text-anchor="end">1.6</text>
+<line class="gridline" x1="76" y1="24.0" x2="694" y2="24.0"/>
+<text class="label" x="68" y="28.0" text-anchor="end">2</text>
+<line class="axis" x1="76" y1="358" x2="694" y2="358"/>
+<line class="axis" x1="76" y1="24" x2="76" y2="358"/>
+<line class="measured-flow measured-flow-min" x1="76" y1="358.0" x2="694" y2="358.0"><title>mes min: 0 m3/s</title></line>
+<text class="measured-label" x="80.0" y="352.0" text-anchor="start">mes min = 0</text>
+<line class="measured-flow measured-flow-moy" x1="76" y1="306.2" x2="694" y2="306.2"><title>mes moy: 0.31 m3/s</title></line>
+<text class="measured-label" x="80.0" y="300.2" text-anchor="start">mes moy = 0.31</text>
+<line class="measured-flow measured-flow-max" x1="76" y1="24.0" x2="694" y2="24.0"><title>mes max: 2 m3/s</title></line>
+<text class="measured-label" x="80.0" y="36.0" text-anchor="start">mes max = 2</text>
+<line class="reference-flow" x1="76" y1="75.1" x2="694" y2="75.1"><title>Debit du cas le plus probable: 1_1a-1_1a_0 ; P=0.715275 ; Qmax=1.69419 m3/s</title></line>
+<text class="reference-label" x="690" y="70.1" text-anchor="end">Q a P max = 1.69</text>
+<line class="reference-probability" x1="76.0" y1="24" x2="76.0" y2="358"><title>Probabilite de reference: 1e-04</title></line>
+<text class="reference-label" x="80.0" y="38" text-anchor="start">P=1e-4</text>
+<text class="label" x="385.0" y="412" text-anchor="middle">Probabilite de la combinaison (log10)</text>
+<text class="label" x="16" y="191.0" transform="rotate(-90 16 191.0)" text-anchor="middle">Qmax (m3/s)</text>
+<circle class="point" cx="132.5" cy="61.5" r="3.4"><title>1_1a-1_1a_1+1_1a_2+1_1a_3
 P=0.000225
-Qmax=1.57471 m3/s</title></circle>
-<circle class="point" cx="248.7" cy="52.2" r="3.4"><title>1_1a-1_1a_2+1_1a_3
+Qmax=1.77544 m3/s</title></circle>
+<circle class="point" cx="253.2" cy="66.4" r="3.4"><title>1_1a-1_1a_1+1_1a_3
 P=0.001275
-Qmax=1.57544 m3/s</title></circle>
-<circle class="point" cx="248.7" cy="26.8" r="3.4"><title>1_1a-1_1a_1+1_1a_3
+Qmax=1.74589 m3/s</title></circle>
+<circle class="point" cx="253.2" cy="63.1" r="3.4"><title>1_1a-1_1a_2+1_1a_3
 P=0.001275
-Qmax=1.70319 m3/s</title></circle>
-<circle class="point" cx="371.8" cy="24.0" r="3.4"><title>1_1a-1_1a_3
+Qmax=1.7656 m3/s</title></circle>
+<circle class="point" cx="374.0" cy="72.8" r="3.4"><title>1_1a-1_1a_3
 P=0.007225
-Qmax=1.7171 m3/s</title></circle>
-<circle class="point" cx="451.7" cy="28.6" r="3.4"><title>1_1a-1_1a_1+1_1a_2
+Qmax=1.70801 m3/s</title></circle>
+<circle class="point" cx="452.4" cy="75.1" r="3.4"><title>1_1a-1_1a_1+1_1a_2
 P=0.022275
 Qmax=1.69419 m3/s</title></circle>
-<circle class="point" cx="574.9" cy="28.6" r="3.4"><title>1_1a-1_1a_1
+<circle class="point" cx="573.2" cy="75.1" r="3.4"><title>1_1a-1_1a_1
 P=0.126225
 Qmax=1.69419 m3/s</title></circle>
-<circle class="point" cx="574.9" cy="28.6" r="3.4"><title>1_1a-1_1a_2
+<circle class="point" cx="573.2" cy="75.1" r="3.4"><title>1_1a-1_1a_2
 P=0.126225
 Qmax=1.69419 m3/s</title></circle>
-<circle class="point" cx="698.0" cy="28.6" r="3.4"><title>1_1a-1_1a_0
+<circle class="point" cx="694.0" cy="75.1" r="3.4"><title>1_1a-1_1a_0
 P=0.715275
 Qmax=1.69419 m3/s</title></circle>
 </svg>
@@ -87,58 +98,64 @@ Qmax=1.69419 m3/s</title></circle>
 <section class="chart">
 <p class="title">Entw_Stollen</p>
 <svg viewBox="0 0 720 420" role="img" aria-label="Entw_Stollen">
-<line class="gridline" x1="68.0" y1="24" x2="68.0" y2="366"/>
-<text class="label" x="68.0" y="396" text-anchor="middle">1e-4</text>
-<line class="gridline" x1="231.4" y1="24" x2="231.4" y2="366"/>
-<text class="label" x="231.4" y="396" text-anchor="middle">1e-3</text>
-<line class="gridline" x1="394.9" y1="24" x2="394.9" y2="366"/>
-<text class="label" x="394.9" y="396" text-anchor="middle">1e-2</text>
-<line class="gridline" x1="558.3" y1="24" x2="558.3" y2="366"/>
-<text class="label" x="558.3" y="396" text-anchor="middle">1e-1</text>
-<line class="gridline" x1="721.8" y1="24" x2="721.8" y2="366"/>
-<text class="label" x="721.8" y="396" text-anchor="middle">1e0</text>
-<line class="gridline" x1="68" y1="366.0" x2="698" y2="366.0"/>
-<text class="label" x="60" y="370.0" text-anchor="end">0</text>
-<line class="gridline" x1="68" y1="297.6" x2="698" y2="297.6"/>
-<text class="label" x="60" y="301.6" text-anchor="end">0.00617</text>
-<line class="gridline" x1="68" y1="229.2" x2="698" y2="229.2"/>
-<text class="label" x="60" y="233.2" text-anchor="end">0.0123</text>
-<line class="gridline" x1="68" y1="160.8" x2="698" y2="160.8"/>
-<text class="label" x="60" y="164.8" text-anchor="end">0.0185</text>
-<line class="gridline" x1="68" y1="92.4" x2="698" y2="92.4"/>
-<text class="label" x="60" y="96.4" text-anchor="end">0.0247</text>
-<line class="gridline" x1="68" y1="24.0" x2="698" y2="24.0"/>
-<text class="label" x="60" y="28.0" text-anchor="end">0.0309</text>
-<line class="axis" x1="68" y1="366" x2="698" y2="366"/>
-<line class="axis" x1="68" y1="24" x2="68" y2="366"/>
-<line class="reference-flow" x1="68" y1="48.9" x2="698" y2="48.9"><title>Debit du cas le plus probable: 1_1a-1_1a_0 ; P=0.715275 ; Qmax=0.0286038 m3/s</title></line>
-<text class="reference-label" x="694" y="43.9" text-anchor="end">Q a P max = 0.0286</text>
-<line class="reference-probability" x1="68.0" y1="24" x2="68.0" y2="366"><title>Probabilite de reference: 1e-04</title></line>
-<text class="reference-label" x="72.0" y="38" text-anchor="start">P=1e-4</text>
-<text class="label" x="383.0" y="414" text-anchor="middle">Probabilite de la combinaison (log10)</text>
-<text class="label" x="14" y="195.0" transform="rotate(-90 14 195.0)" text-anchor="middle">Qmax (m3/s)</text>
-<circle class="point" cx="125.6" cy="87.5" r="3.4"><title>1_1a-1_1a_1+1_1a_2+1_1a_3
+<line class="gridline" x1="76.0" y1="24" x2="76.0" y2="358"/>
+<text class="label" x="76.0" y="396" text-anchor="middle">1e-4</text>
+<line class="gridline" x1="236.3" y1="24" x2="236.3" y2="358"/>
+<text class="label" x="236.3" y="396" text-anchor="middle">1e-3</text>
+<line class="gridline" x1="396.7" y1="24" x2="396.7" y2="358"/>
+<text class="label" x="396.7" y="396" text-anchor="middle">1e-2</text>
+<line class="gridline" x1="557.0" y1="24" x2="557.0" y2="358"/>
+<text class="label" x="557.0" y="396" text-anchor="middle">1e-1</text>
+<line class="gridline" x1="717.3" y1="24" x2="717.3" y2="358"/>
+<text class="label" x="717.3" y="396" text-anchor="middle">1e0</text>
+<line class="gridline" x1="76" y1="358.0" x2="694" y2="358.0"/>
+<text class="label" x="68" y="362.0" text-anchor="end">0</text>
+<line class="gridline" x1="76" y1="291.2" x2="694" y2="291.2"/>
+<text class="label" x="68" y="295.2" text-anchor="end">0.0254</text>
+<line class="gridline" x1="76" y1="224.4" x2="694" y2="224.4"/>
+<text class="label" x="68" y="228.4" text-anchor="end">0.0508</text>
+<line class="gridline" x1="76" y1="157.6" x2="694" y2="157.6"/>
+<text class="label" x="68" y="161.6" text-anchor="end">0.0762</text>
+<line class="gridline" x1="76" y1="90.8" x2="694" y2="90.8"/>
+<text class="label" x="68" y="94.8" text-anchor="end">0.102</text>
+<line class="gridline" x1="76" y1="24.0" x2="694" y2="24.0"/>
+<text class="label" x="68" y="28.0" text-anchor="end">0.127</text>
+<line class="axis" x1="76" y1="358" x2="694" y2="358"/>
+<line class="axis" x1="76" y1="24" x2="76" y2="358"/>
+<line class="measured-flow measured-flow-min" x1="76" y1="358.0" x2="694" y2="358.0"><title>mes min: 0 m3/s</title></line>
+<text class="measured-label" x="80.0" y="352.0" text-anchor="start">mes min = 0</text>
+<line class="measured-flow measured-flow-moy" x1="76" y1="272.1" x2="694" y2="272.1"><title>mes moy: 0.03265 m3/s</title></line>
+<text class="measured-label" x="80.0" y="266.1" text-anchor="start">mes moy = 0.0326</text>
+<line class="measured-flow measured-flow-max" x1="76" y1="24.0" x2="694" y2="24.0"><title>mes max: 0.127 m3/s</title></line>
+<text class="measured-label" x="80.0" y="36.0" text-anchor="start">mes max = 0.127</text>
+<line class="reference-flow" x1="76" y1="282.8" x2="694" y2="282.8"><title>Debit du cas le plus probable: 1_1a-1_1a_0 ; P=0.715275 ; Qmax=0.0286038 m3/s</title></line>
+<text class="reference-label" x="690" y="277.8" text-anchor="end">Q a P max = 0.0286</text>
+<line class="reference-probability" x1="76.0" y1="24" x2="76.0" y2="358"><title>Probabilite de reference: 1e-04</title></line>
+<text class="reference-label" x="80.0" y="38" text-anchor="start">P=1e-4</text>
+<text class="label" x="385.0" y="412" text-anchor="middle">Probabilite de la combinaison (log10)</text>
+<text class="label" x="16" y="191.0" transform="rotate(-90 16 191.0)" text-anchor="middle">Qmax (m3/s)</text>
+<circle class="point" cx="132.5" cy="281.0" r="3.4"><title>1_1a-1_1a_1+1_1a_2+1_1a_3
 P=0.000225
-Qmax=0.0251197 m3/s</title></circle>
-<circle class="point" cx="248.7" cy="75.2" r="3.4"><title>1_1a-1_1a_2+1_1a_3
+Qmax=0.0292915 m3/s</title></circle>
+<circle class="point" cx="253.2" cy="281.5" r="3.4"><title>1_1a-1_1a_1+1_1a_3
 P=0.001275
-Qmax=0.0262289 m3/s</title></circle>
-<circle class="point" cx="248.7" cy="24.0" r="3.4"><title>1_1a-1_1a_1+1_1a_3
+Qmax=0.0291034 m3/s</title></circle>
+<circle class="point" cx="253.2" cy="281.1" r="3.4"><title>1_1a-1_1a_2+1_1a_3
 P=0.001275
-Qmax=0.0308506 m3/s</title></circle>
-<circle class="point" cx="371.8" cy="41.7" r="3.4"><title>1_1a-1_1a_3
+Qmax=0.0292288 m3/s</title></circle>
+<circle class="point" cx="374.0" cy="282.1" r="3.4"><title>1_1a-1_1a_3
 P=0.007225
-Qmax=0.0292529 m3/s</title></circle>
-<circle class="point" cx="451.7" cy="48.9" r="3.4"><title>1_1a-1_1a_1+1_1a_2
+Qmax=0.0288508 m3/s</title></circle>
+<circle class="point" cx="452.4" cy="282.8" r="3.4"><title>1_1a-1_1a_1+1_1a_2
 P=0.022275
 Qmax=0.0286038 m3/s</title></circle>
-<circle class="point" cx="574.9" cy="48.9" r="3.4"><title>1_1a-1_1a_1
+<circle class="point" cx="573.2" cy="282.8" r="3.4"><title>1_1a-1_1a_1
 P=0.126225
 Qmax=0.0286038 m3/s</title></circle>
-<circle class="point" cx="574.9" cy="48.9" r="3.4"><title>1_1a-1_1a_2
+<circle class="point" cx="573.2" cy="282.8" r="3.4"><title>1_1a-1_1a_2
 P=0.126225
 Qmax=0.0286038 m3/s</title></circle>
-<circle class="point" cx="698.0" cy="48.9" r="3.4"><title>1_1a-1_1a_0
+<circle class="point" cx="694.0" cy="282.8" r="3.4"><title>1_1a-1_1a_0
 P=0.715275
 Qmax=0.0286038 m3/s</title></circle>
 </svg>
@@ -146,58 +163,64 @@ Qmax=0.0286038 m3/s</title></circle>
 <section class="chart">
 <p class="title">Brunnmuehle(Teich)</p>
 <svg viewBox="0 0 720 420" role="img" aria-label="Brunnmuehle(Teich)">
-<line class="gridline" x1="68.0" y1="24" x2="68.0" y2="366"/>
-<text class="label" x="68.0" y="396" text-anchor="middle">1e-4</text>
-<line class="gridline" x1="231.4" y1="24" x2="231.4" y2="366"/>
-<text class="label" x="231.4" y="396" text-anchor="middle">1e-3</text>
-<line class="gridline" x1="394.9" y1="24" x2="394.9" y2="366"/>
-<text class="label" x="394.9" y="396" text-anchor="middle">1e-2</text>
-<line class="gridline" x1="558.3" y1="24" x2="558.3" y2="366"/>
-<text class="label" x="558.3" y="396" text-anchor="middle">1e-1</text>
-<line class="gridline" x1="721.8" y1="24" x2="721.8" y2="366"/>
-<text class="label" x="721.8" y="396" text-anchor="middle">1e0</text>
-<line class="gridline" x1="68" y1="366.0" x2="698" y2="366.0"/>
-<text class="label" x="60" y="370.0" text-anchor="end">0</text>
-<line class="gridline" x1="68" y1="297.6" x2="698" y2="297.6"/>
-<text class="label" x="60" y="301.6" text-anchor="end">0.104</text>
-<line class="gridline" x1="68" y1="229.2" x2="698" y2="229.2"/>
-<text class="label" x="60" y="233.2" text-anchor="end">0.208</text>
-<line class="gridline" x1="68" y1="160.8" x2="698" y2="160.8"/>
-<text class="label" x="60" y="164.8" text-anchor="end">0.313</text>
-<line class="gridline" x1="68" y1="92.4" x2="698" y2="92.4"/>
-<text class="label" x="60" y="96.4" text-anchor="end">0.417</text>
-<line class="gridline" x1="68" y1="24.0" x2="698" y2="24.0"/>
-<text class="label" x="60" y="28.0" text-anchor="end">0.521</text>
-<line class="axis" x1="68" y1="366" x2="698" y2="366"/>
-<line class="axis" x1="68" y1="24" x2="68" y2="366"/>
-<line class="reference-flow" x1="68" y1="24.0" x2="698" y2="24.0"><title>Debit du cas le plus probable: 1_1a-1_1a_0 ; P=0.715275 ; Qmax=0.520922 m3/s</title></line>
-<text class="reference-label" x="694" y="36.0" text-anchor="end">Q a P max = 0.521</text>
-<line class="reference-probability" x1="68.0" y1="24" x2="68.0" y2="366"><title>Probabilite de reference: 1e-04</title></line>
-<text class="reference-label" x="72.0" y="38" text-anchor="start">P=1e-4</text>
-<text class="label" x="383.0" y="414" text-anchor="middle">Probabilite de la combinaison (log10)</text>
-<text class="label" x="14" y="195.0" transform="rotate(-90 14 195.0)" text-anchor="middle">Qmax (m3/s)</text>
-<circle class="point" cx="125.6" cy="29.2" r="3.4"><title>1_1a-1_1a_1+1_1a_2+1_1a_3
+<line class="gridline" x1="76.0" y1="24" x2="76.0" y2="358"/>
+<text class="label" x="76.0" y="396" text-anchor="middle">1e-4</text>
+<line class="gridline" x1="236.3" y1="24" x2="236.3" y2="358"/>
+<text class="label" x="236.3" y="396" text-anchor="middle">1e-3</text>
+<line class="gridline" x1="396.7" y1="24" x2="396.7" y2="358"/>
+<text class="label" x="396.7" y="396" text-anchor="middle">1e-2</text>
+<line class="gridline" x1="557.0" y1="24" x2="557.0" y2="358"/>
+<text class="label" x="557.0" y="396" text-anchor="middle">1e-1</text>
+<line class="gridline" x1="717.3" y1="24" x2="717.3" y2="358"/>
+<text class="label" x="717.3" y="396" text-anchor="middle">1e0</text>
+<line class="gridline" x1="76" y1="358.0" x2="694" y2="358.0"/>
+<text class="label" x="68" y="362.0" text-anchor="end">0</text>
+<line class="gridline" x1="76" y1="291.2" x2="694" y2="291.2"/>
+<text class="label" x="68" y="295.2" text-anchor="end">0.104</text>
+<line class="gridline" x1="76" y1="224.4" x2="694" y2="224.4"/>
+<text class="label" x="68" y="228.4" text-anchor="end">0.208</text>
+<line class="gridline" x1="76" y1="157.6" x2="694" y2="157.6"/>
+<text class="label" x="68" y="161.6" text-anchor="end">0.313</text>
+<line class="gridline" x1="76" y1="90.8" x2="694" y2="90.8"/>
+<text class="label" x="68" y="94.8" text-anchor="end">0.417</text>
+<line class="gridline" x1="76" y1="24.0" x2="694" y2="24.0"/>
+<text class="label" x="68" y="28.0" text-anchor="end">0.521</text>
+<line class="axis" x1="76" y1="358" x2="694" y2="358"/>
+<line class="axis" x1="76" y1="24" x2="76" y2="358"/>
+<line class="measured-flow measured-flow-min" x1="76" y1="358.0" x2="694" y2="358.0"><title>mes min: 0 m3/s</title></line>
+<text class="measured-label" x="80.0" y="352.0" text-anchor="start">mes min = 0</text>
+<line class="measured-flow measured-flow-moy" x1="76" y1="257.7" x2="694" y2="257.7"><title>mes moy: 0.15644 m3/s</title></line>
+<text class="measured-label" x="80.0" y="251.7" text-anchor="start">mes moy = 0.156</text>
+<line class="measured-flow measured-flow-max" x1="76" y1="75.2" x2="694" y2="75.2"><title>mes max: 0.441 m3/s</title></line>
+<text class="measured-label" x="80.0" y="69.2" text-anchor="start">mes max = 0.441</text>
+<line class="reference-flow" x1="76" y1="24.0" x2="694" y2="24.0"><title>Debit du cas le plus probable: 1_1a-1_1a_0 ; P=0.715275 ; Qmax=0.520922 m3/s</title></line>
+<text class="reference-label" x="690" y="36.0" text-anchor="end">Q a P max = 0.521</text>
+<line class="reference-probability" x1="76.0" y1="24" x2="76.0" y2="358"><title>Probabilite de reference: 1e-04</title></line>
+<text class="reference-label" x="80.0" y="38" text-anchor="start">P=1e-4</text>
+<text class="label" x="385.0" y="412" text-anchor="middle">Probabilite de la combinaison (log10)</text>
+<text class="label" x="16" y="191.0" transform="rotate(-90 16 191.0)" text-anchor="middle">Qmax (m3/s)</text>
+<circle class="point" cx="132.5" cy="24.4" r="3.4"><title>1_1a-1_1a_1+1_1a_2+1_1a_3
 P=0.000225
-Qmax=0.512981 m3/s</title></circle>
-<circle class="point" cx="248.7" cy="26.4" r="3.4"><title>1_1a-1_1a_1+1_1a_3
+Qmax=0.5203 m3/s</title></circle>
+<circle class="point" cx="253.2" cy="24.4" r="3.4"><title>1_1a-1_1a_2+1_1a_3
 P=0.001275
-Qmax=0.517259 m3/s</title></circle>
-<circle class="point" cx="248.7" cy="26.0" r="3.4"><title>1_1a-1_1a_2+1_1a_3
+Qmax=0.520306 m3/s</title></circle>
+<circle class="point" cx="253.2" cy="24.4" r="3.4"><title>1_1a-1_1a_1+1_1a_3
 P=0.001275
-Qmax=0.517879 m3/s</title></circle>
-<circle class="point" cx="371.8" cy="26.3" r="3.4"><title>1_1a-1_1a_3
+Qmax=0.520318 m3/s</title></circle>
+<circle class="point" cx="374.0" cy="24.4" r="3.4"><title>1_1a-1_1a_3
 P=0.007225
-Qmax=0.517425 m3/s</title></circle>
-<circle class="point" cx="451.7" cy="24.0" r="3.4"><title>1_1a-1_1a_1+1_1a_2
+Qmax=0.520347 m3/s</title></circle>
+<circle class="point" cx="452.4" cy="24.0" r="3.4"><title>1_1a-1_1a_1+1_1a_2
 P=0.022275
 Qmax=0.520922 m3/s</title></circle>
-<circle class="point" cx="574.9" cy="24.0" r="3.4"><title>1_1a-1_1a_1
+<circle class="point" cx="573.2" cy="24.0" r="3.4"><title>1_1a-1_1a_1
 P=0.126225
 Qmax=0.520922 m3/s</title></circle>
-<circle class="point" cx="574.9" cy="24.0" r="3.4"><title>1_1a-1_1a_2
+<circle class="point" cx="573.2" cy="24.0" r="3.4"><title>1_1a-1_1a_2
 P=0.126225
 Qmax=0.520922 m3/s</title></circle>
-<circle class="point" cx="698.0" cy="24.0" r="3.4"><title>1_1a-1_1a_0
+<circle class="point" cx="694.0" cy="24.0" r="3.4"><title>1_1a-1_1a_0
 P=0.715275
 Qmax=0.520922 m3/s</title></circle>
 </svg>
@@ -205,58 +228,58 @@ Qmax=0.520922 m3/s</title></circle>
 <section class="chart">
 <p class="title">TWT_Portail_Est_61+665</p>
 <svg viewBox="0 0 720 420" role="img" aria-label="TWT_Portail_Est_61+665">
-<line class="gridline" x1="68.0" y1="24" x2="68.0" y2="366"/>
-<text class="label" x="68.0" y="396" text-anchor="middle">1e-4</text>
-<line class="gridline" x1="231.4" y1="24" x2="231.4" y2="366"/>
-<text class="label" x="231.4" y="396" text-anchor="middle">1e-3</text>
-<line class="gridline" x1="394.9" y1="24" x2="394.9" y2="366"/>
-<text class="label" x="394.9" y="396" text-anchor="middle">1e-2</text>
-<line class="gridline" x1="558.3" y1="24" x2="558.3" y2="366"/>
-<text class="label" x="558.3" y="396" text-anchor="middle">1e-1</text>
-<line class="gridline" x1="721.8" y1="24" x2="721.8" y2="366"/>
-<text class="label" x="721.8" y="396" text-anchor="middle">1e0</text>
-<line class="gridline" x1="68" y1="366.0" x2="698" y2="366.0"/>
-<text class="label" x="60" y="370.0" text-anchor="end">0</text>
-<line class="gridline" x1="68" y1="297.6" x2="698" y2="297.6"/>
-<text class="label" x="60" y="301.6" text-anchor="end">0.257</text>
-<line class="gridline" x1="68" y1="229.2" x2="698" y2="229.2"/>
-<text class="label" x="60" y="233.2" text-anchor="end">0.514</text>
-<line class="gridline" x1="68" y1="160.8" x2="698" y2="160.8"/>
-<text class="label" x="60" y="164.8" text-anchor="end">0.772</text>
-<line class="gridline" x1="68" y1="92.4" x2="698" y2="92.4"/>
-<text class="label" x="60" y="96.4" text-anchor="end">1.03</text>
-<line class="gridline" x1="68" y1="24.0" x2="698" y2="24.0"/>
-<text class="label" x="60" y="28.0" text-anchor="end">1.29</text>
-<line class="axis" x1="68" y1="366" x2="698" y2="366"/>
-<line class="axis" x1="68" y1="24" x2="68" y2="366"/>
-<line class="reference-flow" x1="68" y1="366.0" x2="698" y2="366.0"><title>Debit du cas le plus probable: 1_1a-1_1a_0 ; P=0.715275 ; Qmax=0 m3/s</title></line>
-<text class="reference-label" x="694" y="361.0" text-anchor="end">Q a P max = 0</text>
-<line class="reference-probability" x1="68.0" y1="24" x2="68.0" y2="366"><title>Probabilite de reference: 1e-04</title></line>
-<text class="reference-label" x="72.0" y="38" text-anchor="start">P=1e-4</text>
-<text class="label" x="383.0" y="414" text-anchor="middle">Probabilite de la combinaison (log10)</text>
-<text class="label" x="14" y="195.0" transform="rotate(-90 14 195.0)" text-anchor="middle">Qmax (m3/s)</text>
-<circle class="point" cx="125.6" cy="206.2" r="3.4"><title>1_1a-1_1a_1+1_1a_2+1_1a_3
+<line class="gridline" x1="76.0" y1="24" x2="76.0" y2="358"/>
+<text class="label" x="76.0" y="396" text-anchor="middle">1e-4</text>
+<line class="gridline" x1="236.3" y1="24" x2="236.3" y2="358"/>
+<text class="label" x="236.3" y="396" text-anchor="middle">1e-3</text>
+<line class="gridline" x1="396.7" y1="24" x2="396.7" y2="358"/>
+<text class="label" x="396.7" y="396" text-anchor="middle">1e-2</text>
+<line class="gridline" x1="557.0" y1="24" x2="557.0" y2="358"/>
+<text class="label" x="557.0" y="396" text-anchor="middle">1e-1</text>
+<line class="gridline" x1="717.3" y1="24" x2="717.3" y2="358"/>
+<text class="label" x="717.3" y="396" text-anchor="middle">1e0</text>
+<line class="gridline" x1="76" y1="358.0" x2="694" y2="358.0"/>
+<text class="label" x="68" y="362.0" text-anchor="end">0</text>
+<line class="gridline" x1="76" y1="291.2" x2="694" y2="291.2"/>
+<text class="label" x="68" y="295.2" text-anchor="end">0.038</text>
+<line class="gridline" x1="76" y1="224.4" x2="694" y2="224.4"/>
+<text class="label" x="68" y="228.4" text-anchor="end">0.0761</text>
+<line class="gridline" x1="76" y1="157.6" x2="694" y2="157.6"/>
+<text class="label" x="68" y="161.6" text-anchor="end">0.114</text>
+<line class="gridline" x1="76" y1="90.8" x2="694" y2="90.8"/>
+<text class="label" x="68" y="94.8" text-anchor="end">0.152</text>
+<line class="gridline" x1="76" y1="24.0" x2="694" y2="24.0"/>
+<text class="label" x="68" y="28.0" text-anchor="end">0.19</text>
+<line class="axis" x1="76" y1="358" x2="694" y2="358"/>
+<line class="axis" x1="76" y1="24" x2="76" y2="358"/>
+<line class="reference-flow" x1="76" y1="358.0" x2="694" y2="358.0"><title>Debit du cas le plus probable: 1_1a-1_1a_0 ; P=0.715275 ; Qmax=0 m3/s</title></line>
+<text class="reference-label" x="690" y="353.0" text-anchor="end">Q a P max = 0</text>
+<line class="reference-probability" x1="76.0" y1="24" x2="76.0" y2="358"><title>Probabilite de reference: 1e-04</title></line>
+<text class="reference-label" x="80.0" y="38" text-anchor="start">P=1e-4</text>
+<text class="label" x="385.0" y="412" text-anchor="middle">Probabilite de la combinaison (log10)</text>
+<text class="label" x="16" y="191.0" transform="rotate(-90 16 191.0)" text-anchor="middle">Qmax (m3/s)</text>
+<circle class="point" cx="132.5" cy="151.6" r="3.4"><title>1_1a-1_1a_1+1_1a_2+1_1a_3
 P=0.000225
-Qmax=0.601017 m3/s</title></circle>
-<circle class="point" cx="248.7" cy="173.4" r="3.4"><title>1_1a-1_1a_2+1_1a_3
+Qmax=0.117532 m3/s</title></circle>
+<circle class="point" cx="253.2" cy="122.4" r="3.4"><title>1_1a-1_1a_2+1_1a_3
 P=0.001275
-Qmax=0.724409 m3/s</title></circle>
-<circle class="point" cx="248.7" cy="113.6" r="3.4"><title>1_1a-1_1a_1+1_1a_3
+Qmax=0.134178 m3/s</title></circle>
+<circle class="point" cx="253.2" cy="79.7" r="3.4"><title>1_1a-1_1a_1+1_1a_3
 P=0.001275
-Qmax=0.949192 m3/s</title></circle>
-<circle class="point" cx="371.8" cy="24.0" r="3.4"><title>1_1a-1_1a_3
+Qmax=0.158471 m3/s</title></circle>
+<circle class="point" cx="374.0" cy="24.0" r="3.4"><title>1_1a-1_1a_3
 P=0.007225
-Qmax=1.28618 m3/s</title></circle>
-<circle class="point" cx="451.7" cy="366.0" r="3.4"><title>1_1a-1_1a_1+1_1a_2
+Qmax=0.190216 m3/s</title></circle>
+<circle class="point" cx="452.4" cy="358.0" r="3.4"><title>1_1a-1_1a_1+1_1a_2
 P=0.022275
 Qmax=0 m3/s</title></circle>
-<circle class="point" cx="574.9" cy="366.0" r="3.4"><title>1_1a-1_1a_1
+<circle class="point" cx="573.2" cy="358.0" r="3.4"><title>1_1a-1_1a_1
 P=0.126225
 Qmax=0 m3/s</title></circle>
-<circle class="point" cx="574.9" cy="366.0" r="3.4"><title>1_1a-1_1a_2
+<circle class="point" cx="573.2" cy="358.0" r="3.4"><title>1_1a-1_1a_2
 P=0.126225
 Qmax=0 m3/s</title></circle>
-<circle class="point" cx="698.0" cy="366.0" r="3.4"><title>1_1a-1_1a_0
+<circle class="point" cx="694.0" cy="358.0" r="3.4"><title>1_1a-1_1a_0
 P=0.715275
 Qmax=0 m3/s</title></circle>
 </svg>

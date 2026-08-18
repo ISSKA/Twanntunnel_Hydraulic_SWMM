@@ -130,6 +130,16 @@ class CaseRunResult:
     messages: tuple[str, ...]
 
 
+@dataclass(frozen=True)
+class SimulationSummary:
+    outfall_maxima: dict[str, float]
+    has_flooding: bool
+    flooding_nodes: list[str]
+    has_swmm_instability: bool
+    swmm_not_converging_percent: float | None
+    swmm_instability_elements: list[str]
+
+
 def slugify(text: str) -> str:
     text = re.sub(r"[^A-Za-z0-9_.-]+", "_", text.strip())
     return re.sub(r"_+", "_", text).strip("_") or "simulation"
@@ -1162,14 +1172,24 @@ def extract_simulation_summary(
     out_path: Path,
     outfalls: list[str],
     use_rpt_only: bool = False,
-) -> tuple[dict[str, float], bool, list[str]]:
+) -> SimulationSummary:
+    rpt_path = out_path.with_suffix(".rpt")
+    instability = parse_swmm_instability_summary(rpt_path)
     if use_rpt_only:
-        return parse_report_summary(out_path.with_suffix(".rpt"), outfalls)
+        outfall_maxima, has_flooding, flooding_nodes = parse_report_summary(rpt_path, outfalls)
+        return SimulationSummary(
+            outfall_maxima=outfall_maxima,
+            has_flooding=has_flooding,
+            flooding_nodes=flooding_nodes,
+            has_swmm_instability=instability[0],
+            swmm_not_converging_percent=instability[1],
+            swmm_instability_elements=instability[2],
+        )
 
     try:
         outfall_records, flooding_records = read_node_result_records(out_path, outfalls)
         outfall_maxima = {
-            outfall: max((flow for _, flow in outfall_records.get(outfall, [])), default=0.0)
+            outfall: stable_node_peak(outfall, outfall_records.get(outfall, []))
             for outfall in outfalls
         }
         flooding_nodes = sorted(
@@ -1177,10 +1197,24 @@ def extract_simulation_summary(
             for node, records in flooding_records.items()
             if has_significant_flooding(records)
         )
-        return outfall_maxima, bool(flooding_nodes), flooding_nodes
+        return SimulationSummary(
+            outfall_maxima=outfall_maxima,
+            has_flooding=bool(flooding_nodes),
+            flooding_nodes=flooding_nodes,
+            has_swmm_instability=instability[0],
+            swmm_not_converging_percent=instability[1],
+            swmm_instability_elements=instability[2],
+        )
     except RuntimeError:
-        rpt_path = out_path.with_suffix(".rpt")
-        return parse_report_summary(rpt_path, outfalls)
+        outfall_maxima, has_flooding, flooding_nodes = parse_report_summary(rpt_path, outfalls)
+        return SimulationSummary(
+            outfall_maxima=outfall_maxima,
+            has_flooding=has_flooding,
+            flooding_nodes=flooding_nodes,
+            has_swmm_instability=instability[0],
+            swmm_not_converging_percent=instability[1],
+            swmm_instability_elements=instability[2],
+        )
 
 
 def parse_report_summary(rpt_path: Path, outfalls: list[str]) -> tuple[dict[str, float], bool, list[str]]:
@@ -1225,6 +1259,51 @@ def parse_node_flooding_summary(lines: list[str]) -> list[str]:
     return flooding_nodes
 
 
+def parse_swmm_instability_summary(
+    rpt_path: Path,
+    not_converging_threshold_percent: float = 5.0,
+    instability_index_threshold_percent: float = 20.0,
+) -> tuple[bool, float | None, list[str]]:
+    if not rpt_path.exists():
+        return False, None, []
+
+    lines = rpt_path.read_text(encoding="mbcs", errors="replace").splitlines()
+    not_converging_percent: float | None = None
+    instability_elements: list[str] = []
+
+    for line in lines:
+        if "% of Steps Not Converging" in line:
+            match = re.search(r"([-+]?\d+(?:\.\d+)?)", line.split(":")[-1])
+            if match:
+                not_converging_percent = parse_float(match.group(1), default=0.0)
+            break
+
+    title_index = next(
+        (index for index, line in enumerate(lines) if "Highest Flow Instability Indexes" in line),
+        None,
+    )
+    if title_index is not None:
+        for line in lines[title_index + 1 :]:
+            stripped = line.strip()
+            if not stripped or set(stripped) == {"*"}:
+                continue
+            if stripped.startswith("Routing Time Step Summary") or stripped.startswith("********"):
+                break
+            match = re.match(r"(.+?)\s+\(([-+]?\d+(?:\.\d+)?)%\)", stripped)
+            if not match:
+                continue
+            element = match.group(1).strip()
+            index_percent = parse_float(match.group(2), default=0.0)
+            if index_percent >= instability_index_threshold_percent:
+                instability_elements.append(f"{element} ({index_percent:.2f}%)")
+
+    has_instability = (
+        not_converging_percent is not None
+        and not_converging_percent >= not_converging_threshold_percent
+    ) or bool(instability_elements)
+    return has_instability, not_converging_percent, instability_elements
+
+
 def has_significant_flooding(records: list[tuple[datetime | None, float]]) -> bool:
     consecutive = 0
     for _, value in records:
@@ -1235,6 +1314,11 @@ def has_significant_flooding(records: list[tuple[datetime | None, float]]) -> bo
         else:
             consecutive = 0
     return False
+
+
+def stable_node_peak(node: str, values: list[tuple[datetime | None, float]]) -> float:
+    peak = stable_peak(node, values)
+    return 0.0 if peak is None else peak.peak_flow
 
 
 def report_table_rows(lines: list[str], title: str) -> list[str]:
@@ -1621,10 +1705,10 @@ def render_phase_probability_plot(
             ".gridline{stroke:#e3e3e3;stroke-width:1}",
             ".reference-flow{stroke:#1f6fbd;stroke-width:2}",
             ".reference-probability{stroke:#1f6fbd;stroke-width:1.8;stroke-dasharray:6 5}",
-            ".reference-label{fill:#1f6fbd;font-size:11px;font-weight:600}",
+            ".reference-label{fill:#1f6fbd;font-size:13px;font-weight:600}",
             ".point{fill:#2468a8;fill-opacity:.72;stroke:#123b5f;stroke-width:.6}",
             ".point:hover{fill:#d24b2a;fill-opacity:1}",
-            ".label{fill:#555;font-size:11px}",
+            ".label{fill:#555;font-size:13px}",
             ".empty{color:#777;font-size:13px}",
             "</style>",
             "</head>",
@@ -1666,10 +1750,10 @@ def render_probability_svg(
 
     width = 720
     height = 420
-    left = 68
-    right = 22
+    left = 76
+    right = 26
     top = 24
-    bottom = 54
+    bottom = 62
     plot_width = width - left - right
     plot_height = height - top - bottom
     log_probabilities = [math.log10(probability) for probability, _, _ in points]
@@ -1780,8 +1864,8 @@ def render_probability_svg(
             f'<line class="axis" x1="{left}" y1="{top + plot_height}" x2="{left + plot_width}" y2="{top + plot_height}"/>',
             f'<line class="axis" x1="{left}" y1="{top}" x2="{left}" y2="{top + plot_height}"/>',
             *reference_elements,
-            f'<text class="label" x="{left + plot_width / 2:.1f}" y="{height - 6}" text-anchor="middle">Probabilite de la combinaison (log10)</text>',
-            f'<text class="label" x="14" y="{top + plot_height / 2:.1f}" transform="rotate(-90 14 {top + plot_height / 2:.1f})" text-anchor="middle">Qmax (m3/s)</text>',
+            f'<text class="label" x="{left + plot_width / 2:.1f}" y="{height - 8}" text-anchor="middle">Probabilite de la combinaison (log10)</text>',
+            f'<text class="label" x="16" y="{top + plot_height / 2:.1f}" transform="rotate(-90 16 {top + plot_height / 2:.1f})" text-anchor="middle">Qmax (m3/s)</text>',
             *point_elements,
             "</svg>",
             "</section>",
@@ -1895,15 +1979,25 @@ def run_case_task(
     out_path = case_dir / f"{simulation_id}.out"
 
     run_swmm(inp_path, rpt_path, out_path, engine)
-    outfall_maxima, has_flooding, flooding_nodes = extract_simulation_summary(
+    summary = extract_simulation_summary(
         out_path,
         outfalls,
         use_rpt_only=use_rpt_only,
     )
-    if has_flooding:
+    if summary.has_flooding:
         messages.append(
             "  WARNING flooding: "
-            f"{len(flooding_nodes)} junction(s): {', '.join(flooding_nodes)}"
+            f"{len(summary.flooding_nodes)} junction(s): {', '.join(summary.flooding_nodes)}"
+        )
+    if summary.has_swmm_instability:
+        not_converging = (
+            "n/a"
+            if summary.swmm_not_converging_percent is None
+            else f"{summary.swmm_not_converging_percent:.2f}%"
+        )
+        messages.append(
+            "  WARNING instabilite SWMM: "
+            f"steps non convergents={not_converging}"
         )
 
     row: dict[str, object] = {
@@ -1916,16 +2010,23 @@ def run_case_task(
             "" if case.combination_probability is None else f"{case.combination_probability:.12g}"
         ),
         "hydrology": case.hydrology,
-        "flooding_warning": "YES" if has_flooding else "NO",
-        "flooding_nodes": ", ".join(flooding_nodes),
+        "flooding_warning": "YES" if summary.has_flooding else "NO",
+        "flooding_nodes": ", ".join(summary.flooding_nodes),
+        "swmm_instability_warning": "YES" if summary.has_swmm_instability else "NO",
+        "swmm_not_converging_percent": (
+            ""
+            if summary.swmm_not_converging_percent is None
+            else f"{summary.swmm_not_converging_percent:.6g}"
+        ),
+        "swmm_instability_elements": ", ".join(summary.swmm_instability_elements),
     }
     for outfall in outfalls:
-        row[f"qmax_{slugify(outfall)}_m3s"] = f"{outfall_maxima[outfall]:.6g}"
+        row[f"qmax_{slugify(outfall)}_m3s"] = f"{summary.outfall_maxima[outfall]:.6g}"
 
     messages.append(
         "  "
         + " ; ".join(
-            f"{outfall}={outfall_maxima[outfall]:.6g} m3/s"
+            f"{outfall}={summary.outfall_maxima[outfall]:.6g} m3/s"
             for outfall in outfalls
         )
     )
@@ -1991,7 +2092,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--use-rpt-only",
         action="store_true",
-        help="Lit les maxima et le flooding dans les rapports .rpt, sans ouvrir les fichiers .out.",
+        help=(
+            "Lit les maxima instantanes dans les rapports .rpt, sans ouvrir les fichiers .out. "
+            "A eviter pour les debits stabilises: preferer les series horaires .out."
+        ),
     )
     parser.add_argument(
         "--min-combination-probability",

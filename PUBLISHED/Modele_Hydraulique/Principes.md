@@ -23,7 +23,7 @@ La calibration est opérée selon deux controles:
     - H vs. H (Hauteur d'eau point C du réseau de conduits vs. hauteur d'eau point D du réseau de conduits)
 
 > [!NOTE] 
-> - Comme convenu avec le MO/BAMO, les régimes de références pour la calibration sont ceux mesurés depuis 2023, en raison des modifications du régime hydrologique apportées par les travaux de la nouvelle station de pompage de la Brunnmühle. 
+> Comme convenu avec le MO/BAMO, les régimes de références pour la calibration sont ceux mesurés depuis 2023, en raison des modifications du régime hydrologique apportées par les travaux de la nouvelle station de pompage de la Brunnmühle. 
 
 ## Inputs
 Une **chronique de débits** en input du modèle hydraulique a été reconstituée, sur la base des mesures disponibles entre 2016 et 2026, au pas de temps horaire, à savoir:
@@ -75,8 +75,9 @@ Les débits de débordement du Wasserhooliloch ne sont pas mesurés. Ils peuvent
 > Q_Wasserhooliloch = Q_Twannbach_unten - (Q_Twannbach_Oben + Q_Fensterstollen)
 
 > [!NOTE] 
-> - Q_Wasserhooliloch n'est pas calculé si Q_Twannbach_unten < (Q_Twannbach_Oben + Q_Fensterstollen).
-> - Idem, si au moins une des stations présente une lacune de mesures > 48 h, le calcul n'est pas réalisé.
+> Q_Wasserhooliloch n'est pas calculé si Q_Twannbach_unten < (Q_Twannbach_Oben + Q_Fensterstollen).
+> 
+> Idem, si au moins une des stations présente une lacune de mesures > 48 h, le calcul n'est pas réalisé.
 
 Le tableau suivant présente les débits de débordement mesurés et/ou extrapolés pour la station **Wasserhooliloch**, ainsi que l'intervalle de confiance IC95 et les dates supposées des évènements si ils ont été mesurés. 
 
@@ -99,7 +100,7 @@ Les débits de la source Sauserquelle ne sont pas mesurés. Ils sont **reconstit
 > Q_Sauser = Q_Twannbach_unten - (Q_Fensterstollen)
 
 > [!NOTE]  
-> - Q_Sauser n'est pas calculé si Q_Twannbach_Oben > 0.
+> Q_Sauser n'est pas calculé si Q_Twannbach_Oben > 0.
 ## Hauteurs d'eau
 ### Wasserhooliloch
 Les hauteurs d'eau sont mesurées au fond de la partie humainement atteignable du gouffre.

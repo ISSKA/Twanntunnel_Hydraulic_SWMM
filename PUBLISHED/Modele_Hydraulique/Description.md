@@ -3,7 +3,6 @@ slug: /
 hide_table_of_contents: true
 ---
 
-## Description
 Le modèle hydraulique "**Twannbach**" est construit à l'aide du logiciel **EPA Storm Water Management Model** ([SWMM](https://www.epa.gov/water-research/storm-water-management-model-swmm)). Il s'agit d'une mise à jour du premier modèle établi en 2016 pour l'évaluation des risques hydrogéologiques karstiques lors du percement de la galerie de sécurité du Tunnel de Ligerztunnel ("**SiSto Ligerz**").
 L'objectif principal du modèle hydraulique "**Twannbach**" est d'évaluer les débits et charges hydrauliques associées en conditions de **hautes eaux**. 
 Ce modèle est utilisé pour l'évaluation en phase "**travaux**" et en phase "**exploitation**", en fonction des **scénarios** envisagées pour le percement du Twanntunnel et pour l'excavation des centrales de ventilation.   

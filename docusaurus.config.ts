@@ -15,6 +15,8 @@ const config: Config = {
   
   future: {
     v4: true,
+    // Only checks history of interesting files, not the entire history of the repository.
+    experimental_vcs: 'git-ad-hoc',
   },
 
   organizationName: 'ISSKA',

@@ -10,6 +10,9 @@ reads node XY coordinates from an Excel file, then builds a 3D view where:
 * Node shapes are read from Excel column D: Fixed = cube, NotFixed = sphere.
 * Conduits are rendered from their SWMM cross-section geometry and colored by
   the ratio between real 3D node distance and INP Length.
+* Node elevations are treated as invert/radier elevations; conduit sections are
+  built above that invert line, not centered on it.
+* Node sphere/cube bodies are placed on top of that radier elevation.
 
 Plotly is used for the interactive HTML output. If Plotly is not installed, the
 script can still print a summary of the parsed network.
@@ -44,6 +47,11 @@ EXPORT_OBJ = True
 OBJ_SWAP_YZ = True  # Write OBJ coordinates as X, Elevation, Y.
 OBJ_EXPORT_NODES = True
 OBJ_NODE_RADIUS = 1
+SHOW_TWANNTUNNEL_OBJ = True
+TWANNTUNNEL_OBJ = "Twanntunnel.obj"
+TWANNTUNNEL_OBJ_SWAP_YZ = True  # Read OBJ coordinates as X, Z, Y for the HTML scene.
+TWANNTUNNEL_OBJ_SCALE = 0.1
+TWANNTUNNEL_COLOR = "#B58900"
 DIAMETER_SCALE = 1.0  # Use 1.0 for real conduit dimensions.
 CROSS_SECTION_SEGMENTS = 16
 SUMMARY_ONLY = False
@@ -73,6 +81,17 @@ class Conduit:
     geom1: float = 0.0
     geom2: float = 0.0
     geom3: float = 0.0
+
+
+@dataclass(frozen=True)
+class ObjMesh:
+    name: str
+    x: list[float]
+    y: list[float]
+    z: list[float]
+    i: list[int]
+    j: list[int]
+    k: list[int]
 
 
 def strip_comment(line: str) -> str:
@@ -111,6 +130,54 @@ def data_lines(lines: Iterable[str]) -> Iterable[list[str]]:
         clean = strip_comment(line)
         if clean:
             yield clean.split()
+
+
+def read_obj_mesh(obj_path: Path, name: str, swap_yz: bool = True, scale: float = 1.0) -> ObjMesh:
+    vertices: list[tuple[float, float, float]] = []
+    i_idx: list[int] = []
+    j_idx: list[int] = []
+    k_idx: list[int] = []
+
+    with obj_path.open("r", encoding="utf-8", errors="replace") as handle:
+        for raw_line in handle:
+            parts = raw_line.strip().split()
+            if not parts:
+                continue
+
+            if parts[0] == "v" and len(parts) >= 4:
+                ox = to_float(parts[1])
+                oy = to_float(parts[2])
+                oz = to_float(parts[3])
+                if swap_yz:
+                    vertices.append((ox * scale, oz * scale, oy * scale))
+                else:
+                    vertices.append((ox * scale, oy * scale, oz * scale))
+
+            if parts[0] == "f" and len(parts) >= 4:
+                face: list[int] = []
+                for token in parts[1:]:
+                    vertex_token = token.split("/", 1)[0]
+                    if not vertex_token:
+                        continue
+                    vertex_index = int(vertex_token)
+                    if vertex_index < 0:
+                        vertex_index = len(vertices) + vertex_index + 1
+                    face.append(vertex_index - 1)
+
+                for idx in range(1, len(face) - 1):
+                    i_idx.append(face[0])
+                    j_idx.append(face[idx])
+                    k_idx.append(face[idx + 1])
+
+    return ObjMesh(
+        name=name,
+        x=[vertex[0] for vertex in vertices],
+        y=[vertex[1] for vertex in vertices],
+        z=[vertex[2] for vertex in vertices],
+        i=i_idx,
+        j=j_idx,
+        k=k_idx,
+    )
 
 
 def read_coordinates_xlsx(xlsx_path: Path) -> dict[str, tuple[float, float, str]]:
@@ -220,6 +287,10 @@ def vector_norm(a: tuple[float, float, float]) -> float:
     return math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2])
 
 
+def vector_dot(a: tuple[float, float, float], b: tuple[float, float, float]) -> float:
+    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
+
+
 def vector_scale(a: tuple[float, float, float], factor: float) -> tuple[float, float, float]:
     return (a[0] * factor, a[1] * factor, a[2] * factor)
 
@@ -241,45 +312,53 @@ def conduit_cross_section(conduit: Conduit, scale: float, segments: int) -> list
     if shape == "CIRCULAR":
         radius = max(conduit.geom1 * scale / 2.0, 0.001)
         return [
-            (radius * math.cos(2.0 * math.pi * i / segments), radius * math.sin(2.0 * math.pi * i / segments))
+            (
+                radius * math.cos(2.0 * math.pi * i / segments),
+                radius + radius * math.sin(2.0 * math.pi * i / segments),
+            )
             for i in range(segments)
         ]
 
     if shape == "RECT_CLOSED":
-        width = max(conduit.geom2 * scale, 0.001)
-        height = max(conduit.geom1 * scale, 0.001)
+        width = max(conduit.geom1 * scale, 0.001)
+        height = max(conduit.geom2 * scale, 0.001)
         return [
-            (-width / 2.0, -height / 2.0),
-            (width / 2.0, -height / 2.0),
-            (width / 2.0, height / 2.0),
-            (-width / 2.0, height / 2.0),
-        ]
-
-    if shape == "RECT_TRIANGULAR":
-        width = max(conduit.geom2 * scale, 0.001)
-        height = max(conduit.geom1 * scale, 0.001)
-        triangle_height = min(max(conduit.geom3 * scale, 0.001), height)
-        triangle_base = height / 2.0 - triangle_height
-        return [
-            (0.0, height / 2.0),
-            (width / 2.0, triangle_base),
-            (width / 2.0, -height / 2.0),
-            (-width / 2.0, -height / 2.0),
-            (-width / 2.0, triangle_base),
+            (-width / 2.0, 0.0),
+            (width / 2.0, 0.0),
+            (width / 2.0, height),
+            (-width / 2.0, height),
         ]
 
     if shape == "MODBASKETHANDLE":
-        width = max(conduit.geom1 * scale, 0.001)
-        height = max((conduit.geom2 or conduit.geom1) * scale, 0.001)
-        return [
-            (width / 2.0 * math.cos(2.0 * math.pi * i / segments), height / 2.0 * math.sin(2.0 * math.pi * i / segments))
-            for i in range(segments)
+        bottom_width = max(conduit.geom1 * scale, 0.001)
+        max_height = max((conduit.geom2 or conduit.geom1) * scale, 0.001)
+        top_radius = max((conduit.geom3 or bottom_width / 2.0) * scale, 0.001)
+        wall_height = max(max_height - top_radius, 0.0)
+
+        section = [
+            (-bottom_width / 2.0, 0.0),
+            (bottom_width / 2.0, 0.0),
+            (bottom_width / 2.0, wall_height),
         ]
+        if top_radius < bottom_width / 2.0:
+            section.append((top_radius, wall_height))
+
+        arc_segments = max(segments // 2, 6)
+        for idx in range(1, arc_segments + 1):
+            angle = math.pi * idx / arc_segments
+            section.append((top_radius * math.cos(angle), wall_height + top_radius * math.sin(angle)))
+
+        if top_radius < bottom_width / 2.0:
+            section.append((-bottom_width / 2.0, wall_height))
+        return section
 
     diameter = max(conduit.geom1 * scale, 0.001)
     radius = diameter / 2.0
     return [
-        (radius * math.cos(2.0 * math.pi * i / segments), radius * math.sin(2.0 * math.pi * i / segments))
+        (
+            radius * math.cos(2.0 * math.pi * i / segments),
+            radius + radius * math.sin(2.0 * math.pi * i / segments),
+        )
         for i in range(segments)
     ]
 
@@ -288,17 +367,18 @@ def tube_mesh(
     start: tuple[float, float, float],
     end: tuple[float, float, float],
     cross_section: list[tuple[float, float]],
+    cap_ends: bool = True,
 ) -> tuple[list[float], list[float], list[float], list[int], list[int], list[int]]:
     axis = unit(vector_sub(end, start))
     if axis == (0.0, 0.0, 0.0):
         return [], [], [], [], [], []
 
-    reference = (0.0, 0.0, 1.0)
-    if abs(axis[2]) > 0.95:
-        reference = (0.0, 1.0, 0.0)
-
-    u = unit(vector_cross(axis, reference))
-    v = unit(vector_cross(axis, u))
+    global_up = (0.0, 0.0, 1.0)
+    vertical = vector_sub(global_up, vector_scale(axis, vector_dot(global_up, axis)))
+    if vector_norm(vertical) < 1e-9:
+        vertical = (0.0, 1.0, 0.0)
+    v = unit(vertical)
+    u = unit(vector_cross(v, axis))
 
     x: list[float] = []
     y: list[float] = []
@@ -321,6 +401,33 @@ def tube_mesh(
         j_idx.extend([next_idx, next_idx + n])
         k_idx.extend([idx + n, idx + n])
 
+    if cap_ends and n >= 3:
+        start_center_idx = len(x)
+        end_center_idx = len(x) + 1
+        start_center = (
+            sum(x[:n]) / n,
+            sum(y[:n]) / n,
+            sum(z[:n]) / n,
+        )
+        end_center = (
+            sum(x[n : 2 * n]) / n,
+            sum(y[n : 2 * n]) / n,
+            sum(z[n : 2 * n]) / n,
+        )
+        x.extend([start_center[0], end_center[0]])
+        y.extend([start_center[1], end_center[1]])
+        z.extend([start_center[2], end_center[2]])
+
+        for idx in range(n):
+            next_idx = (idx + 1) % n
+            i_idx.append(start_center_idx)
+            j_idx.append(next_idx)
+            k_idx.append(idx)
+
+            i_idx.append(end_center_idx)
+            j_idx.append(idx + n)
+            k_idx.append(next_idx + n)
+
     return x, y, z, i_idx, j_idx, k_idx
 
 
@@ -328,6 +435,11 @@ def node_xyz(node: Node) -> tuple[float, float, float]:
     if node.x is None or node.y is None:
         raise ValueError(f"Node {node.name!r} has no coordinates")
     return (node.x, node.y, node.elevation)
+
+
+def node_body_center(node: Node, node_radius: float) -> tuple[float, float, float]:
+    x, y, z = node_xyz(node)
+    return (x, y, z + node_radius)
 
 
 def conduit_distance_ratio(conduit: Conduit, nodes: dict[str, Node]) -> float | None:
@@ -370,6 +482,8 @@ def build_plotly_figure(
     conduits: list[Conduit],
     diameter_scale: float,
     cross_section_segments: int,
+    node_radius: float,
+    twanntunnel_mesh: ObjMesh | None = None,
 ):
     import plotly.graph_objects as go
 
@@ -377,26 +491,56 @@ def build_plotly_figure(
 
     visible_nodes = [node for node in nodes.values() if node.has_xyz]
     for kind, color, label in (("junction", "black", "Junctions"), ("outfall", "red", "Outfalls")):
-        for fixed, symbol, suffix in ((False, "circle", "NotFixed spheres"), (True, "square", "Fixed cubes")):
+        for fixed, suffix in ((False, "NotFixed spheres"), (True, "Fixed cubes")):
             group = [
                 node
                 for node in visible_nodes
                 if node.kind == kind and (node.node_type.strip().lower() == "fixed") == fixed
             ]
+            for node_index, node in enumerate(group):
+                if fixed:
+                    x, y, z, i_idx, j_idx, k_idx = cube_mesh(node_body_center(node, node_radius), node_radius)
+                    node_shape = "Fixed cube"
+                else:
+                    x, y, z, i_idx, j_idx, k_idx = sphere_mesh(node_body_center(node, node_radius), node_radius)
+                    node_shape = "NotFixed sphere"
+
+                fig.add_trace(
+                    go.Mesh3d(
+                        x=x,
+                        y=y,
+                        z=z,
+                        i=i_idx,
+                        j=j_idx,
+                        k=k_idx,
+                        color=color,
+                        opacity=1.0,
+                        name=f"{label} ({suffix})",
+                        showlegend=node_index == 0,
+                        hovertemplate=(
+                            f"<b>{node.name}</b><br>"
+                            f"Type={node_shape}<br>"
+                            f"Radier X={node.x:.3f}<br>"
+                            f"Radier Y={node.y:.3f}<br>"
+                            f"Radier Z={node.elevation:.3f}<extra></extra>"
+                        ),
+                    )
+                )
+
             fig.add_trace(
                 go.Scatter3d(
                     x=[node.x for node in group],
                     y=[node.y for node in group],
-                    z=[node.elevation for node in group],
-                    mode="markers+text",
-                    marker={"size": 5, "color": color, "symbol": symbol},
+                    z=[node.elevation + 2.5 * node_radius for node in group],
+                    mode="text",
                     text=[node.name for node in group],
                     textposition="top center",
-                    name=f"{label} ({suffix})",
+                    name=f"{label} labels",
+                    showlegend=False,
                     hovertemplate=(
                         "<b>%{text}</b><br>"
                         "Type=" + ("Fixed" if fixed else "NotFixed") + "<br>"
-                        "X=%{x:.3f}<br>Y=%{y:.3f}<br>Z=%{z:.3f}<extra></extra>"
+                        "Radier X=%{x:.3f}<br>Radier Y=%{y:.3f}<extra></extra>"
                     ),
                 )
             )
@@ -440,9 +584,9 @@ def build_plotly_figure(
         )
 
     for label, color in (
-        ("Conduits: 0.6 < Euclidian / Length < 1.4", "#919191"),
-        ("Conduits: Euclidian / Length << 0.6", "#FF0000"),
-        ("Conduits: Euclidian / Length >> 1.4", "#0000FF"),
+        ("Conduits: 0.9 < Euclidian / Length < 1.1", "#919191"),
+        ("Conduits: Euclidian / Length << 0.9", "#FF0000"),
+        ("Conduits: Euclidian / Length >> 1.1", "#0000FF"),
     ):
         fig.add_trace(
             go.Scatter3d(
@@ -457,6 +601,23 @@ def build_plotly_figure(
             )
         )
 
+    if twanntunnel_mesh is not None and twanntunnel_mesh.x and twanntunnel_mesh.i:
+        fig.add_trace(
+            go.Mesh3d(
+                x=twanntunnel_mesh.x,
+                y=twanntunnel_mesh.y,
+                z=twanntunnel_mesh.z,
+                i=twanntunnel_mesh.i,
+                j=twanntunnel_mesh.j,
+                k=twanntunnel_mesh.k,
+                name="Twanntunnel",
+                color=TWANNTUNNEL_COLOR,
+                opacity=0.75,
+                hovertemplate="<b>Twanntunnel</b><extra></extra>",
+                showlegend=True,
+            )
+        )
+
     fig.update_layout(
         title="Vue 3D du reseau SWMM",
         scene={
@@ -465,17 +626,8 @@ def build_plotly_figure(
             "zaxis_title": "Elevation",
             "aspectmode": "data",
         },
-        legend={
-            "orientation": "h",
-            "itemsizing": "constant",
-            "entrywidth": 0.24,
-            "entrywidthmode": "fraction",
-            "x": 0.5,
-            "xanchor": "center",
-            "y": -0.05,
-            "yanchor": "top",
-        },
-        margin={"l": 0, "r": 0, "t": 45, "b": 95},
+        legend={"itemsizing": "constant"},
+        margin={"l": 0, "r": 0, "t": 45, "b": 0},
     )
 
     return fig, skipped
@@ -649,17 +801,17 @@ def write_conduits_obj(
                 material = "outfall" if node.kind == "outfall" else "junction"
                 is_fixed = node.node_type.strip().lower() == "fixed"
                 if is_fixed:
-                    x, y, z, i_idx, j_idx, k_idx = cube_mesh(node_xyz(node), node_radius)
+                    x, y, z, i_idx, j_idx, k_idx = cube_mesh(node_body_center(node, node_radius), node_radius)
                     shape = "cube"
                 else:
-                    x, y, z, i_idx, j_idx, k_idx = sphere_mesh(node_xyz(node), node_radius)
+                    x, y, z, i_idx, j_idx, k_idx = sphere_mesh(node_body_center(node, node_radius), node_radius)
                     shape = "sphere"
 
                 handle.write(f"\no node_{safe_name}\n")
                 handle.write(f"usemtl {material}\n")
                 handle.write(
                     f"# {node.name}: swmm_type={node.kind}; type={node.node_type}; "
-                    f"shape={shape}; elevation={node.elevation:g}\n"
+                    f"shape={shape}; radier_elevation={node.elevation:g}\n"
                 )
                 for vx, vy, vz in zip(x, y, z):
                     ox, oy, oz = obj_coordinates(vx, vy, vz, swap_yz)
@@ -701,6 +853,9 @@ def config_args() -> argparse.Namespace:
         obj_swap_yz=OBJ_SWAP_YZ,
         obj_export_nodes=OBJ_EXPORT_NODES,
         obj_node_radius=OBJ_NODE_RADIUS,
+        show_twanntunnel_obj=SHOW_TWANNTUNNEL_OBJ,
+        twanntunnel_obj=Path(TWANNTUNNEL_OBJ) if TWANNTUNNEL_OBJ else None,
+        twanntunnel_obj_swap_yz=TWANNTUNNEL_OBJ_SWAP_YZ,
         diameter_scale=DIAMETER_SCALE,
         cross_section_segments=CROSS_SECTION_SEGMENTS,
         summary_only=SUMMARY_ONLY,
@@ -747,8 +902,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--obj-node-radius",
         type=float,
-        default=25.0,
+        default=1.5,
         help="Radius of exported node spheres in model units.",
+    )
+    parser.add_argument(
+        "--twanntunnel-obj",
+        type=Path,
+        default=None,
+        help="Optional Twanntunnel OBJ mesh to add to the HTML scene.",
+    )
+    parser.add_argument(
+        "--no-twanntunnel-obj",
+        action="store_true",
+        help="Do not add the Twanntunnel OBJ mesh to the HTML scene.",
+    )
+    parser.add_argument(
+        "--twanntunnel-obj-no-swap-yz",
+        action="store_true",
+        help="Keep Twanntunnel OBJ axes as X, Y, Z instead of reading them as X, Z, Y.",
     )
     parser.add_argument(
         "--diameter-scale",
@@ -809,6 +980,28 @@ def run(args: argparse.Namespace) -> int:
     if args.summary_only:
         return 0
 
+    twanntunnel_mesh: ObjMesh | None = None
+    use_twanntunnel = getattr(args, "show_twanntunnel_obj", not getattr(args, "no_twanntunnel_obj", False))
+    if use_twanntunnel:
+        configured_twanntunnel = getattr(args, "twanntunnel_obj", None) or Path(TWANNTUNNEL_OBJ)
+        twanntunnel_path = resolve_path(configured_twanntunnel)
+        if twanntunnel_path.exists():
+            twanntunnel_swap_yz = getattr(
+                args,
+                "twanntunnel_obj_swap_yz",
+                not getattr(args, "twanntunnel_obj_no_swap_yz", False),
+            )
+            twanntunnel_mesh = read_obj_mesh(twanntunnel_path, "Twanntunnel", swap_yz=twanntunnel_swap_yz, scale=TWANNTUNNEL_OBJ_SCALE)
+            print(
+                f"Twanntunnel OBJ read from: {twanntunnel_path} "
+                f"({len(twanntunnel_mesh.x)} vertices, {len(twanntunnel_mesh.i)} triangles)"
+            )
+            if not twanntunnel_mesh.x or not twanntunnel_mesh.i:
+                print("Warning: Twanntunnel OBJ does not contain readable vertices/faces.")
+                twanntunnel_mesh = None
+        else:
+            print(f"Warning: Twanntunnel OBJ not found: {twanntunnel_path}")
+
     obj_skipped: list[str] = []
     if not args.no_obj:
         obj_path = resolve_path(args.obj_output) if args.obj_output else inp_path.with_name(f"{inp_path.stem}_network.obj")
@@ -830,62 +1023,15 @@ def run(args: argparse.Namespace) -> int:
             conduits,
             diameter_scale=args.diameter_scale,
             cross_section_segments=max(args.cross_section_segments, 4),
+            node_radius=args.obj_node_radius,
+            twanntunnel_mesh=twanntunnel_mesh,
         )
     except ImportError:
         print("Plotly is not installed. Install it with: pip install plotly")
         return 1
 
     output_path = resolve_path(args.output) if args.output else PLOTS_DIR / f"{inp_path.stem}_3d.html"
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    html = fig.to_html(
-        include_plotlyjs=True,
-        full_html=False,
-        config={"responsive": True},
-        default_width="100%",
-        default_height="100%",
-        div_id="swmm-plotly",
-        post_script="""
-const gd = document.getElementById("swmm-plotly");
-function resizeSwmmPlot() {
-  Plotly.relayout(gd, {
-    width: window.innerWidth,
-    height: window.innerHeight
-  });
-}
-window.addEventListener("load", resizeSwmmPlot);
-window.addEventListener("resize", resizeSwmmPlot);
-setTimeout(resizeSwmmPlot, 0);
-""",
-    )
-    output_path.write_text(
-        "\n".join(
-            (
-                "<!doctype html>",
-                '<html lang="fr">',
-                "<head>",
-                '<meta charset="utf-8">',
-                '<meta name="viewport" content="width=device-width, initial-scale=1">',
-                "<title>Vue 3D du reseau SWMM</title>",
-                "<style>",
-                "html, body { width: 100%; height: 100%; margin: 0; }",
-                "html, body { overflow: hidden; }",
-                "body { font-family: Arial, Helvetica, sans-serif; }",
-                "#swmm-plot { width: 100vw; height: 100vh; }",
-                "#swmm-plotly { width: 100vw !important; height: 100vh !important; }",
-                "#swmm-plot .plotly-graph-div { width: 100vw !important; height: 100vh !important; }",
-                "</style>",
-                "</head>",
-                "<body>",
-                '<main id="swmm-plot">',
-                html,
-                "</main>",
-                "</body>",
-                "</html>",
-                "",
-            )
-        ),
-        encoding="utf-8",
-    )
+    fig.write_html(output_path, include_plotlyjs=True)
     print(f"3D HTML written to: {output_path}")
     skipped_names = sorted(set(skipped + obj_skipped))
     if skipped_names:
@@ -901,3 +1047,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         raise SystemExit(main())
     raise SystemExit(run_from_config())
+
+
+
+

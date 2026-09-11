@@ -3,10 +3,10 @@
 >Selon fichier **260610 Twanntunnel MBA GC 04-26 présentation APR_extrait GGH.pptx** (P. Senn le 12/06/2026)
 
 ## Phase 1_1
-Excavation de la **calotte** depuis le **portail Est (61+665)** jusqu'au **point haut (60+650)**.
+Excavation de la **calotte** depuis le **portail Est (61+665)** jusqu'au **point haut (60+749)**.
 La **phase 1_1** est divisée en deux sous-phases :
 - **Sous-phase 1_1a** : excavation depuis le **portail Est (61+665)** jusqu'aux calcaires jurassiques de l'Anticlinal de **Chapf (61+140)**,
-- **Sous-phase 1_1b** :  excavation depuis l'Anticlinal de **Chapf (61+140)** jusqu'au **point haut (60+650)**.
+- **Sous-phase 1_1b** :  excavation depuis l'Anticlinal de **Chapf (61+140)** jusqu'au **point haut (60+749)**.
 
 ### Sous-phase 1_1a
 Excavation de la **calotte** depuis le **portail Est (61+665)** jusqu'aux calcaires jurassiques de l'Anticlinal de **Chapf (61+140)**.
@@ -21,7 +21,7 @@ Intersection d'un conduit **intermédiaire** du "système karstique Est" (0.5 m 
 Intersection d'un conduit en connexion hydraulique directe avec le Wasserhooliloch (0.5 m de diamètre).
 
 ### Sous-phase 1_1b
-Excavation depuis l'Anticlinal de **Chapf (61+140)** jusqu'au **point haut (60+650)**.
+Excavation depuis l'Anticlinal de **Chapf (61+140)** jusqu'au **point haut (60+749)**.
 #### Variantes
 ##### Variante 1_1b_0
 Pas de conduits recoupé sur cette section.
@@ -33,13 +33,13 @@ Intersection d'un conduit **intermédiaire** du "système karstique Est" (0.5 m 
 Intersection d'un conduit en connexion hydraulique directe avec le **Wasserhooliloch** (0.5 m de diamètre).
 
 ## Phase 1_2
-Excavation de la calotte depuis le **point haut (60+650)** jusqu'au **Fensterstollen (60+375)**.
+Excavation de la calotte depuis le **point haut (60+749)** jusqu'au **Fensterstollen (60+375)**.
 La **phase 1_2** est divisée en deux sous-phases :
-- **Sous-phase 1_2a** : excavation depuis le **point haut (60+650)** jusqu'à intersecter la **branche Est du Sondierstollen (60+540)**.
+- **Sous-phase 1_2a** : excavation depuis le **point haut (60+749)** jusqu'à intersecter la **branche Est du Sondierstollen (60+540)**.
 - **Sous-phase 1_2b** : excavation depuis la **branche Est du Sondierstollen (60+540)** jusqu'au **Fensterstollen (60+375)**.
 
 ### Sous-phase 1_2a
-Excavation depuis le **point haut (60+650)** jusqu'à intersecter la **branche Est du Sondierstollen (60+540)**.
+Excavation depuis le **point haut (60+749)** jusqu'à intersecter la **branche Est du Sondierstollen (60+540)**.
 #### Variantes
 ##### Variante 1_2a_0
 Pas de conduits recoupé sur cette section.
@@ -72,10 +72,10 @@ Intersection d'un conduit en connexion hydraulique directe avec la venue d'eau *
 Intersection d'un conduit en connexion hydraulique directe avec la venue d'eau **SS6** du Sondierstollen (0.5 m de diamètre). 
 
 ## Phase 1_3
-Excavation du **Stross** depuis le **portail Est (61+665)** jusqu'au **point haut (60+650)**.
+Excavation du **Stross** depuis le **portail Est (61+665)** jusqu'au **point haut (60+749)**.
 La **phase 1_3** est divisée en deux sous-phases :
 - **Sous-phase 1_3a** : excavation depuis le **portail Est (61+665)** jusqu'aux calcaires jurassiques de l'Anticlinal de **Chapf (61+140)**,
-- **Sous-phase 1_3b** :  excavation depuis l'Anticlinal de **Chapf (61+140)** jusqu'au **point haut (60+650)**.
+- **Sous-phase 1_3b** :  excavation depuis l'Anticlinal de **Chapf (61+140)** jusqu'au **point haut (60+749)**.
 
 ### Sous-phase 1_3a
 Excavation du **Stross** depuis le **portail Est (61+665)** jusqu'aux calcaires jurassiques de l'Anticlinal de **Chapf (61+140)**.
@@ -90,7 +90,7 @@ Intersection d'un conduit **intermédiaire** du "système karstique Est" (0.5 m 
 Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (0.5 m de diamètre). 
 
 ### Sous-phase 1_3b
-Excavation du **Stross** depuis l'Anticlinal de **Chapf (61+140)** jusqu'au **point haut (60+650)**.
+Excavation du **Stross** depuis l'Anticlinal de **Chapf (61+140)** jusqu'au **point haut (60+749)**.
 #### Variante 1_3b_0
 Pas de conduits recoupé sur cette section.
 
@@ -157,10 +157,10 @@ Intersection d'un conduit en connexion hydraulique directe avec un conduit de ba
 Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (0.5 m de diamètre).
 
 ## Phase 1_7
-Excavation du **Stross vers l'est** entre **Fensterstollen (60+375)** et **point haut (60+650)**. 
+Excavation du **Stross vers l'est** entre **Fensterstollen (60+375)** et **point haut (60+749)**. 
 La **phase 1_7** est divisée en deux sous-phases :
 - **Sous-phase 1_7a** : excavation du **Stross** entre le **Fensterstollen (60+375)** et la **branche Est du Sondierstollen (60+540)**,
-- **Sous-phase 1_7b** : excavation du **Stross** entre la **branche Est du Sondierstollen (60+540)** et le **point haut (60+650)**.
+- **Sous-phase 1_7b** : excavation du **Stross** entre la **branche Est du Sondierstollen (60+540)** et le **point haut (60+749)**.
 
 ### Sous-phase 1_7a
 Excavation du **Stross** entre le **Fensterstollen (60+375)** et la **branche Est du Sondierstollen (60+540)**.
@@ -177,7 +177,7 @@ Intersection d'un conduit en connexion hydraulique directe avec **SS3**  (0.5 m 
 Intersection d'un conduit en connexion hydraulique directe avec **SS6**  (0.5 m de diamètre).
 
 ### Sous-phase 1_7b
-Excavation du **Stross** entre la **branche Est du Sondierstollen (60+540)** et le **point haut (60+650)**.
+Excavation du **Stross** entre la **branche Est du Sondierstollen (60+540)** et le **point haut (60+749)**.
 #### Variantes
 ##### Variante 1_7b_0
 Pas de conduits recoupé sur cette section.

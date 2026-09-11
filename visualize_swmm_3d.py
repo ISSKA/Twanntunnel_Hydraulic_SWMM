@@ -52,6 +52,11 @@ TWANNTUNNEL_OBJ = "Twanntunnel.obj"
 TWANNTUNNEL_OBJ_SWAP_YZ = True  # Read OBJ coordinates as X, Z, Y for the HTML scene.
 TWANNTUNNEL_OBJ_SCALE = 0.1
 TWANNTUNNEL_COLOR = "#B58900"
+SHOW_CENTRALE_VENTILATION_1C_OBJ = True
+CENTRALE_VENTILATION_1C_OBJ = "Centrale_Ventilation_variante_1C.obj"
+CENTRALE_VENTILATION_1C_OBJ_SWAP_YZ = True
+CENTRALE_VENTILATION_1C_OBJ_SCALE = 0.1
+CENTRALE_VENTILATION_1C_COLOR = "#2E8B57"
 DIAMETER_SCALE = 1.0  # Use 1.0 for real conduit dimensions.
 CROSS_SECTION_SEGMENTS = 16
 SUMMARY_ONLY = False
@@ -484,6 +489,7 @@ def build_plotly_figure(
     cross_section_segments: int,
     node_radius: float,
     twanntunnel_mesh: ObjMesh | None = None,
+    centrale_ventilation_1c_mesh: ObjMesh | None = None,
 ):
     import plotly.graph_objects as go
 
@@ -601,22 +607,26 @@ def build_plotly_figure(
             )
         )
 
-    if twanntunnel_mesh is not None and twanntunnel_mesh.x and twanntunnel_mesh.i:
-        fig.add_trace(
-            go.Mesh3d(
-                x=twanntunnel_mesh.x,
-                y=twanntunnel_mesh.y,
-                z=twanntunnel_mesh.z,
-                i=twanntunnel_mesh.i,
-                j=twanntunnel_mesh.j,
-                k=twanntunnel_mesh.k,
-                name="Twanntunnel",
-                color=TWANNTUNNEL_COLOR,
-                opacity=0.75,
-                hovertemplate="<b>Twanntunnel</b><extra></extra>",
-                showlegend=True,
+    for external_mesh, external_label, external_color in (
+        (twanntunnel_mesh, "Twanntunnel", TWANNTUNNEL_COLOR),
+        (centrale_ventilation_1c_mesh, "Centrale de ventilation 1C", CENTRALE_VENTILATION_1C_COLOR),
+    ):
+        if external_mesh is not None and external_mesh.x and external_mesh.i:
+            fig.add_trace(
+                go.Mesh3d(
+                    x=external_mesh.x,
+                    y=external_mesh.y,
+                    z=external_mesh.z,
+                    i=external_mesh.i,
+                    j=external_mesh.j,
+                    k=external_mesh.k,
+                    name=external_label,
+                    color=external_color,
+                    opacity=0.75,
+                    hovertemplate=f"<b>{external_label}</b><extra></extra>",
+                    showlegend=True,
+                )
             )
-        )
 
     fig.update_layout(
         title="Vue 3D du reseau SWMM",
@@ -856,6 +866,9 @@ def config_args() -> argparse.Namespace:
         show_twanntunnel_obj=SHOW_TWANNTUNNEL_OBJ,
         twanntunnel_obj=Path(TWANNTUNNEL_OBJ) if TWANNTUNNEL_OBJ else None,
         twanntunnel_obj_swap_yz=TWANNTUNNEL_OBJ_SWAP_YZ,
+        show_centrale_ventilation_1c_obj=SHOW_CENTRALE_VENTILATION_1C_OBJ,
+        centrale_ventilation_1c_obj=Path(CENTRALE_VENTILATION_1C_OBJ) if CENTRALE_VENTILATION_1C_OBJ else None,
+        centrale_ventilation_1c_obj_swap_yz=CENTRALE_VENTILATION_1C_OBJ_SWAP_YZ,
         diameter_scale=DIAMETER_SCALE,
         cross_section_segments=CROSS_SECTION_SEGMENTS,
         summary_only=SUMMARY_ONLY,
@@ -981,6 +994,7 @@ def run(args: argparse.Namespace) -> int:
         return 0
 
     twanntunnel_mesh: ObjMesh | None = None
+    centrale_ventilation_1c_mesh: ObjMesh | None = None
     use_twanntunnel = getattr(args, "show_twanntunnel_obj", not getattr(args, "no_twanntunnel_obj", False))
     if use_twanntunnel:
         configured_twanntunnel = getattr(args, "twanntunnel_obj", None) or Path(TWANNTUNNEL_OBJ)
@@ -1002,6 +1016,27 @@ def run(args: argparse.Namespace) -> int:
         else:
             print(f"Warning: Twanntunnel OBJ not found: {twanntunnel_path}")
 
+    use_centrale_ventilation_1c = getattr(args, "show_centrale_ventilation_1c_obj", True)
+    if use_centrale_ventilation_1c:
+        configured_centrale = getattr(args, "centrale_ventilation_1c_obj", None) or Path(CENTRALE_VENTILATION_1C_OBJ)
+        centrale_path = resolve_path(configured_centrale)
+        if centrale_path.exists():
+            centrale_swap_yz = getattr(args, "centrale_ventilation_1c_obj_swap_yz", CENTRALE_VENTILATION_1C_OBJ_SWAP_YZ)
+            centrale_ventilation_1c_mesh = read_obj_mesh(
+                centrale_path,
+                "Centrale de ventilation 1C",
+                swap_yz=centrale_swap_yz,
+                scale=CENTRALE_VENTILATION_1C_OBJ_SCALE,
+            )
+            print(
+                f"Centrale de ventilation 1C OBJ read from: {centrale_path} "
+                f"({len(centrale_ventilation_1c_mesh.x)} vertices, {len(centrale_ventilation_1c_mesh.i)} triangles)"
+            )
+            if not centrale_ventilation_1c_mesh.x or not centrale_ventilation_1c_mesh.i:
+                print("Warning: Centrale de ventilation 1C OBJ does not contain readable vertices/faces.")
+                centrale_ventilation_1c_mesh = None
+        else:
+            print(f"Warning: Centrale de ventilation 1C OBJ not found: {centrale_path}")
     obj_skipped: list[str] = []
     if not args.no_obj:
         obj_path = resolve_path(args.obj_output) if args.obj_output else inp_path.with_name(f"{inp_path.stem}_network.obj")
@@ -1025,6 +1060,7 @@ def run(args: argparse.Namespace) -> int:
             cross_section_segments=max(args.cross_section_segments, 4),
             node_radius=args.obj_node_radius,
             twanntunnel_mesh=twanntunnel_mesh,
+            centrale_ventilation_1c_mesh=centrale_ventilation_1c_mesh,
         )
     except ImportError:
         print("Plotly is not installed. Install it with: pip install plotly")
@@ -1047,6 +1083,8 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         raise SystemExit(main())
     raise SystemExit(run_from_config())
+
+
 
 
 

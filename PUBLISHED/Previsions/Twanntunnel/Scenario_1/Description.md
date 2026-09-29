@@ -15,10 +15,13 @@ Excavation de la **calotte** depuis le **portail Est (61+665)** jusqu'aux calcai
 Pas de conduits recoupé sur cette section.
 #####  Variante 1_1a_1
 Intersection d'un conduit **amont** du "système karstique Est" (0.5 m de diamètre). 
+Probabilité 0.15
 #####  Variante 1_1a_2
 Intersection d'un conduit **intermédiaire** du "système karstique Est" (0.5 m de diamètre). 
+Probabilité 0.15
 #####  Variante 1_1a_3
 Intersection d'un conduit en connexion hydraulique directe avec le Wasserhooliloch (0.5 m de diamètre).
+Probabilité 0.005
 
 ### Sous-phase 1_1b
 Excavation depuis l'Anticlinal de **Chapf (61+140)** jusqu'au **point haut (60+749)**.
@@ -27,10 +30,13 @@ Excavation depuis l'Anticlinal de **Chapf (61+140)** jusqu'au **point haut (60+7
 Pas de conduits recoupé sur cette section.
 ##### Variante 1_1b_1
 Intersection d'un conduit **amont** du "système karstique Est" (0.5 m de diamètre). 
+Probabilité 0.15
 ##### Variante 1_1b_2
 Intersection d'un conduit **intermédiaire** du "système karstique Est" (0.5 m de diamètre). 
+Probabilité 0.15
 ##### Variante 1_1b_3
 Intersection d'un conduit en connexion hydraulique directe avec le **Wasserhooliloch** (0.5 m de diamètre).
+Probabilité 0.02
 
 ## Phase 1_2
 Excavation de la calotte depuis le **point haut (60+749)** jusqu'au **Fensterstollen (60+375)**.
@@ -45,12 +51,16 @@ Excavation depuis le **point haut (60+749)** jusqu'à intersecter la **branche E
 Pas de conduits recoupé sur cette section.
 ##### Variante 1_2a_1
 Intersection d'un conduit **amont** du "système karstique Est" (0.5 m de diamètre). 
+Probabilité 0.009
 ##### Variante 1_2a_2
 Intersection d'un conduit **intermédiaire** du "système karstique Est" (0.5 m de diamètre). 
+Probabilité 0.009
 ##### Variante 1_2a_3
 Intersection d'un conduit en connexion hydraulique directe avec la venue d'eau **SS3** du Sondierstollen (0.5 m de diamètre). 
+Probabilité 0.009
 ##### Variante 1_2a_4
 Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (0.5 m de diamètre). 
+Probabilité 0.009
 
 ### Sous-phase 1_2b
 Excavation depuis la **branche Est du Sondierstollen (60+540)** jusqu'au **Fensterstollen (60+375)**.
@@ -60,16 +70,22 @@ Intersection du TWT avec la banche Est du Sondierstollen.
 Pas de conduits recoupé sur cette section.
 ##### Variante 1_2b_1
 Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (0.5 m de diamètre). 
+Probabilité 0.63
 ##### Variante 1_2b_2
 Intersection d'un conduit en connexion hydraulique directe avec **des venues d'eau à l'ouest du Fensterstollen** (0.5 m de diamètre). 
+Probabilité 1
 ##### Variante 1_2b_3
 Intersection d'un conduit en connexion hydraulique directe avec **Sauserquelle** (0.5 m de diamètre). 
+Probabilité 0.33
 ##### Variante 1_2b_4
 Intersection d'un conduit en connexion hydraulique directe avec la venue d'eau **SS4** du Sondierstollen (0.5 m de diamètre). 
+Probabilité 0.05
 ##### Variante 1_2b_5
 Intersection d'un conduit en connexion hydraulique directe avec la venue d'eau **SS3** du Sondierstollen (0.5 m de diamètre). 
+Probabilité 0.05
 ##### Variante 1_2b_6
 Intersection d'un conduit en connexion hydraulique directe avec la venue d'eau **SS6** du Sondierstollen (0.5 m de diamètre). 
+Probabilité 0.18
 
 ## Phase 1_3
 Excavation du **Stross** depuis le **portail Est (61+665)** jusqu'au **point haut (60+749)**.
@@ -84,15 +100,27 @@ Excavation du **Stross** depuis le **portail Est (61+665)** jusqu'aux calcaires 
 Pas de conduits recoupé sur cette section.
 ##### Variante 1_3a_1
 Intersection d'un conduit **amont** du "système karstique Est" (0.5 m de diamètre). 
+Probabilité 0.15
 ##### Variante 1_3a_2
 Intersection d'un conduit **intermédiaire** du "système karstique Est" (0.5 m de diamètre). 
+Probabilité 0.15
 ##### Variante 1_3a_3
 Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (0.5 m de diamètre). 
+Probabilité 0.01
 
 ### Sous-phase 1_3b
 Excavation du **Stross** depuis l'Anticlinal de **Chapf (61+140)** jusqu'au **point haut (60+749)**.
 #### Variante 1_3b_0
 Pas de conduits recoupé sur cette section.
+#### Variante 1_3b_1
+Intersection d'un conduit **amont** du "système karstique Est" (0.5 m de diamètre). 
+Probabilité 0.15
+#### Variante 1_3b_2
+Intersection d'un conduit **intermédiaire** du "système karstique Est" (0.5 m de diamètre). 
+Probabilité 0.15
+#### Variante 1_3b_3
+Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (0.5 m de diamètre). 
+Probabilité 0.04
 
 ## Phase 1_4
 Excavation de la **calotte** entre le **Fensterstollen (60+375)** et la **galerie d'accès Ligerztunnel (60+110)**.
@@ -107,8 +135,10 @@ Excavation de la calotte entre le **Fensterstollen (60+375)** et la **branche ou
 Pas de conduits recoupé sur cette section.
 ##### Variante 1_4a_1
 Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (0.5 m de diamètre).
+Probabilité 0.14
 ##### Variante 1_4a_2
 Intersection d'un conduit en connexion hydraulique directe avec un conduit de base conduisant à **la Brunnmühle** (0.5 m de diamètre).
+Probabilité 0.14
 
 ### Sous-phase 1_4b
 Excavation de la calotte entre la **branche ouest du Sondierstollen (60+345)** et la la **galerie d'accès Ligerztunnel (60+110)**.
@@ -117,8 +147,10 @@ Excavation de la calotte entre la **branche ouest du Sondierstollen (60+345)** e
 Pas de conduits recoupé sur cette section.
 ##### Variante 1_4b_1
 Intersection d'un conduit en connexion hydraulique directe avec un conduit de base conduisant à **la Brunnmühle** (0.5 m de diamètre).
+Probabilité 0.08
 ##### Variante 1_4b_2
 Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (0.5 m de diamètre).
+Probabilité 0.08
 
 ## Phase 1_5
 Excavation de la **calotte** entre la **galerie d'accès Ligerztunnel (60+110)** et la **jonction Ligerztunnel (59+738)**. Pas de sous-phases.
@@ -129,6 +161,7 @@ Excavation de la **calotte** entre la **galerie d'accès Ligerztunnel (60+110)**
 Pas de conduits recoupé sur cette section.
 ##### Variante 1_5a_1
 Intersection d'un conduit en connexion hydraulique directe avec **la Brunnmühle** (0.5 m de diamètre).
+Probabilité 0.007
 
 ## Phase 1_6
 Excavation du **Stross** **vers l'est** entre **galerie d'accès Ligerztunnel (60+110)** et **Fensterstollen (60+375)**.
@@ -143,8 +176,10 @@ Excavation du **Stross** entre la **galerie d'accès Ligerztunnel (60+110)** et 
 Pas de conduits recoupé sur cette section.
 ##### Variante 1_6a_1
 Intersection d'un conduit en connexion hydraulique directe avec un conduit de base conduisant à **la Brunnmühle** (0.5 m de diamètre).
+Probabilité 0.08
 ##### Variante 1_6a_2
 Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (0.5 m de diamètre).
+Probabilité 0.08
 
 ### Sous-phase 1_6b
 Excavation du **Stross** entre la **branche ouest du Sondierstollen (60+345)** et le **Fensterstollen (60+375)**.
@@ -153,8 +188,10 @@ Excavation du **Stross** entre la **branche ouest du Sondierstollen (60+345)** e
 Pas de conduits recoupé sur cette section.
 ##### Variante 1_6b_1
 Intersection d'un conduit en connexion hydraulique directe avec un conduit de base conduisant à **la Brunnmühle** (0.5 m de diamètre).
+Probabilité 0.15
 ##### Variante 1_6b_2
 Intersection d'un conduit en connexion hydraulique directe avec **le Wasserhooliloch** (0.5 m de diamètre).
+Probabilité 0.15
 
 ## Phase 1_7
 Excavation du **Stross vers l'est** entre **Fensterstollen (60+375)** et **point haut (60+749)**. 
@@ -169,12 +206,16 @@ Excavation du **Stross** entre le **Fensterstollen (60+375)** et la **branche Es
 Pas de conduits recoupé sur cette section.
 ##### Variante 1_7a_1
 Intersection d'un conduit en connexion hydraulique directe avec  **le Wasserhooliloch** (0.5 m de diamètre).
+Probabilité 0.83
 ##### Variante 1_7a_2
 Intersection d'un conduit en connexion hydraulique directe avec **SS4**  (0.5 m de diamètre).
+Probabilité 0.05
 ##### Variante 1_7a_3
 Intersection d'un conduit en connexion hydraulique directe avec **SS3**  (0.5 m de diamètre).
+Probabilité 0.05
 ##### Variante 1_7a_4
 Intersection d'un conduit en connexion hydraulique directe avec **SS6**  (0.5 m de diamètre).
+Probabilité 0.2
 
 ### Sous-phase 1_7b
 Excavation du **Stross** entre la **branche Est du Sondierstollen (60+540)** et le **point haut (60+749)**.
@@ -183,14 +224,19 @@ Excavation du **Stross** entre la **branche Est du Sondierstollen (60+540)** et 
 Pas de conduits recoupé sur cette section.
 ##### Variante 1_7b_1
 Intersection d'un conduit **amont** du "système karstique Est" (0.5 m de diamètre). 
+Probabilité 0.009
 ##### Variante 1_7b_2
 Intersection d'un conduit **intermédiaire** du "système karstique Est" (0.5 m de diamètre). 
+Probabilité 0.009
 ##### Variante 1_7b_3
 Intersection d'un conduit en connexion hydraulique directe avec **SS3**  (0.5 m de diamètre).
+Probabilité 0.009
 ##### Variante 1_7b_4
 Intersection d'un conduit en connexion hydraulique directe avec **Sauserquelle** (0.5 m de diamètre). 
+Probabilité 0.009
 ##### Variante 1_7b_5
 Intersection d'un conduit en connexion hydraulique directe avec  **le Wasserhooliloch** (0.5 m de diamètre).
+Probabilité 0.009
 
 ## Phase 1_8
 Excavation du Stross entre **galerie d'accès Ligerztunnel (60+110)** et **jonction Ligerztunnel (59+738)**. Pas de sous-phases.
@@ -201,8 +247,10 @@ Excavation du Stross entre **galerie d'accès Ligerztunnel (60+110)** et **jonct
 Pas de conduits recoupé sur cette section.
 ##### Variante 1_8a_1
 Intersection d'un conduit en connexion hydraulique directe avec un conduit de base conduisant à **la Brunnmühle** (0.5 m de diamètre).
+Probabilité 0.03
 ##### Variante 1_8a_2
 Intersection d'un conduit en connexion hydraulique directe avec  **le Wasserhooliloch** (0.5 m de diamètre).
+Probabilité 0.007
 
 
 

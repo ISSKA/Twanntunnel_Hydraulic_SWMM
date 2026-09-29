@@ -9,6 +9,7 @@ import re
 import shutil
 import subprocess
 import sys
+import time
 from html import escape
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from dataclasses import dataclass, field
@@ -1047,8 +1048,35 @@ def write_case_inp(
 
     case_dir.mkdir(parents=True, exist_ok=True)
     inp_path = case_dir / f"{file_stem or case.slug}.inp"
-    inp_path.write_text("\r\n".join(lines) + "\r\n", encoding="mbcs")
+    write_text_with_retries(inp_path, "\r\n".join(lines) + "\r\n", encoding="mbcs")
     return inp_path
+
+
+def write_text_with_retries(
+    path: Path,
+    text: str,
+    encoding: str,
+    attempts: int = 5,
+) -> None:
+    for attempt in range(attempts):
+        try:
+            path.write_text(text, encoding=encoding)
+            return
+        except OSError:
+            if attempt == attempts - 1:
+                raise
+            time.sleep(0.25 * (attempt + 1))
+
+
+def unlink_with_retries(path: Path, attempts: int = 5) -> None:
+    for attempt in range(attempts):
+        try:
+            path.unlink(missing_ok=True)
+            return
+        except OSError:
+            if attempt == attempts - 1:
+                raise
+            time.sleep(0.25 * (attempt + 1))
 
 
 def run_swmm(inp_path: Path, rpt_path: Path, out_path: Path, engine: str | None = None) -> None:
@@ -1977,6 +2005,8 @@ def run_case_task(
     inp_path = write_case_inp(base_inp, case, case_dir, simulation_id)
     rpt_path = case_dir / f"{simulation_id}.rpt"
     out_path = case_dir / f"{simulation_id}.out"
+    unlink_with_retries(rpt_path)
+    unlink_with_retries(out_path)
 
     run_swmm(inp_path, rpt_path, out_path, engine)
     summary = extract_simulation_summary(

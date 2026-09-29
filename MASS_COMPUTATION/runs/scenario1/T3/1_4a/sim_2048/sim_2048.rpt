@@ -10,7 +10,10 @@
   WARNING 08: elevation drop exceeds length for Conduit 68
   WARNING 08: elevation drop exceeds length for Conduit 1_2_b_
   WARNING 08: elevation drop exceeds length for Conduit 1_2_b_2
+  WARNING 08: elevation drop exceeds length for Conduit 1_2_b_3
   WARNING 08: elevation drop exceeds length for Conduit 1_4_a
+  WARNING 08: elevation drop exceeds length for Conduit 1_4_a_1
+  WARNING 08: elevation drop exceeds length for Conduit 1_4_a_2
   WARNING 02: maximum depth increased for Node 2
   
   ****************
@@ -46,29 +49,30 @@
   Groundwater Inflow .......         0.000         0.000
   RDII Inflow ..............         0.000         0.000
   External Inflow ..........       133.343      1333.445
-  External Outflow .........       126.453      1264.538
+  External Outflow .........       126.537      1265.383
   Flooding Loss ............         0.000         0.000
   Evaporation Loss .........         0.000         0.000
   Exfiltration Loss ........         0.000         0.000
-  Initial Stored Volume ....         0.056         0.561
-  Final Stored Volume ......         0.276         2.756
-  Continuity Error (%) .....         5.001
+  Initial Stored Volume ....         0.056         0.563
+  Final Stored Volume ......         0.232         2.321
+  Continuity Error (%) .....         4.970
   
   
   *************************
   Highest Continuity Errors
   *************************
   Node Syst_Est_interm (100.00%)
-  Node 2 (42.76%)
-  Node TWT_Fensterstollen_60+375 (-10.08%)
-  Node TWT_Chrosweg_61+140 (4.61%)
-  Node SonSto_SS4 (2.44%)
+  Node 2 (75.19%)
+  Node SondeGischeren (59.31%)
+  Node 54 (52.18%)
+  Node SonSto_SS4 (-30.11%)
   
   
   ***************************
   Time-Step Critical Elements
   ***************************
-  Link 1_2_b_2 (14753.59%)
+  Link 1_4_a (33867.45%)
+  Link 1_4_a_1 (1.96%)
   
   
   ********************************
@@ -80,11 +84,11 @@
   *********************************
   Most Frequent Nonconverging Nodes
   *********************************
-  Node Brunnm_Fassung (49.49%)
-  Node Brunnmuehle(Teich) (49.49%)
-  Node Fensterstollen (49.49%)
-  Node Gischeren (49.49%)
-  Node Schuettstein (49.49%)
+  Node Brunnm_Fassung (80.39%)
+  Node Brunnmuehle(Teich) (80.39%)
+  Node Fensterstollen (80.39%)
+  Node Gischeren (80.39%)
+  Node Schuettstein (80.39%)
   
   
   *************************
@@ -93,9 +97,9 @@
   Minimum Time Step           :     0.50 sec
   Average Time Step           :     0.50 sec
   Maximum Time Step           :     0.50 sec
-  % of Time in Steady State   :    99.32
-  Average Iterations per Step :     7.24
-  % of Steps Not Converging   :    49.49
+  % of Time in Steady State   :    99.70
+  Average Iterations per Step :     7.38
+  % of Steps Not Converging   :    80.39
   Time Step Frequencies       :
       0.500 -  0.500 sec      :   100.00 %
       0.500 -  0.500 sec      :     0.00 %
@@ -113,76 +117,76 @@
                                    Depth    Depth      HGL   Occurrence   Max Depth
   Node                 Type       Meters   Meters   Meters  days hr:min      Meters
   ---------------------------------------------------------------------------------
-  9                    JUNCTION    47.44    49.65   488.15     0  00:01       47.49
-  Holiloch_sonde       JUNCTION    42.60    48.71   488.71     0  00:01       42.64
-  11                   JUNCTION    53.12    54.62   464.62     0  00:03       53.15
-  13                   JUNCTION    64.39    64.96   502.96     0  00:04       64.45
-  21                   JUNCTION    42.24    43.31   443.31     0  00:03       42.26
-  SonSto_F             JUNCTION     0.15     0.15   437.95     0  00:09        0.15
+  9                    JUNCTION    40.17    40.20   478.70     0  00:04       40.20
+  Holiloch_sonde       JUNCTION    38.29    40.38   480.38     0  00:00       38.32
+  11                   JUNCTION    31.84    32.17   442.17     0  00:01       31.85
+  13                   JUNCTION    42.71    42.74   480.74     0  00:04       42.74
+  21                   JUNCTION    37.68    37.75   437.75     0  00:00       37.69
+  SonSto_F             JUNCTION     0.51     0.80   438.60     0  00:01        0.51
   Sondierstollen       JUNCTION     0.00     0.00   440.80     0  00:00        0.00
-  Aval_Trappe          JUNCTION     0.28     0.28   437.88     0  00:09        0.28
-  30                   JUNCTION     0.25     0.25   437.55     0  00:09        0.25
-  Gischeren_node       JUNCTION     3.81     3.83   480.33     0  00:09        3.83
-  34                   JUNCTION    20.45    21.33   441.33     0  00:03       20.46
-  38                   JUNCTION    26.11    27.54   447.54     0  00:03       26.13
-  SS6                  JUNCTION     0.07     0.07   448.07     0  00:02        0.07
-  40                   JUNCTION    46.79    47.67   466.67     0  00:02       46.83
-  41                   JUNCTION    64.50    65.06   502.56     0  00:04       64.55
-  SondeSchuettstein    JUNCTION    23.35    25.55   484.55     0  00:01       23.38
-  SS4                  JUNCTION     0.08     0.08   448.08     0  00:09        0.08
-  47                   JUNCTION    14.58    16.81   481.71     0  00:01       14.60
-  48                   JUNCTION    10.89    12.82   483.82     0  00:01       10.90
-  SondeGischeren       JUNCTION    15.29    15.35   480.35     0  00:09       15.34
-  49                   JUNCTION    14.51    16.25   482.25     0  00:02       14.54
-  50                   JUNCTION     8.70     8.74   471.74     0  00:09        8.73
-  51                   JUNCTION    82.72    83.29   503.29     0  00:04       82.78
-  Amont_C              JUNCTION    85.99    87.54   505.54     0  00:00       86.05
-  52                   JUNCTION    15.48    31.54   488.54     0  00:03       15.52
-  53                   JUNCTION    31.40    32.86   499.86     0  00:09       31.51
-  54                   JUNCTION    32.58    34.25   497.25     0  00:09       32.78
-  56                   JUNCTION     7.24     7.97   437.97     0  00:02        7.24
-  2                    JUNCTION     0.12     0.12   438.12     0  00:09        0.12
-  4                    JUNCTION     8.97     9.42   437.42     0  00:03        8.98
-  5                    JUNCTION     6.30     6.33   478.83     0  00:04        6.31
-  6                    JUNCTION    22.69    23.65   481.65     0  00:01       22.72
-  7                    JUNCTION     3.79     3.80   478.80     0  00:04        3.80
-  SS3                  JUNCTION     0.08     0.08   448.08     0  00:09        0.08
-  SS5                  JUNCTION     0.70     0.70   439.60     0  00:09        0.70
-  8                    JUNCTION     6.45     6.48   480.48     0  00:09        6.47
-  10                   JUNCTION    12.51    14.29   482.29     0  00:02       12.53
-  SonSto_SS5           JUNCTION     0.18     0.18   439.48     0  00:09        0.18
-  SonSto_SS3           JUNCTION     0.10     0.10   439.80     0  00:09        0.10
-  SonSto_SS4           JUNCTION     0.19     0.19   439.59     0  00:09        0.19
-  Amont_Trappe         JUNCTION     0.22     0.22   437.92     0  00:09        0.22
-  SonSto_SS6           JUNCTION     0.16     0.17   438.87     0  00:09        0.17
+  Aval_Trappe          JUNCTION     0.74     0.92   438.52     0  00:01        0.74
+  30                   JUNCTION     0.68     0.81   438.11     0  00:01        0.68
+  Gischeren_node       JUNCTION     0.00     0.00   476.50     0  00:00        0.00
+  34                   JUNCTION    17.16    17.72   437.72     0  00:00       17.16
+  38                   JUNCTION    18.45    18.46   438.46     0  00:04       18.46
+  SS6                  JUNCTION     0.07     0.07   448.07     0  00:03        0.07
+  40                   JUNCTION    25.38    25.39   444.39     0  00:04       25.39
+  41                   JUNCTION    43.17    43.19   480.69     0  00:04       43.19
+  SondeSchuettstein    JUNCTION    19.46    20.91   479.91     0  00:01       19.47
+  SS4                  JUNCTION     0.06     0.06   448.06     0  00:02        0.06
+  47                   JUNCTION    13.06    13.08   477.98     0  00:04       13.08
+  48                   JUNCTION     7.41     8.79   479.79     0  00:01        7.42
+  SondeGischeren       JUNCTION     0.48     0.48   465.48     0  00:04        0.48
+  49                   JUNCTION    11.94    12.23   478.23     0  00:03       11.96
+  50                   JUNCTION     0.17     0.17   463.17     0  00:04        0.17
+  51                   JUNCTION    61.06    61.09   481.09     0  00:04       61.09
+  Amont_C              JUNCTION    64.33    87.57   505.57     0  00:00       64.36
+  52                   JUNCTION     0.23     0.23   457.23     0  00:04        0.23
+  53                   JUNCTION     8.40     9.24   476.24     0  00:02        8.41
+  54                   JUNCTION     0.64     0.64   463.64     0  00:04        0.64
+  56                   JUNCTION     6.48     6.48   436.48     0  00:04        6.48
+  2                    JUNCTION     0.05     0.05   438.05     0  00:04        0.05
+  4                    JUNCTION     8.18     9.15   437.15     0  00:00        8.18
+  5                    JUNCTION     5.40     5.40   477.90     0  00:04        5.40
+  6                    JUNCTION    20.09    20.11   478.11     0  00:04       20.11
+  7                    JUNCTION     2.90     2.90   477.90     0  00:04        2.90
+  SS3                  JUNCTION     0.05     0.05   448.05     0  00:04        0.05
+  SS5                  JUNCTION     0.59     0.63   439.53     0  00:04        0.59
+  8                    JUNCTION     0.18     0.18   474.18     0  00:04        0.18
+  10                   JUNCTION     9.93    10.26   478.26     0  00:03        9.95
+  SonSto_SS5           JUNCTION     0.12     0.14   439.44     0  00:04        0.12
+  SonSto_SS3           JUNCTION     0.07     0.07   439.77     0  00:04        0.07
+  SonSto_SS4           JUNCTION     0.10     0.11   439.51     0  00:04        0.10
+  Amont_Trappe         JUNCTION     0.55     0.84   438.54     0  00:01        0.55
+  SonSto_SS6           JUNCTION     0.12     0.13   438.83     0  00:04        0.12
   SS2                  JUNCTION     0.00     0.00   448.00     0  00:00        0.00
   SonSto_SS2           JUNCTION     0.00     0.00   441.50     0  00:00        0.00
-  12                   JUNCTION    36.49    36.92   485.92     0  00:04       36.54
-  14                   JUNCTION    24.44    30.23   495.23     0  00:02       24.48
-  15                   JUNCTION     0.40     0.40   472.40     0  00:04        0.40
-  TWT_PointHaut_60+650 JUNCTION     0.00     0.00   438.50     0  00:00        0.00
-  TWT_Fensterstollen_60+375 JUNCTION     0.04     0.04   441.34     0  00:09        0.04
+  12                   JUNCTION    14.95    14.96   463.96     0  00:04       14.96
+  14                   JUNCTION     2.07     2.08   467.08     0  00:04        2.08
+  15                   JUNCTION     0.29     0.29   472.29     0  00:04        0.29
+  TWT_PointHaut_60+749 JUNCTION     0.00     0.00   438.50     0  00:00        0.00
+  TWT_Fensterstollen_60+375 JUNCTION     0.41     0.42   441.72     0  00:02        0.41
   TWT_Acces_LT_60+110  JUNCTION     0.00     0.00   441.50     0  00:00        0.00
   TWT_Liaison_LT_59+738 JUNCTION     0.00     0.00   450.60     0  00:00        0.00
-  Syst_Est_amont       JUNCTION     0.50     0.52   430.52     0  00:03        0.50
-  Syst_Est_interm      JUNCTION     1.32     1.32   411.32     0  00:09        1.32
+  Syst_Est_amont       JUNCTION     0.52     0.52   430.52     0  00:03        0.52
+  Syst_Est_interm      JUNCTION     0.48     0.48   410.48     0  00:04        0.48
   TWT_Branche_Est_Sonsto_60+540 JUNCTION     0.00     0.00   442.40     0  00:00        0.00
-  TWT_Intersection_Sonsto_60+345 JUNCTION     0.44     0.45   441.35     0  00:08        0.44
-  TWT_Chrosweg_61+140  JUNCTION     0.09     0.09   432.09     0  00:09        0.09
-  SonSto_F_sup         JUNCTION     0.07     0.07   448.07     0  00:04        0.07
+  TWT_Intersection_Sonsto_60+345 JUNCTION     0.90     1.24   442.14     0  00:01        0.90
+  TWT_Chrosweg_61+140  JUNCTION     0.00     0.00   432.00     0  00:00        0.00
+  SonSto_F_sup         JUNCTION     0.05     0.05   448.05     0  00:04        0.05
   SonSto_porte         JUNCTION     0.00     0.00   438.50     0  00:00        0.00
-  Brunnm_Fassung       OUTFALL      0.11     0.11   433.91     0  00:03        0.11
-  Brunnmuehle(Teich)   OUTFALL      0.25     0.25   435.75     0  00:03        0.25
-  Fensterstollen       OUTFALL      0.24     0.24   437.24     0  00:09        0.24
-  Gischeren            OUTFALL      0.21     0.21   480.21     0  00:09        0.21
-  Schuettstein         OUTFALL      0.27     0.27   477.82     0  00:04        0.27
-  Holiloch             OUTFALL      1.84     1.85   478.35     0  00:04        1.84
-  Sauserquelle         OUTFALL      0.44     0.44   435.99     0  00:04        0.44
-  Entw_Stollen         OUTFALL      0.12     0.12   436.62     0  00:09        0.12
-  Sous_lacustre        OUTFALL      0.11     0.11   429.31     0  00:03        0.11
-  Sous_ecoul.          OUTFALL      0.00     0.00   433.00     0  00:03        0.00
+  Brunnm_Fassung       OUTFALL      0.08     0.08   433.88     0  00:04        0.08
+  Brunnmuehle(Teich)   OUTFALL      0.18     0.18   435.68     0  00:04        0.18
+  Fensterstollen       OUTFALL      0.65     0.69   437.69     0  00:01        0.65
+  Gischeren            OUTFALL      0.00     0.00   480.00     0  00:00        0.00
+  Schuettstein         OUTFALL      0.15     0.15   477.70     0  00:04        0.15
+  Holiloch             OUTFALL      1.18     1.18   477.68     0  00:04        1.18
+  Sauserquelle         OUTFALL      0.31     0.31   435.86     0  00:04        0.31
+  Entw_Stollen         OUTFALL      0.05     0.05   436.55     0  00:04        0.05
+  Sous_lacustre        OUTFALL      0.09     0.09   429.29     0  00:04        0.09
+  Sous_ecoul.          OUTFALL      0.00     0.00   433.00     0  00:00        0.00
   Syst_Est_aval        OUTFALL      0.00     0.00   429.00     0  00:00        0.00
-  TWT_Portail_Est_61+665 OUTFALL      0.07     0.07   421.67     0  00:09        0.07
+  TWT_Portail_Est_61+665 OUTFALL      0.00     0.00   421.60     0  00:00        0.00
   
   
   *******************
@@ -195,76 +199,76 @@
                                    Inflow   Inflow   Occurrence      Volume      Volume       Error
   Node                 Type           CMS      CMS  days hr:min    10^6 ltr    10^6 ltr     Percent
   -------------------------------------------------------------------------------------------------
-  9                    JUNCTION         0     14.7     0  00:01           0         911       0.013
-  Holiloch_sonde       JUNCTION         0     13.4     0  00:01           0         862       0.009
-  11                   JUNCTION         0    0.285     0  00:02           0        24.4      -0.001
-  13                   JUNCTION         0     14.6     0  00:00           0    1.06e+03       0.059
-  21                   JUNCTION         0     0.49     0  00:04           0        41.8      -0.000
-  SonSto_F             JUNCTION         0     1.31     0  00:09           0         112      -1.342
+  9                    JUNCTION         0     11.3     0  00:00           0         321       0.042
+  Holiloch_sonde       JUNCTION         0     10.3     0  00:00           0         291       0.040
+  11                   JUNCTION         0    0.282     0  00:04           0        24.3      -0.047
+  13                   JUNCTION         0     15.1     0  00:00           0    1.09e+03       0.021
+  21                   JUNCTION         0     0.27     0  00:04           0        23.3       0.035
+  SonSto_F             JUNCTION         0     1.33     0  00:01           0        63.2     -19.259
   Sondierstollen       JUNCTION         0        0     0  00:00           0           0       0.000 ltr
-  Aval_Trappe          JUNCTION         0     1.34     0  00:09           0         115      -0.205
-  30                   JUNCTION         0      1.4     0  00:09           0         121       1.893
-  Gischeren_node       JUNCTION         0    0.537     0  00:08           0        43.5       0.161
-  34                   JUNCTION         0    0.452     0  00:03           0        38.5      -0.000
-  38                   JUNCTION         0    0.269     0  00:02           0        22.1      -0.001
-  SS6                  JUNCTION         0    0.164     0  00:02           0        13.5       0.002
-  40                   JUNCTION         0     1.92     0  00:04           0         165      -0.000
-  41                   JUNCTION         0     1.19     0  00:00           0        56.7       0.027
-  SondeSchuettstein    JUNCTION         0     0.79     0  00:01           0        56.7       0.021
-  SS4                  JUNCTION         0    0.142     0  00:09           0        12.2       0.002
-  47                   JUNCTION         0       11     0  00:01           0         848       0.004
-  48                   JUNCTION         0    0.687     0  00:01           0        56.7       0.008
-  SondeGischeren       JUNCTION         0    0.417     0  00:06           0        27.9       0.181
-  49                   JUNCTION         0      1.1     0  00:02           0        13.6       0.437
-  50                   JUNCTION         0    0.181     0  00:04           0        13.6       0.017
-  51                   JUNCTION         0     28.4     0  00:00           0    1.27e+03      -0.001
+  Aval_Trappe          JUNCTION         0     10.3     0  00:03           0         871      -1.223
+  30                   JUNCTION         0       11     0  00:01           0         888      -0.529
+  Gischeren_node       JUNCTION         0        0     0  00:00           0           0       0.000 ltr
+  34                   JUNCTION         0    0.241     0  00:04           0        20.8       0.010
+  38                   JUNCTION         0    0.197     0  00:00           0         9.9       0.005
+  SS6                  JUNCTION         0    0.146     0  00:03           0        12.5       0.005
+  40                   JUNCTION         0     1.52     0  00:04           0         131       0.007
+  41                   JUNCTION         0     1.72     0  00:00           0        19.1       0.078
+  SondeSchuettstein    JUNCTION         0    0.519     0  00:01           0          19       0.062
+  SS4                  JUNCTION         0   0.0817     0  00:02           0        6.73       0.034
+  47                   JUNCTION         0      5.9     0  00:01           0         278       0.053
+  48                   JUNCTION         0     0.36     0  00:01           0          19       0.030
+  SondeGischeren       JUNCTION         0    0.187     0  00:04           0        16.2     145.766
+  49                   JUNCTION         0    0.844     0  00:02           0        12.6       0.613
+  50                   JUNCTION         0   0.0763     0  00:04           0        6.58       0.779
+  51                   JUNCTION         0     28.4     0  00:00           0    1.27e+03      -0.004
   Amont_C              JUNCTION      14.7     39.7     0  00:00    1.27e+03    1.27e+03       0.020
-  52                   JUNCTION         0    0.302     0  00:03           0        19.7       0.110
-  53                   JUNCTION         0    0.458     0  00:01           0          15       0.080
-  54                   JUNCTION         0    0.389     0  00:09           0          15       0.721
-  56                   JUNCTION         0     1.56     0  00:04           0         135       0.000
-  2                    JUNCTION         0   0.0583     0  00:09           0        5.03      74.716
-  4                    JUNCTION         0    0.417     0  00:03           0        35.4       0.016
-  5                    JUNCTION         0     10.1     0  00:02           0         848       0.030
-  6                    JUNCTION         0     11.8     0  00:01           0         862       0.017
-  7                    JUNCTION         0     10.1     0  00:02           0         848       0.068
-  SS3                  JUNCTION         0    0.157     0  00:09           0        13.6       0.003
-  SS5                  JUNCTION         0     0.49     0  00:09           0        40.6      -1.283
-  8                    JUNCTION         0    0.709     0  00:05           0        57.1       0.131
-  10                   JUNCTION         0    0.867     0  00:02           0        13.5       0.162
-  SonSto_SS5           JUNCTION         0    0.658     0  00:09           0        56.2      -0.232
-  SonSto_SS3           JUNCTION         0    0.157     0  00:09           0        13.6       0.015
-  SonSto_SS4           JUNCTION         0    0.299     0  00:09           0        25.7       2.506
-  Amont_Trappe         JUNCTION         0     1.25     0  00:09           0         108      -0.192
-  SonSto_SS6           JUNCTION         0    0.817     0  00:09           0        69.9      -1.034
+  52                   JUNCTION         0    0.197     0  00:04           0          17      26.605
+  53                   JUNCTION         0    0.262     0  00:01           0        17.4       0.051
+  54                   JUNCTION         0    0.201     0  00:04           0        17.4     109.131
+  56                   JUNCTION         0     0.82     0  00:04           0        70.8       0.010
+  2                    JUNCTION         0   0.0256     0  00:04           0        2.21     303.074
+  4                    JUNCTION         0    0.217     0  00:04           0        18.8       0.028
+  5                    JUNCTION         0     4.38     0  00:01           0         278       0.594
+  6                    JUNCTION         0     7.35     0  00:00           0         291       0.078
+  7                    JUNCTION         0      3.6     0  00:03           0         276       6.535
+  SS3                  JUNCTION         0   0.0757     0  00:04           0        6.53       0.133
+  SS5                  JUNCTION         0    0.411     0  00:04           0        26.4      32.163
+  8                    JUNCTION         0    0.188     0  00:04           0        16.2       0.258
+  10                   JUNCTION         0     0.58     0  00:02           0        12.5       0.409
+  SonSto_SS5           JUNCTION         0    0.349     0  00:04           0          24      -1.587
+  SonSto_SS3           JUNCTION         0   0.0756     0  00:04           0        6.52       0.372
+  SonSto_SS4           JUNCTION         0    0.153     0  00:04           0        13.2     -23.144
+  Amont_Trappe         JUNCTION         0     1.57     0  00:01           0        72.6      -4.344
+  SonSto_SS6           JUNCTION         0    0.479     0  00:04           0        36.9      -4.778
   SS2                  JUNCTION         0        0     0  00:00           0           0       0.000 ltr
   SonSto_SS2           JUNCTION         0        0     0  00:00           0           0       0.000 ltr
-  12                   JUNCTION         0    0.409     0  00:01           0          23       0.016
-  14                   JUNCTION         0      2.3     0  00:02           0         134       0.034
-  15                   JUNCTION         0    0.566     0  00:04           0        48.5       0.207
-  TWT_PointHaut_60+650 JUNCTION         0        0     0  00:00           0           0       0.000 ltr
-  TWT_Fensterstollen_60+375 JUNCTION         0   0.0952     0  00:09           0        7.12      -9.158
+  12                   JUNCTION         0    0.315     0  00:01           0        22.9       0.022
+  14                   JUNCTION         0     1.19     0  00:04           0         103       3.009
+  15                   JUNCTION         0    0.343     0  00:04           0        29.6       1.266
+  TWT_PointHaut_60+749 JUNCTION         0        0     0  00:00           0           0       0.000 ltr
+  TWT_Fensterstollen_60+375 JUNCTION         0     9.55     0  00:01           0         791      -0.521
   TWT_Acces_LT_60+110  JUNCTION         0        0     0  00:00           0           0       0.000 ltr
   TWT_Liaison_LT_59+738 JUNCTION         0        0     0  00:00           0           0       0.000 ltr
-  Syst_Est_amont       JUNCTION     0.735    0.735     0  00:00        63.5        63.5       0.046
-  Syst_Est_interm      JUNCTION         0    0.781     0  00:04           0        63.563467821.272 ltr
+  Syst_Est_amont       JUNCTION     0.735    0.735     0  00:00        63.5        63.5      -4.423
+  Syst_Est_interm      JUNCTION         0     0.77     0  00:04           0        66.466435676.235 ltr
   TWT_Branche_Est_Sonsto_60+540 JUNCTION         0        0     0  00:00           0           0       0.000 ltr
-  TWT_Intersection_Sonsto_60+345 JUNCTION         0   0.0357     0  00:04           0       0.839       0.000
-  TWT_Chrosweg_61+140  JUNCTION         0    0.235     0  00:09           0        20.3       4.829
-  SonSto_F_sup         JUNCTION         0    0.565     0  00:04           0        48.4       0.022
+  TWT_Intersection_Sonsto_60+345 JUNCTION         0     6.43     0  00:04           0         555      -0.866
+  TWT_Chrosweg_61+140  JUNCTION         0        0     0  00:00           0           0       0.000 ltr
+  SonSto_F_sup         JUNCTION         0    0.339     0  00:04           0        29.3       0.105
   SonSto_porte         JUNCTION         0        0     0  00:00           0           0       0.000 ltr
-  Brunnm_Fassung       OUTFALL          0   0.0376     0  00:03           0        3.13       0.000
-  Brunnmuehle(Teich)   OUTFALL          0    0.412     0  00:03           0        34.8       0.000
-  Fensterstollen       OUTFALL          0     1.38     0  00:09           0         119       0.000
-  Gischeren            OUTFALL          0    0.505     0  00:09           0        43.4       0.000
-  Schuettstein         OUTFALL          0    0.664     0  00:04           0        56.7       0.000
-  Holiloch             OUTFALL          0     9.91     0  00:04           0         847       0.000
-  Sauserquelle         OUTFALL          0     1.56     0  00:04           0         135       0.000
-  Entw_Stollen         OUTFALL          0   0.0334     0  00:09           0        2.88       0.000
-  Sous_lacustre        OUTFALL          0   0.0397     0  00:03           0        3.34       0.000
-  Sous_ecoul.          OUTFALL          0  0.00638     0  00:03           0       0.525       0.000
+  Brunnm_Fassung       OUTFALL          0   0.0231     0  00:04           0           2       0.000
+  Brunnmuehle(Teich)   OUTFALL          0    0.212     0  00:04           0        18.3       0.000
+  Fensterstollen       OUTFALL          0     11.6     0  00:01           0         893       0.000
+  Gischeren            OUTFALL          0        0     0  00:00           0           0       0.000 ltr
+  Schuettstein         OUTFALL          0     0.22     0  00:04           0          19       0.000
+  Holiloch             OUTFALL          0     3.01     0  00:04           0         259       0.000
+  Sauserquelle         OUTFALL          0     0.82     0  00:04           0        70.7       0.000
+  Entw_Stollen         OUTFALL          0  0.00637     0  00:04           0       0.549       0.000
+  Sous_lacustre        OUTFALL          0   0.0292     0  00:04           0        2.52       0.000
+  Sous_ecoul.          OUTFALL          0  0.00564     0  00:00           0        0.47       0.000
   Syst_Est_aval        OUTFALL          0        0     0  00:00           0           0       0.000 ltr
-  TWT_Portail_Est_61+665 OUTFALL          0    0.224     0  00:09           0        19.3       0.000
+  TWT_Portail_Est_61+665 OUTFALL          0        0     0  00:00           0           0       0.000 ltr
   
   
   **********************
@@ -277,34 +281,28 @@
                                    Hours       Above Crown    Below Rim
   Node                 Type      Surcharged         Meters       Meters
   ---------------------------------------------------------------------
-  9                    JUNCTION       23.98         47.852       50.348
-  Holiloch_sonde       JUNCTION       23.98         46.808      151.292
-  11                   JUNCTION       24.00         54.160       95.380
-  13                   JUNCTION       23.98         61.961      335.039
-  21                   JUNCTION       24.00         42.712      106.688
-  34                   JUNCTION       24.00         20.733       78.667
-  38                   JUNCTION       24.00         26.937      122.463
-  40                   JUNCTION       24.00         43.665       52.335
-  41                   JUNCTION       23.99         64.209      184.941
-  SondeSchuettstein    JUNCTION       23.98         24.747        0.000
-  47                   JUNCTION       23.97         14.907       83.193
-  48                   JUNCTION       23.97         12.016       87.184
-  SondeGischeren       JUNCTION       23.93         14.147       84.653
-  49                   JUNCTION       23.95          8.247      183.753
-  50                   JUNCTION       23.93          8.435      191.265
-  51                   JUNCTION       24.00         79.292      316.708
-  Amont_C              JUNCTION       24.00         84.541      312.459
-  52                   JUNCTION       23.93         31.137       68.463
-  53                   JUNCTION       23.97         27.860      167.140
-  54                   JUNCTION       23.85         29.245      165.755
-  56                   JUNCTION       23.99          6.970       92.030
-  4                    JUNCTION       23.98          8.768       90.582
-  5                    JUNCTION       23.96          1.329       43.671
-  6                    JUNCTION       23.98         18.652      176.348
-  8                    JUNCTION       23.86          1.481      193.519
-  10                   JUNCTION       23.95          6.290      185.710
-  12                   JUNCTION       23.98         36.565      163.085
-  14                   JUNCTION       23.97         26.234      169.766
+  9                    JUNCTION       23.99         38.403       59.797
+  Holiloch_sonde       JUNCTION       23.99         38.478      159.622
+  11                   JUNCTION       24.00         31.667      117.833
+  13                   JUNCTION       23.99         39.738      357.262
+  21                   JUNCTION       24.00         37.152      112.248
+  34                   JUNCTION       24.00         17.120       82.280
+  38                   JUNCTION       24.00         17.857      131.543
+  40                   JUNCTION       24.00         21.392       74.608
+  41                   JUNCTION       23.99         42.343      206.807
+  SondeSchuettstein    JUNCTION       23.98         20.112        0.000
+  47                   JUNCTION       23.98         11.176       86.924
+  48                   JUNCTION       23.98          7.995       91.205
+  49                   JUNCTION       23.95          4.233      187.767
+  51                   JUNCTION       24.00         57.091      338.909
+  Amont_C              JUNCTION       24.00         84.566      312.434
+  53                   JUNCTION       23.96          4.239      190.761
+  56                   JUNCTION       23.99          5.483       93.517
+  4                    JUNCTION       23.99          8.496       90.854
+  5                    JUNCTION       23.94          0.404       44.596
+  6                    JUNCTION       23.98         15.106      179.894
+  10                   JUNCTION       23.95          2.257      189.743
+  12                   JUNCTION       23.98         14.613      185.037
   TWT_Acces_LT_60+110  JUNCTION       24.00          0.000        0.000
   TWT_Liaison_LT_59+738 JUNCTION       24.00          0.000        0.000
   
@@ -325,20 +323,20 @@
                          Freq      Flow      Flow      Volume
   Outfall Node           Pcnt       CMS       CMS    10^6 ltr
   -----------------------------------------------------------
-  Brunnm_Fassung        99.93    0.0362    0.0376       3.127
-  Brunnmuehle(Teich)    99.93     0.404     0.412      34.845
-  Fensterstollen        99.89      1.37      1.38     118.605
-  Gischeren             99.40     0.505     0.505      43.394
-  Schuettstein          99.89     0.657     0.664      56.679
-  Holiloch              99.86      9.82      9.91     847.283
-  Sauserquelle          99.97      1.56      1.56     134.513
-  Entw_Stollen          99.92    0.0333    0.0334       2.877
-  Sous_lacustre         99.95    0.0387    0.0397       3.342
-  Sous_ecoul.           99.93   0.00609   0.00638       0.525
+  Brunnm_Fassung        99.94    0.0231    0.0231       1.996
+  Brunnmuehle(Teich)    99.94     0.212     0.212      18.295
+  Fensterstollen        99.96      10.3      11.6     892.576
+  Gischeren              0.00         0         0       0.000
+  Schuettstein          99.90      0.22      0.22      19.021
+  Holiloch              99.81      3.01      3.01     259.200
+  Sauserquelle          99.96     0.819      0.82      70.749
+  Entw_Stollen          99.95   0.00636   0.00637       0.549
+  Sous_lacustre        100.00    0.0292    0.0292       2.522
+  Sous_ecoul.           99.94   0.00544   0.00564       0.470
   Syst_Est_aval          0.00         0         0       0.000
-  TWT_Portail_Est_61+665  99.98     0.224     0.224      19.343
+  TWT_Portail_Est_61+665   0.00         0         0       0.000
   -----------------------------------------------------------
-  System                91.55      14.7      14.7    1264.533
+  System                74.95      14.7      14.7    1265.377
   
   
   ********************
@@ -350,86 +348,90 @@
                                   |Flow|   Occurrence   |Veloc|    Full    Full
   Link                 Type          CMS  days hr:min     m/sec    Flow   Depth
   -----------------------------------------------------------------------------
-  Brunn_Fassung_L      CONDUIT    0.0376     0  00:03      1.57    0.62    0.79
-  11                   CONDUIT      13.4     0  00:01      7.21    2.01    1.00
-  14                   CONDUIT      14.7     0  00:01      9.06    8.02    1.00
-  16                   CONDUIT     0.285     0  00:02      3.33    1.98    1.00
-  17                   CONDUIT     0.269     0  00:02      0.95    0.46    1.00
-  26                   CONDUIT      1.19     0  00:00      2.29    1.61    1.00
-  27                   CONDUIT    0.0632     0  00:09      1.84    0.81    0.85
-  Gischeren_L          CONDUIT     0.505     0  00:09      0.73    0.07    0.59
-  Schuettstein_L       CONDUIT     0.664     0  00:04      4.09    0.57    0.77
-  Brunnmuehle_L        CONDUIT     0.452     0  00:03      1.60    0.21    1.00
+  Brunn_Fassung_L      CONDUIT    0.0231     0  00:04      1.07    0.38    0.71
+  11                   CONDUIT      10.3     0  00:00      5.76    1.55    1.00
+  14                   CONDUIT      11.3     0  00:00      7.84    6.17    1.00
+  16                   CONDUIT     0.282     0  00:04      3.29    1.96    1.00
+  17                   CONDUIT     0.197     0  00:00      0.70    0.34    1.00
+  26                   CONDUIT      1.72     0  00:00      3.03    2.33    1.00
+  27                   CONDUIT    0.0774     0  00:01      2.04    0.99    1.00
+  Gischeren_L          CONDUIT         0     0  00:00      0.00    0.00    0.00
+  Schuettstein_L       CONDUIT      0.22     0  00:04      1.64    0.19    0.65
+  Brunnmuehle_L        CONDUIT     0.241     0  00:04      0.85    0.11    1.00
   32                   CONDUIT         0     0  00:00      0.00    0.00    0.00
-  35                   CONDUIT     0.269     0  00:06      0.35    0.05    1.00
-  45                   CONDUIT      0.83     0  00:09      5.66    0.01    0.05
-  46                   CONDUIT      1.56     0  00:04      5.53    1.56    1.00
-  47                   CONDUIT     0.114     0  00:01      3.01    7.12    1.00
-  50                   CONDUIT     0.687     0  00:01      2.18    0.13    1.00
-  51                   CONDUIT     0.356     0  00:04      3.70    1.00    1.00
-  53                   CONDUIT     0.269     0  00:02      1.62    1.37    1.00
-  Fenster_L            CONDUIT      1.38     0  00:09      4.97    0.01    0.08
-  58                   CONDUIT      1.34     0  00:09      4.37    0.02    0.09
-  59                   CONDUIT      0.66     0  00:09      4.02    0.01    0.06
-  61                   CONDUIT      0.79     0  00:01      4.06    1.11    1.00
-  63                   CONDUIT     0.164     0  00:02      2.27    0.74    0.52
-  66                   CONDUIT     0.181     0  00:04      2.75    2.39    1.00
-  67                   CONDUIT      14.6     0  00:00      4.01    0.14    1.00
-  Amont_L              CONDUIT      28.4     0  00:00      4.02    1.54    1.00
-  69                   CONDUIT     0.302     0  00:03      2.55    1.18    1.00
-  70                   CONDUIT     0.229     0  00:04      1.82    0.71    1.00
-  71                   CONDUIT     0.458     0  00:01      1.99    0.81    1.00
-  72                   CONDUIT     0.389     0  00:09      1.84    1.85    1.00
-  Sauser_L             CONDUIT      1.56     0  00:04      2.59    0.40    0.72
-  75                   CONDUIT     0.142     0  00:09      4.19    1.44    0.66
-  Entw_Sto_L           CONDUIT    0.0334     0  00:09      1.87    0.77    0.66
-  4                    CONDUIT    0.0317     0  00:09      1.29    1.42    0.82
-  5                    CONDUIT    0.0267     0  00:09      1.18    0.95    0.83
-  6                    CONDUIT    0.0397     0  00:03      1.51    0.60    0.78
-  7                    CONDUIT     0.417     0  00:03      2.12    0.64    1.00
-  Brunn_Teich_L        CONDUIT     0.412     0  00:03      1.68    0.31    0.69
-  9                    CONDUIT   0.00638     0  00:03      1.60    0.00    0.51
-  12                   CONDUIT      10.1     0  00:02      5.48    0.21    1.00
-  15                   CONDUIT      11.8     0  00:01      5.59    0.30    1.00
-  18                   CONDUIT        11     0  00:01      5.39    0.44    1.00
-  19                   CONDUIT       1.1     0  00:02      1.36    1.04    1.00
-  20                   CONDUIT      1.25     0  00:09      5.08    0.10    0.25
-  21                   CONDUIT      10.1     0  00:02      1.01    0.07    0.88
-  Hooliloch_L          CONDUIT      9.91     0  00:04      1.57    0.20    0.71
-  23                   CONDUIT     0.157     0  00:09      3.36    0.98    0.63
-  25                   CONDUIT     0.709     0  00:05      2.46    0.58    1.00
-  28                   CONDUIT     0.157     0  00:09      1.27    0.00    0.05
-  29                   CONDUIT     0.178     0  00:09      0.98    0.01    0.06
-  31                   CONDUIT     0.394     0  00:08      0.61    0.24    0.88
-  33                   CONDUIT     0.867     0  00:02      0.84    0.33    1.00
-  37                   CONDUIT     0.483     0  00:09      0.75    0.01    0.15
-  SS3_L                CONDUIT     0.157     0  00:09      3.16    0.00    0.05
-  40                   CONDUIT      1.25     0  00:09      2.30    0.01    0.05
-  SS6_L                CONDUIT     0.164     0  00:02      2.37    0.00    0.06
-  1                    CONDUIT         0     0  00:00      0.00    0.00    0.02
+  35                   CONDUIT         0     0  00:00      0.00    0.00    0.20
+  45                   CONDUIT     0.468     0  00:04      1.26    0.00    0.13
+  46                   CONDUIT      0.82     0  00:04      2.90    0.82    1.00
+  47                   CONDUIT    0.0986     0  00:00      2.59    6.15    1.00
+  50                   CONDUIT      0.36     0  00:01      1.35    0.07    1.00
+  51                   CONDUIT     0.153     0  00:04      1.59    0.43    1.00
+  53                   CONDUIT     0.197     0  00:00      1.18    1.00    1.00
+  Fenster_L            CONDUIT      11.6     0  00:01      9.48    0.11    0.24
+  58                   CONDUIT      10.9     0  00:01      8.31    0.14    0.29
+  59                   CONDUIT     0.334     0  00:04      3.17    0.00    0.04
+  61                   CONDUIT     0.519     0  00:01      2.40    0.73    1.00
+  63                   CONDUIT     0.146     0  00:03      2.01    0.65    0.52
+  66                   CONDUIT    0.0763     0  00:04      1.43    1.00    0.79
+  67                   CONDUIT      14.9     0  00:00      3.97    0.15    1.00
+  Amont_L              CONDUIT      28.4     0  00:00      4.01    1.54    1.00
+  69                   CONDUIT     0.197     0  00:04      1.84    0.77    0.79
+  70                   CONDUIT     0.155     0  00:04      1.45    0.48    0.79
+  71                   CONDUIT     0.262     0  00:01      1.14    0.46    1.00
+  72                   CONDUIT     0.201     0  00:04      1.21    0.96    0.56
+  Sauser_L             CONDUIT      0.82     0  00:04      1.50    0.21    0.65
+  75                   CONDUIT    0.0817     0  00:02      2.82    0.83    0.62
+  Entw_Sto_L           CONDUIT   0.00637     0  00:04      1.20    0.15    0.26
+  4                    CONDUIT    0.0182     0  00:04      1.24    0.82    0.62
+  5                    CONDUIT   0.00741     0  00:04      0.44    0.26    0.63
+  6                    CONDUIT    0.0292     0  00:04      1.19    0.44    0.73
+  7                    CONDUIT     0.217     0  00:04      1.12    0.34    1.00
+  Brunn_Teich_L        CONDUIT     0.212     0  00:04      0.95    0.16    0.64
+  9                    CONDUIT   0.00564     0  00:00      1.42    0.00    0.50
+  12                   CONDUIT      4.38     0  00:01      2.75    0.09    1.00
+  15                   CONDUIT      7.35     0  00:00      4.06    0.19    1.00
+  18                   CONDUIT       5.9     0  00:01      3.21    0.24    1.00
+  19                   CONDUIT     0.844     0  00:02      1.16    0.80    1.00
+  20                   CONDUIT      1.57     0  00:01      2.91    0.12    0.88
+  21                   CONDUIT       3.6     0  00:03      0.47    0.02    0.79
+  Hooliloch_L          CONDUIT      3.01     0  00:04      0.90    0.06    0.51
+  23                   CONDUIT    0.0757     0  00:04      3.04    0.47    0.38
+  25                   CONDUIT     0.188     0  00:04      1.17    0.15    0.54
+  28                   CONDUIT    0.0753     0  00:04      1.73    0.00    0.03
+  29                   CONDUIT    0.0484     0  00:04      0.56    0.00    0.04
+  31                   CONDUIT         0     0  00:00      0.00    0.00    0.02
+  33                   CONDUIT      0.58     0  00:02      0.75    0.22    1.00
+  37                   CONDUIT      0.33     0  00:04      0.63    0.01    0.13
+  SS3_L                CONDUIT    0.0756     0  00:04      2.64    0.00    0.03
+  40                   CONDUIT      1.33     0  00:01      1.17    0.01    0.20
+  SS6_L                CONDUIT     0.146     0  00:03      3.17    0.00    0.05
+  1                    CONDUIT         0     0  00:00      0.00    0.00    0.01
   2                    CONDUIT         0     0  00:00      0.00    0.00    0.00
-  3                    CONDUIT     0.142     0  00:09      2.70    0.01    0.14
-  10                   CONDUIT     0.135     0  00:09      0.21    0.00    0.15
-  13                   CONDUIT     0.409     0  00:01      4.85    0.89    1.00
-  22                   CONDUIT     0.306     0  00:01      3.18    0.76    1.00
-  24                   CONDUIT       2.3     0  00:02      3.31    0.00    1.00
-  30                   CONDUIT      1.56     0  00:04      2.16    0.65    1.00
-  34                   CONDUIT     0.566     0  00:04      2.60    0.63    0.87
-  36                   CONDUIT     0.565     0  00:04      5.83    0.60    0.43
-  38                   CONDUIT     0.417     0  00:06      2.82    0.16    1.00
-  48                   CONDUIT     0.781     0  00:04      2.40    0.52    0.75
-  54                   CONDUIT         0     0  00:00      0.00    0.00    0.44
-  68                   CONDUIT     0.489     0  00:04      8.54    0.00    0.04
-  73                   CONDUIT         0     0  00:00      0.00    0.00    0.03
-  TWT1                 CONDUIT     0.224     0  00:09      2.40    0.00    0.01
-  TWT2                 CONDUIT         0     0  00:00      0.00    0.00    0.01
+  3                    CONDUIT    0.0813     0  00:02      3.83    0.01    0.08
+  10                   CONDUIT     0.258     0  00:04      0.56    0.00    0.12
+  13                   CONDUIT     0.315     0  00:01      3.58    0.68    1.00
+  22                   CONDUIT     0.265     0  00:03      2.76    0.66    1.00
+  24                   CONDUIT      1.19     0  00:04      2.18    0.00    0.76
+  30                   CONDUIT      1.15     0  00:04      2.11    0.48    0.76
+  34                   CONDUIT     0.343     0  00:04      1.76    0.38    0.76
+  36                   CONDUIT     0.339     0  00:04      5.39    0.36    0.31
+  38                   CONDUIT     0.187     0  00:04      2.29    0.07    0.33
+  48                   CONDUIT      0.77     0  00:04      2.40    0.52    0.50
+  54                   CONDUIT         0     0  00:00      0.00    0.00    0.16
+  68                   CONDUIT     0.283     0  00:04      0.92    0.00    0.13
+  73                   CONDUIT         0     0  00:00      0.00    0.00    0.01
+  TWT1                 CONDUIT         0     0  00:00      0.00    0.00    0.00
+  TWT2                 CONDUIT         0     0  00:00      0.00    0.00    0.00
   TWT3                 CONDUIT         0     0  00:00      0.00    0.00    0.00
-  TWT4                 CONDUIT         0     0  00:00      0.00    0.00    0.00
+  TWT4                 CONDUIT         0     0  00:00      0.00    0.00    0.03
   1_2_b_               CONDUIT         0     0  00:00      0.00    0.00    0.00
-  1_2_b_2              CONDUIT    0.0828     0  00:09      7.85    0.03    0.11
-  1_3_a_3              CONDUIT     0.235     0  00:09      2.05    2.68    0.59
-  TWT5                 CONDUIT    0.0357     0  00:04      0.57    0.00    0.03
-  1_4_a                CONDUIT    0.0839     0  00:09      0.89    0.00    0.05
+  1_2_b_1              CONDUIT      2.08     0  00:04     11.06    3.58    0.92
+  1_2_b_2              CONDUIT    0.0555     0  00:04      0.62    0.02    0.47
+  1_2_b_3              CONDUIT     0.544     0  00:04      2.89    0.37    0.92
+  1_3_b_1              CONDUIT         0     0  00:00      0.00    0.00    0.50
+  TWT5                 CONDUIT       7.7     0  00:01      4.41    0.01    0.09
+  1_4_a                CONDUIT      9.34     0  00:02     10.02    0.04    0.22
+  1_4_a_1              CONDUIT      6.27     0  00:04     31.94    5.31    1.00
+  1_4_a_2              CONDUIT      0.16     0  00:04      0.81    0.04    1.00
   
   
   ***************************
@@ -441,19 +443,19 @@
                        /Actual         Up    Down  Sub   Sup   Up    Down  Norm  Inlet 
   Conduit               Length    Dry  Dry   Dry   Crit  Crit  Crit  Crit  Ltd   Ctrl  
   -------------------------------------------------------------------------------------
-  Brunn_Fassung_L         1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
+  Brunn_Fassung_L         1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   11                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   14                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   16                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   17                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   26                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
-  27                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
-  Gischeren_L             1.00   0.00  0.00  0.00  0.99  0.00  0.00  0.00  0.00  0.00
-  Schuettstein_L          1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
+  27                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  Gischeren_L             1.00   1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+  Schuettstein_L          1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   Brunnmuehle_L           1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   32                      1.00   1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
-  35                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
-  45                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
+  35                      1.00   0.00  1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+  45                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  1.00  0.00
   46                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   47                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   50                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
@@ -461,17 +463,17 @@
   53                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   Fenster_L               1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
   58                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
-  59                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
+  59                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  1.00  0.00
   61                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   63                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   66                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   67                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   Amont_L                 1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
-  69                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  69                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
   70                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   71                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   72                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
-  Sauser_L                1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
+  Sauser_L                1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   75                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
   Entw_Sto_L              1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
   4                       1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
@@ -484,18 +486,18 @@
   15                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   18                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   19                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
-  20                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
+  20                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   21                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   Hooliloch_L             1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   23                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
   25                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   28                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  1.00  0.00
-  29                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
-  31                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  29                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  1.00  0.00
+  31                      1.00   0.00  1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
   33                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   37                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   SS3_L                   1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  1.00  0.00
-  40                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
+  40                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   SS6_L                   1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  1.00  0.00
   1                       1.00   0.00  1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
   2                       1.00   1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
@@ -505,22 +507,26 @@
   22                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   24                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   30                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
-  34                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
+  34                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   36                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
-  38                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
-  48                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  1.00  0.00
+  38                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  1.00  0.00
+  48                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
   54                      1.00   0.00  1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
-  68                      1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  1.00  0.00
+  68                      1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  1.00  0.00
   73                      1.00   0.00  1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
-  TWT1                    1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
-  TWT2                    1.00   0.00  1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+  TWT1                    1.00   1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+  TWT2                    1.00   1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
   TWT3                    1.00   1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
   TWT4                    1.00   0.00  1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
   1_2_b_                  1.00   1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
-  1_2_b_2                 1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
-  1_3_a_3                 1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
-  TWT5                    1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
-  1_4_a                   1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  1.00  0.00
+  1_2_b_1                 1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
+  1_2_b_2                 1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  1.00  0.00
+  1_2_b_3                 1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
+  1_3_b_1                 1.00   0.00  1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+  TWT5                    1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00
+  1_4_a                   1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  1.00  0.00
+  1_4_a_1                 1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  1_4_a_2                 1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
   
   
   *************************
@@ -533,57 +539,54 @@
   Conduit                Both Ends  Upstream  Dnstream   Normal Flow   Limited
   ----------------------------------------------------------------------------
   Brunn_Fassung_L             0.01      0.01     24.00      0.01         0.01
-  11                         23.98     23.98     23.98     23.98         0.01
-  14                         23.98     23.98     23.99     23.99         0.01
-  16                         24.00     24.00     24.00     23.98        23.98
+  11                         23.99     23.99     23.99      0.01         0.01
+  14                         23.99     23.99     23.99     23.99         0.01
+  16                         24.00     24.00     24.00     23.99        23.99
   17                         24.00     24.00     24.00      0.01         0.01
   26                         23.99     23.99     23.99      0.01         0.01
-  27                          0.01      0.01     23.96      0.01         0.01
-  Gischeren_L                 0.01      0.01     23.86      0.01         0.01
-  Schuettstein_L              0.01      0.01     23.97      0.01         0.01
+  27                         23.98     23.98     23.98      0.01         0.01
+  Schuettstein_L              0.01      0.01     23.98      0.01         0.01
   Brunnmuehle_L              24.00     24.00     24.00      0.01         0.01
-  35                         23.88     23.88     23.93      0.01         0.01
-  46                         24.00     24.00     24.00     23.98         0.01
+  46                         24.00     24.00     24.00      0.01         0.01
   47                         24.00     24.00     24.00     24.00        24.00
-  50                         23.97     23.97     23.98      0.01         0.01
-  51                         23.97     23.97     24.00      0.01         0.01
-  53                         24.00     24.00     24.00     23.98         0.01
-  61                         23.98     23.98     23.98      0.01         0.01
-  63                          0.01     23.96      0.01      0.01         0.01
-  66                         23.93     23.97     23.93     23.96        23.93
-  67                         23.98     23.98     24.00      0.01         0.01
+  50                         23.98     23.98     23.98      0.01         0.01
+  51                         23.98     23.98     24.00      0.01         0.01
+  53                         24.00     24.00     24.00      0.01         0.01
+  61                         23.98     23.98     23.99      0.01         0.01
+  63                          0.01     23.97      0.01      0.01         0.01
+  66                          0.01     23.95      0.01     23.93         0.01
+  67                         23.99     23.99     24.00      0.01         0.01
   Amont_L                    24.00     24.00     24.00      0.01         0.01
-  69                         23.93     23.93     24.00      0.02         0.01
-  70                         23.93     23.93     24.00      0.01         0.01
-  71                         23.97     23.97     23.98      0.01         0.01
-  72                         23.85     23.97     23.85      0.12         0.01
+  69                          0.01      0.01     24.00      0.01         0.01
+  70                          0.01      0.01     24.00      0.01         0.01
+  71                         23.97     23.97     23.99      0.01         0.01
+  72                          0.01     23.96      0.01      0.01         0.01
   Sauser_L                    0.01      0.01     24.00      0.01         0.01
-  75                          0.01     23.96      0.01     23.85         0.01
-  4                           0.01     23.97      0.01     23.87         0.01
-  5                           0.01      0.01     24.00      0.01         0.01
+  75                          0.01     23.95      0.01      0.01         0.01
+  4                           0.01     23.96      0.01      0.01         0.01
+  5                           0.01      0.01     23.99      0.01         0.01
   6                           0.01      0.01     24.00      0.01         0.01
-  7                          23.98     23.98     24.00      0.01         0.01
-  Brunn_Teich_L               0.01      0.01     23.98      0.01         0.01
-  9                           0.01      0.01     23.98      0.01         0.01
-  12                         23.97     23.97     23.97      0.01         0.01
-  15                         23.98     23.98     23.98      0.01         0.01
-  18                         23.97     23.97     23.98      0.01         0.01
+  7                          23.99     23.99     24.00      0.01         0.01
+  Brunn_Teich_L               0.01      0.01     23.99      0.01         0.01
+  9                           0.01      0.01     23.99      0.01         0.01
+  12                         23.97     23.97     23.98      0.01         0.01
+  15                         23.98     23.98     23.99      0.01         0.01
+  18                         23.98     23.98     23.98      0.01         0.01
   19                         23.96     23.96     23.98      0.01         0.01
-  21                          0.01      0.01     23.96      0.01         0.01
-  23                          0.01     23.93      0.01      0.01         0.01
-  25                         23.90     23.90     23.98      0.01         0.01
-  31                          0.01      0.01     23.86      0.01         0.01
+  21                          0.01      0.01     23.94      0.01         0.01
+  25                          0.01      0.01     23.99      0.01         0.01
   33                         23.95     23.95     23.95      0.01         0.01
   13                         23.98     23.98     24.00      0.01         0.01
   22                         23.98     23.98     24.00      0.01         0.01
-  24                         23.97     23.97     24.00      0.01         0.01
-  30                         23.97     23.97     24.00      0.01         0.01
-  34                          0.01      0.01     23.98      0.01         0.01
-  38                         23.92     23.92     23.94      0.01         0.01
-  48                          0.01      0.01     23.87      0.01         0.01
-  1_3_a_3                     0.01     23.99      0.01     23.98         0.01
+  24                          0.01      0.01     24.00      0.01         0.01
+  30                          0.01      0.01     24.00      0.01         0.01
+  34                          0.01      0.01     23.99      0.01         0.01
+  1_2_b_1                     0.01      0.01     23.99     23.99         0.01
+  1_2_b_3                     0.01      0.01     23.99      0.01         0.01
+  1_4_a_1                    23.99     23.99     23.99     23.99         0.01
+  1_4_a_2                    23.99     23.99     23.99      0.01         0.01
   
 
-  Analysis begun on:  Thu Aug 20 11:32:11 2026
-  Analysis ended on:  Thu Aug 20 11:32:15 2026
-  Total elapsed time: 00:00:04
+  Analysis begun on:  Mon Sep 28 15:33:55 2026
+  Analysis ended on:  Mon Sep 28 15:33:57 2026
+  Total elapsed time: 00:00:02

@@ -8,7 +8,7 @@ Le tracé du Twanntunnel a été découpé en **7 tronçons** depuis le portail 
 | Nr. | Tronçon                                                   | Longueur [m] | Atlitude                                                  | Sens percement          |
 | --- | --------------------------------------------------------- | ------------ | --------------------------------------------------------- | ----------------------- |
 | 1   | Portail Est (61+665) vers  Chrosweg (61+140)              | 515          | Z chaussée : 425.6-436 m, Z radier : 421.6-432 m       | Ascendant               |
-| 2   | Chrosweg (61+140) vers PointHaut (60+650)                 | 490          | Z chaussée : 436-442.5 m, Z radier : 432-438.5 m        | Ascendant               |
+| 2   | Chrosweg (61+140) vers PointHaut (60+749)                 | 490          | Z chaussée : 436-442.5 m, Z radier : 432-438.5 m        | Ascendant               |
 | 3   | PointHaut (60+650) vers Branche Est SonSto (60+540 )      | 110          | Z chaussée : 442.5-442.4 m, Z radier : 438.5-438.4 m   | Descendant              |
 | 4   | Branche Est SonSto (60+540) vers Fensterstollen (60+375)  | 165          | Z chaussée : 442.4-441.3 m, Z radier : 438.4-437.3 m   | Descendant              |
 | 5   | Fensterstollen (60+375) vers intersection Sonsto (60+345) | 30           | Z chaussée : 441.3-441 m, Z radier : 437.3-437 m        | Descendant              |

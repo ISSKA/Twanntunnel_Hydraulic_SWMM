@@ -9,6 +9,8 @@
   WARNING 08: elevation drop exceeds length for Conduit 3
   WARNING 08: elevation drop exceeds length for Conduit 68
   WARNING 08: elevation drop exceeds length for Conduit 1_1_a_2
+  WARNING 08: elevation drop exceeds length for Conduit 1_1_b_1
+  WARNING 08: elevation drop exceeds length for Conduit 1_1_b_2
   WARNING 08: elevation drop exceeds length for Conduit 1_2_b_
   WARNING 08: elevation drop exceeds length for Conduit 1_2_b_2
   WARNING 02: maximum depth increased for Node 2
@@ -51,7 +53,7 @@
   Evaporation Loss .........         0.000         0.000
   Exfiltration Loss ........         0.000         0.000
   Initial Stored Volume ....         0.056         0.561
-  Final Stored Volume ......         0.269         2.687
+  Final Stored Volume ......         0.269         2.690
   Continuity Error (%) .....         4.966
   
   
@@ -161,12 +163,12 @@
   12                   JUNCTION    67.57    68.69   517.69     0  00:02       67.60
   14                   JUNCTION    58.02    69.24   534.24     0  00:00       58.06
   15                   JUNCTION     3.46     4.64   476.64     0  00:01        3.46
-  TWT_PointHaut_60+650 JUNCTION     0.00     0.00   442.50     0  00:00        0.00
+  TWT_PointHaut_60+749 JUNCTION     0.00     0.00   442.50     0  00:00        0.00
   TWT_Fensterstollen_60+375 JUNCTION     0.28     0.28   441.58     0  00:06        0.28
   TWT_Acces_LT_60+110  JUNCTION     0.00     0.00   441.50     0  00:00        0.00
   TWT_Liaison_LT_59+738 JUNCTION     0.00     0.00   450.60     0  00:00        0.00
-  Syst_Est_amont       JUNCTION     0.67     0.70   430.70     0  00:03        0.67
-  Syst_Est_interm      JUNCTION     0.97     0.97   410.97     0  00:06        0.97
+  Syst_Est_amont       JUNCTION     0.66     0.69   430.69     0  00:03        0.66
+  Syst_Est_interm      JUNCTION     1.13     1.13   411.13     0  00:06        1.13
   TWT_Branche_Est_Sonsto_60+540 JUNCTION     0.00     0.00   442.40     0  00:00        0.00
   TWT_Intersection_Sonsto_60+345 JUNCTION     0.00     0.00   440.90     0  00:00        0.00
   TWT_Chrosweg_61+140  JUNCTION     0.00     0.00   435.00     0  00:00        0.00
@@ -243,12 +245,12 @@
   12                   JUNCTION         0    0.527     0  00:00           0        29.4       0.012
   14                   JUNCTION         0     3.36     0  00:00           0         171       0.027
   15                   JUNCTION         0    0.801     0  00:01           0        61.8       0.025
-  TWT_PointHaut_60+650 JUNCTION         0        0     0  00:00           0           0       0.000 ltr
+  TWT_PointHaut_60+749 JUNCTION         0        0     0  00:00           0           0       0.000 ltr
   TWT_Fensterstollen_60+375 JUNCTION         0    0.117     0  00:02           0          1010028356.534 ltr
   TWT_Acces_LT_60+110  JUNCTION         0        0     0  00:00           0           0       0.000 ltr
   TWT_Liaison_LT_59+738 JUNCTION         0        0     0  00:00           0           0       0.000 ltr
-  Syst_Est_amont       JUNCTION      1.15     1.15     0  00:00        98.9        98.9      -1.800
-  Syst_Est_interm      JUNCTION         0     1.22     0  00:04           0         101100730250.523 ltr
+  Syst_Est_amont       JUNCTION      1.15     1.15     0  00:00        98.9        98.9      -0.864
+  Syst_Est_interm      JUNCTION         0     1.21     0  00:04           0        99.899779115.914 ltr
   TWT_Branche_Est_Sonsto_60+540 JUNCTION         0        0     0  00:00           0           0       0.000 ltr
   TWT_Intersection_Sonsto_60+345 JUNCTION         0        0     0  00:00           0           0       0.000 ltr
   TWT_Chrosweg_61+140  JUNCTION         0        0     0  00:00           0           0       0.000 ltr
@@ -420,15 +422,16 @@
   34                   CONDUIT     0.801     0  00:01      3.52    0.90    1.00
   36                   CONDUIT      0.72     0  00:02      5.81    0.77    0.57
   38                   CONDUIT     0.676     0  00:00      3.26    0.25    1.00
-  48                   CONDUIT      1.22     0  00:04      2.71    0.82    0.82
-  54                   CONDUIT         0     0  00:00      0.00    0.00    0.32
+  48                   CONDUIT      1.21     0  00:04      2.65    0.81    0.83
+  54                   CONDUIT         0     0  00:00      0.00    0.00    0.38
   68                   CONDUIT     0.603     0  00:02      9.64    0.00    0.05
   73                   CONDUIT         0     0  00:00      0.00    0.00    0.03
   TWT1                 CONDUIT         0     0  00:00      0.00    0.00    0.00
   1_1_a_2              CONDUIT         0     0  00:00      0.00    0.00    0.50
   TWT2                 CONDUIT         0     0  00:00      0.00    0.00    0.00
+  1_1_b_1              CONDUIT         0     0  00:00      0.00    0.00    0.50
+  1_1_b_2              CONDUIT         0     0  00:00      0.00    0.00    0.50
   TWT3                 CONDUIT         0     0  00:00      0.00    0.00    0.00
-  1_2_a_2              CONDUIT         0     0  00:00      0.00    0.00    0.50
   TWT4                 CONDUIT         0     0  00:00      0.00    0.00    0.02
   1_2_b_               CONDUIT         0     0  00:00      0.00    0.00    0.00
   1_2_b_2              CONDUIT     0.117     0  00:02      6.90    0.05    0.35
@@ -517,8 +520,9 @@
   TWT1                    1.00   1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
   1_1_a_2                 1.00   0.00  1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
   TWT2                    1.00   1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+  1_1_b_1                 1.00   0.00  1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+  1_1_b_2                 1.00   0.00  1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
   TWT3                    1.00   1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
-  1_2_a_2                 1.00   0.00  1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
   TWT4                    1.00   0.00  1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
   1_2_b_                  1.00   1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
   1_2_b_2                 1.00   0.00  0.00  0.00  0.00  1.00  0.00  0.00  1.00  0.00
@@ -583,8 +587,9 @@
   34                         23.97     23.97     23.99      0.01         0.01
   36                          0.01     23.97      0.01      0.01         0.01
   38                         23.96     23.96     23.97      0.01         0.01
+  48                          0.01      0.01     23.91      0.01         0.01
   
 
-  Analysis begun on:  Mon Aug 17 09:01:23 2026
-  Analysis ended on:  Mon Aug 17 09:01:25 2026
-  Total elapsed time: 00:00:02
+  Analysis begun on:  Tue Sep 29 15:44:11 2026
+  Analysis ended on:  Tue Sep 29 15:44:12 2026
+  Total elapsed time: 00:00:01

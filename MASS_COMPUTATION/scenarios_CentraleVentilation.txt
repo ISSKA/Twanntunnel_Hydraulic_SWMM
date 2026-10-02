@@ -11,9 +11,9 @@ output_run_dir CV_scenario_1
 
 # Hydrologies a reprendre depuis les runs scenario1 existants.
 # constant_flow T3 14.7
- constant_flow T10 18.4
+# constant_flow T10 18.4
 # constant_flow T30 21.5
-# constant_flow T50 22.9
+ constant_flow T50 22.9
 
 # Junction de controle.
 control_node CentraleVentilation_1C elevation=454 max_depth=200
@@ -23,6 +23,6 @@ connection_defaults roughness=0.05 diameter=0.5 shape=CIRCULAR
 
 # Variantes de connexion de CentraleVentilation_1C.
 variant 1_1C_0 no_connection prob=residual
-variant 1_1C_1 connection CV_1C_to_52 target=52 prob=0.1
-variant 1_1C_2 connection CV_1C_to_38 target=38 prob=0.05
+variant 1_1C_1 connection CV_1C_to_52 target=52 prob=0.05
+variant 1_1C_2 connection CV_1C_to_38 target=38 prob=0.02
 variant 1_1C_3 connection CV_1C_to_54 target=54 prob=0.01

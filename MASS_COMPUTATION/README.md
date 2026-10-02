@@ -6,6 +6,8 @@ Ce dossier contient une premiere base pour lancer des simulations SWMM en masse 
 
 - `run_swmm_mass_computation.py`: genere les fichiers `.inp`, lance SWMM, lit les `.out` et extrait les debits maximums stables.
 - `scenarios.txt`: exemple de definition des situations hydrologiques, phases et variantes.
+- `run_swmm_centrale_ventilation_discharge.py`: relance les modeles de fin de phase `1_8a` pour tester les connexions de la centrale de ventilation et extraire les debits stabilises.
+- `scenarios_CentraleVentilation.txt`: definition des temps de retour, du noeud de controle et des variantes de connexion de la centrale de ventilation.
 - `runs/`: dossier cree automatiquement avec un sous-dossier par scenario, puis par phase, puis par simulation.
 
 ## Lancement
@@ -150,6 +152,93 @@ MASS_COMPUTATION\runs\plots\1_T10_4b_debits_vs_probability.html
 ```
 
 Chaque fichier trace les debits maximums aux exutoires en fonction de `combination_probability`, pour les combinaisons disponibles a cette phase uniquement.
+
+## Scenario Centrale Ventilation
+
+Le script `run_swmm_centrale_ventilation_discharge.py` sert a evaluer le debit a l'exutoire `CentraleVentilation_1C`, en repartant des simulations deja produites pour le scenario 1 en fin de percement du tunnel:
+
+```text
+MASS_COMPUTATION\runs\scenario1\T3\1_8a\
+MASS_COMPUTATION\runs\scenario1\T10\1_8a\
+MASS_COMPUTATION\runs\scenario1\T30\1_8a\
+MASS_COMPUTATION\runs\scenario1\T50\1_8a\
+```
+
+Le fichier `scenarios_CentraleVentilation.txt` definit:
+
+- le scenario source a reprendre: `source_scenario scenario1`;
+- le dossier de sortie: `output_run_dir CV_scenario_1`;
+- les temps de retour a reprendre: `T3`, `T10`, `T30` et `T50`;
+- le noeud de controle `CentraleVentilation_1C`, avec une elevation imposee de `454 m`;
+- les proprietes par defaut des conduits de connexion;
+- les variantes de connexion vers les noeuds `52`, `38` et `54`.
+
+Les probabilites actuellement retenues pour ces variantes de connexion sont:
+
+```text
+1_1C_0: no_connection prob=residual
+1_1C_1: connection CV_1C_to_52 target=52 prob=0.1
+1_1C_2: connection CV_1C_to_38 target=38 prob=0.05
+1_1C_3: connection CV_1C_to_54 target=54 prob=0.01
+```
+
+La variante `1_1C_0` represente le cas sans connexion de la centrale de ventilation. Sa probabilite est deduite automatiquement:
+
+```text
+P(1_1C_0) = 1 - 0.1 - 0.05 - 0.01 = 0.84
+```
+
+Les coordonnees de `CentraleVentilation_1C` et des noeuds cibles sont lues dans:
+
+```text
+260508_Coord_nodes_SWMM.xlsx
+```
+
+Elles servent notamment a calculer automatiquement la longueur des nouveaux conduits. Pour chaque simulation source de `1_8a`, le script cree trois nouvelles simulations, une par connexion testee.
+
+Dans les `.inp` generes, `CentraleVentilation_1C` est retire de `[JUNCTIONS]` et ajoute dans `[OUTFALLS]` avec une elevation de `454 m`. Le debit maximum stabilise est extrait sur cet exutoire via le `TOTAL_INFLOW` SWMM:
+
+```text
+debit stabilise = TOTAL_INFLOW stabilise a CentraleVentilation_1C
+```
+
+Pour controler le nombre de simulations sans lancer SWMM:
+
+```powershell
+C:\Users\ISSKA\anaconda3\envs\spyder\python.exe MASS_COMPUTATION\run_swmm_centrale_ventilation_discharge.py --dry-run
+```
+
+Pour lancer les calculs:
+
+```powershell
+C:\Users\ISSKA\anaconda3\envs\spyder\python.exe MASS_COMPUTATION\run_swmm_centrale_ventilation_discharge.py --workers 6
+```
+
+Les fichiers sont ecrits dans:
+
+```text
+MASS_COMPUTATION\runs\CV_scenario_1\
+```
+
+Ce dossier est defini dans `scenarios_CentraleVentilation.txt` par:
+
+```text
+output_run_dir CV_scenario_1
+```
+
+avec une arborescence par temps de retour, simulation source et variante de connexion:
+
+```text
+MASS_COMPUTATION\runs\CV_scenario_1\T10\1_8a\sim_1234\1_1C_1_CV_1C_to_52\
+```
+
+Le CSV de synthese est:
+
+```text
+MASS_COMPUTATION\runs\CV_scenario_1\CV_scenario_1_discharge_results.csv
+```
+
+Il contient notamment le temps de retour, la simulation source, la variante de connexion (`1_1C_0`, `1_1C_1`, `1_1C_2` ou `1_1C_3`), le nom du conduit SWMM, la probabilite de connexion et le debit maximum stabilise a l'exutoire.
 
 ## Performance
 

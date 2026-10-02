@@ -258,6 +258,112 @@ Pour chaque phase ou sous-phase, quatre whisker plots sont affichés:
 | P 1e-3 | `[1e-3, 1e-2)` | jaune |
 | P 1e-4 | `[1e-4, 1e-3)` | gris |
 
+## Scénario Centrale Ventilation
+
+Un second workflow permet d'évaluer le débit au droit de `CentraleVentilation_1C`. Il est piloté par le script:
+
+```powershell
+D:\Users\ISSKA\Documents\GitHub\Twanntunnel_Hydraulic_SWMM\MASS_COMPUTATION\run_swmm_centrale_ventilation_discharge.py
+```
+
+Ce workflow ne repart pas du modèle de base. Il reprend les fichiers `.inp` déjà générés pour la fin du percement du tunnel, c'est-à-dire les simulations de la phase `1_8a`:
+
+```powershell
+MASS_COMPUTATION\runs\scenario1\T3\1_8a
+MASS_COMPUTATION\runs\scenario1\T10\1_8a
+MASS_COMPUTATION\runs\scenario1\T30\1_8a
+MASS_COMPUTATION\runs\scenario1\T50\1_8a
+```
+
+Pour chaque simulation source de `1_8a`, le script génère trois nouvelles simulations avec une variante de connexion nommée. Le nom de variante est conservé dans le CSV et dans le dossier de simulation afin de pouvoir retrouver facilement le cas calculé.
+
+| Variante | Connexion SWMM | Junction cible | Probabilité |
+| --- | --- | --- | ---: |
+| `1_1C_0` | aucune connexion | - | 0.84 |
+| `1_1C_1` | `CV_1C_to_52` | `52` | 0.10 |
+| `1_1C_2` | `CV_1C_to_38` | `38` | 0.05 |
+| `1_1C_3` | `CV_1C_to_54` | `54` | 0.01 |
+
+La variante `1_1C_0` est le cas résiduel sans connexion. Sa probabilité est déduite automatiquement:
+
+```txt
+P(1_1C_0) = 1 - 0.10 - 0.05 - 0.01 = 0.84
+```
+
+Ces paramètres sont définis dans:
+
+```powershell
+D:\Users\ISSKA\Documents\GitHub\Twanntunnel_Hydraulic_SWMM\MASS_COMPUTATION\scenarios_CentraleVentilation.txt
+```
+
+Le fichier indique explicitement le scénario source et le dossier de sortie:
+
+```txt
+source_scenario scenario1
+output_run_dir CV_scenario_1
+```
+
+Dans les fichiers `.inp` générés, `CentraleVentilation_1C` est converti en exutoire SWMM: la ligne est retirée de `[JUNCTIONS]` puis ajoutée à `[OUTFALLS]` avec une altitude de `454 m`. Les coordonnées de référence sont lues dans:
+
+```powershell
+D:\Users\ISSKA\Documents\GitHub\Twanntunnel_Hydraulic_SWMM\260508_Coord_nodes_SWMM.xlsx
+```
+
+Les longueurs des conduits de connexion sont calculées à partir des coordonnées de ce fichier Excel. Les propriétés par défaut des connexions sont:
+
+| Paramètre | Valeur |
+| --- | ---: |
+| Rugosité | 0.05 |
+| Diamètre | 0.5 m |
+| Géométrie | `CIRCULAR` |
+
+Le débit maximum stabilisé est extrait sur cet exutoire comme:
+
+```txt
+Débit stabilisé = TOTAL_INFLOW stabilisé à CentraleVentilation_1C
+```
+
+Comme pour les débits aux autres exutoires, la valeur utilisée est extraite du fichier `.out` et stabilisée avec la même logique que le script principal. Elle ne correspond donc pas à un pic instantané du `.rpt`.
+
+La commande de test, sans lancer SWMM, est:
+
+```powershell
+cd D:\Users\ISSKA\Documents\GitHub\Twanntunnel_Hydraulic_SWMM
+C:\Users\ISSKA\anaconda3\envs\spyder\python.exe MASS_COMPUTATION\run_swmm_centrale_ventilation_discharge.py --dry-run
+```
+
+La commande de lancement complète est:
+
+```powershell
+cd D:\Users\ISSKA\Documents\GitHub\Twanntunnel_Hydraulic_SWMM
+C:\Users\ISSKA\anaconda3\envs\spyder\python.exe MASS_COMPUTATION\run_swmm_centrale_ventilation_discharge.py --workers 6
+```
+
+Les résultats sont enregistrés dans:
+
+```powershell
+MASS_COMPUTATION\runs\CV_scenario_1
+```
+
+Le fichier CSV de synthèse est:
+
+```powershell
+MASS_COMPUTATION\runs\CV_scenario_1\CV_scenario_1_discharge_results.csv
+```
+
+Chaque ligne du CSV correspond à une simulation `1_8a` source combinée avec une variante de connexion. Les colonnes principales sont:
+
+- temps de retour;
+- simulation source de la phase `1_8a`;
+- combinaison de variantes du scénario 1;
+- probabilité de la combinaison source;
+- variante de connexion de `CentraleVentilation_1C`;
+- nom du conduit de connexion SWMM;
+- probabilité de la connexion;
+- probabilité combinée;
+- longueur, diamètre et rugosité du conduit de connexion;
+- débit maximum stabilisé à l'exutoire.
+
 ## Précautions d'interprétation
 
 Les comparaisons entre T3, T10, T30 et T50 ne sont valables que si les quatre volées de calcul ont été produites avec le même fichier `scenarios.txt`.

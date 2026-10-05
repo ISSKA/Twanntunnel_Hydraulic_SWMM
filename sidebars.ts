@@ -60,8 +60,35 @@ const sidebars: SidebarsConfig = {
               type: 'category',
               label: 'Scénario 1',
               items: [
-                'Previsions/Twanntunnel/Scenario_1/Description',
-              ]
+                'Previsions/Centrales Ventilation/Scenario_1/Description',
+                {
+                  type: 'category',
+                  label: 'Résultats',
+                  items: [
+                    'Previsions/Centrales Ventilation/Scenario_1/Resultats/T3',
+                    'Previsions/Centrales Ventilation/Scenario_1/Resultats/T10',
+                    'Previsions/Centrales Ventilation/Scenario_1/Resultats/T30',
+                    'Previsions/Centrales Ventilation/Scenario_1/Resultats/T50',
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Scénario 2',
+              items: [
+                'Previsions/Centrales Ventilation/Scenario_2/Description',
+                {
+                  type: 'category',
+                  label: 'Résultats',
+                  items: [
+                    'Previsions/Centrales Ventilation/Scenario_2/Resultats/T3',
+                    'Previsions/Centrales Ventilation/Scenario_2/Resultats/T10',
+                    'Previsions/Centrales Ventilation/Scenario_2/Resultats/T30',
+                    'Previsions/Centrales Ventilation/Scenario_2/Resultats/T50',
+                  ],
+                },
+              ],
             },
           ]
         },

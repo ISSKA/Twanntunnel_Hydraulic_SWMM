@@ -14,7 +14,6 @@ const config: Config = {
   staticDirectories: ['static', 'PLOTS', 'MASS_COMPUTATION/runs/plots'],
   
   future: {
-    v4: true,
     // Only checks history of interesting files, not the entire history of the repository.
     experimental_vcs: 'git-ad-hoc',
   },
